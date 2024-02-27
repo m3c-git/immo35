@@ -1,0 +1,46 @@
+Liste des routes:
+
+Route vers la page d'inscription
+index.php?route=register
+
+Route vers la page de vérification d'inscription
+index.php?route=check-register
+
+Route vers la page de connexion
+index.php?route=login
+
+Route vers la page de vérification de connexion
+index.php?route=check-login
+
+Route vers la page de déconnexion
+index.php?route=logout
+
+Route vers la page des biens à louer
+index.php?route=rent
+
+Route vers la page détaillée d'un bien à louer
+index.php?route=rent?id=id
+
+Route vers la page des biens à acheter
+index.php?route=buy
+
+Route vers la page détaillée d'un bien à acheter
+index.php?route=buy?id=id
+
+Route vers la page du formulaire pour vendre ou faire estimer un bien
+index.php?route=sell
+
+Route vers la page du formulaire pour faire gerer un bien
+index.php?route=manage
+
+Route vers la page du formulaire de contact
+index.php?route=contact
+
+Route vers la page des mentions légales
+index.php?route=legal-information 
+
+Route vers la page de politique de confidentialité
+index.php?route=privacy-policy
+
+Route vers la page de politique des cookies
+index.php?route=cookies-policy

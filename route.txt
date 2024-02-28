@@ -16,13 +16,13 @@ Route vers la page de déconnexion
 index.php?route=logout
 
 Route vers la page des biens à louer
-index.php?route=rent
+index.php?route=rent-property
 
 Route vers la page détaillée d'un bien à louer
 index.php?route=rent?id=id
 
 Route vers la page des biens à acheter
-index.php?route=buy
+index.php?route=buy-property
 
 Route vers la page détaillée d'un bien à acheter
 index.php?route=buy?id=id
@@ -44,3 +44,18 @@ index.php?route=privacy-policy
 
 Route vers la page de politique des cookies
 index.php?route=cookies-policy
+
+Route vers la page d'administrations des biens
+index.php?route=admin
+
+Route vers la page administrations pour l'ajout d'un bien
+index.php?route=add-property
+
+Route vers la page administrations pour visualiser un bien
+index.php?route=view-property
+
+Route vers la page administrations pour mettre à jour un bien
+index.php?route=update-property
+
+Route vers la page administrations pour supprimer un bien
+index.php?route=delete

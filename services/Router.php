@@ -8,8 +8,8 @@ class Router
 {
     private AuthController $ac;
     private DefaultController $bc;
-    private RentController $cc;
-    private AdminController $kc;
+    private PropertyController $cc;
+    private AdminController $hc;
 
 
     public function __construct()
@@ -43,7 +43,7 @@ class Router
         {
             $this->ac->logout();
         }
-        else if(isset($get["route"]) && $get["route"] === "rent-property")
+        else if(isset($get["route"]) && $get["route"] === "rent")
         {
             if(isset($get["property-id"]))
             {
@@ -54,11 +54,11 @@ class Router
                 $this->bc->home();
             }
         }
-        else if(isset($get["route"]) && $get["route"] === "buy-property")
+        else if(isset($get["route"]) && $get["route"] === "buy")
         {
             if(isset($get["property-id"]))
             {
-                $this->dc->buy($get["property-id"]);
+                $this->cc->buy($get["property-id"]);
             }
             else
             {
@@ -67,47 +67,47 @@ class Router
         }
         else if(isset($get["route"]) && $get["route"] === "sell")
         {
-            $this->ec->sell();
+            $this->cc->sell();
         }
         else if(isset($get["route"]) && $get["route"] === "manage")
         {
-            $this->fc->manage();
+            $this->cc->manage();
         }
         else if(isset($get["route"]) && $get["route"] === "contact")
         {
-            $this->gc->contact();
+            $this->dc->contact();
         }
         else if(isset($get["route"]) && $get["route"] === "legal-information")
         {
-            $this->hc->legalInformation();
+            $this->ec->legalInformation();
         }
         else if(isset($get["route"]) && $get["route"] === "privacy-policy")
         {
-            $this->ic->privacyPolicy();
+            $this->ec->privacyPolicy();
         }
         else if(isset($get["route"]) && $get["route"] === "cookies-policy")
         {
-            $this->jc->cookiesPolicy();
+            $this->gc->cookiesPolicy();
         }
         else if(isset($get["route"]) && $get["route"] === "admin")
         {
-            $this->kc->admin();
+            $this->hc->admin();
         }
         else if(isset($get["route"]) && $get["route"] === "add-property")
         {
-            $this->kc->addProperty();
+            $this->hc->addProperty();
         }
         else if(isset($get["route"]) && $get["route"] === "view-property")
         {
-            $this->kc->viewProperty();
+            $this->hc->viewProperty();
         }
         else if(isset($get["route"]) && $get["route"] === "update-property")
         {
-            $this->kc->updateProperty();
+            $this->hc->updateProperty();
         }
         else if(isset($get["route"]) && $get["route"] === "delete-property")
         {
-            $this->kc->deleteProperty();
+            $this->hc->deleteProperty();
         }
         else
         {

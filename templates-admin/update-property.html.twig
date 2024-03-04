@@ -1,5 +1,9 @@
 {% extends "layout-admin.html.twig" %}
 
+{% block header %}
+{{ parent() }}
+{% endblock %}
+
 {% block main %}
 <main>
     <h1> page pour mettre à jour un bien </h1>
@@ -8,4 +12,11 @@
    
 </main>
     
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
 {% endblock %}

@@ -1,0 +1,73 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+{{ parent() }}
+{% endblock %}
+
+{% block main %}
+<main id="register" class="container py-5 px-3">
+    
+    {% if _SESSION["error-message"] is defined %}
+    
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ _SESSION["error-message"] }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+        </div>
+    {% endif %}
+    <h1 class="mb-5">Immo35</h1>
+
+    <h2 class="mt-5">Register</h2>
+
+    <form action="index.php?route=check-register" method="post">
+        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ _SESSION['csrf-token'] }}" />
+        <fieldset class="my-1">
+            <label for="firstName" class="form-label">
+                Prénom
+            </label>
+            <input type="text" name="firstName" id="firstName" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="lastName" class="form-label">
+                Nom
+            </label>
+            <input type="text" name="lastName" id="lastName" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="email" class="form-label">
+                Email
+            </label>
+            <input type="email" name="email" id="email" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="password" class="form-label">
+                Mot de passe
+            </label>
+            <input type="password" name="password" id="password" class="form-control" />
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="confirm-password" class="form-label">
+                Confirmation mot de passe
+            </label>
+            <input type="password" name="confirm-password" id="confirm-password"  class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="role" class="form-label">
+                Role
+            </label>
+            <input type="checkbox" name="role[]" id="role"  value="ADMIN" class="form-control"/>
+        </fieldset>
+        <fieldset>
+            <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+        </fieldset>
+    </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
+{% endblock %}
+
+

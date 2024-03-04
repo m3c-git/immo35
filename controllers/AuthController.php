@@ -9,7 +9,7 @@ class AuthController extends AbstractController
 {
     public function login() : void
     {
-        $this->render("login", []);
+        $this->render("login.html.twig", []);
     }
 
     public function checkLogin() : void
@@ -28,11 +28,16 @@ class AuthController extends AbstractController
                 {
                     if(password_verify($_POST["password"], $user->getPassword()))
                     {
+                        if($user->getRole() === "ADMIN")
+                        {
+                            $_SESSION["role"] = $user->getRole();
+                        }
+                        
                         $_SESSION["user"] = $user->getId();
 
                         unset($_SESSION["error-message"]);
 
-                        $this->redirect("index.php");
+                        $this->redirect("index.php?route=admin");
                     }
                     else
                     {
@@ -61,12 +66,12 @@ class AuthController extends AbstractController
 
     public function register() : void
     {
-        $this->render("register", []);
+        $this->render("register.html.twig", []);
     }
 
     public function checkRegister() : void
     {
-        if(isset($_POST["username"]) && isset($_POST["email"])
+        if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"])
             && isset($_POST["password"]) && isset($_POST["confirm-password"]))
         {
             $tokenManager = new CSRFTokenManager();
@@ -74,20 +79,26 @@ class AuthController extends AbstractController
             {
                 if($_POST["password"] === $_POST["confirm-password"])
                 {
-                    $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\d\s])[A-Za-z\d^\w\s]{8,}$/';
+                    $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$/';
 
-                    if (preg_match($password_pattern, $_POST["password"]))
+                    if (preg_match($password_pattern, trim($_POST["password"])))
                     {
                         $um = new UserManager();
                         $user = $um->findByEmail($_POST["email"]);
 
                         if($user === null)
                         {
-                            $username = htmlspecialchars($_POST["username"]);
+                            $firstName = htmlspecialchars($_POST["firstName"]);
+                            $lastName = htmlspecialchars($_POST["lastName"]);
+                            $address = htmlspecialchars($_POST["address"]);
+                            $phone = htmlspecialchars($_POST["phone"]);
                             $email = htmlspecialchars($_POST["email"]);
                             $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
-                            $user = new User($username, $email, $password);
-
+                            $role = htmlspecialchars($_POST["role"]);
+                            $email = htmlspecialchars($_POST["email"]);
+                            $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
+                            
+                            
                             $um->create($user);
 
                             $_SESSION["user"] = $user->getId();
@@ -98,7 +109,7 @@ class AuthController extends AbstractController
                         }
                         else
                         {
-                            $_SESSION["error-message"] = "User already exists";
+                            $_SESSION["error-message"] = "A user already exists with this email";
                             $this->redirect("index.php?route=register");
                         }
                     }
@@ -117,10 +128,11 @@ class AuthController extends AbstractController
             {
                 $_SESSION["error-message"] = "Invalid CSRF token";
                 $this->redirect("index.php?route=register");
+
             }
         }
         else
-        {
+        {   
             $_SESSION["error-message"] = "Missing fields";
             $this->redirect("index.php?route=register");
         }

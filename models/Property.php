@@ -1,7 +1,7 @@
 <?php
 
 
-class State
+class Property
 {
     private ? int $id = null;
     private ? int $salesPrice = null; 
@@ -111,9 +111,9 @@ class State
     /**
      * Get the value of availabilityDate
      *
-     * @return  string
+     * @return  DateTime
      */
-    public function getAvailabilityDate(): string
+    public function getAvailabilityDate(): DateTime
     {
         return $this->availabilityDate;
     }
@@ -121,7 +121,7 @@ class State
     /**
      * Set the value of availabilityDate
      *
-     * @param   string  $availabilityDate  
+     * @param   DateTime  $availabilityDate  
      *
      */
     public function setAvailabilityDate($availabilityDate): void

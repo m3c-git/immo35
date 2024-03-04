@@ -5,11 +5,11 @@ abstract class AbstractController
     private \Twig\Environment $twig;
     public function __construct()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('templates');
+        $loader = new \Twig\Loader\FilesystemLoader(['templates', 'templates-admin']);
         $twig = new \Twig\Environment($loader,[
             'debug' => true,
         ]);
-
+        $twig->addGlobal('session', $_SESSION["csrf-token"]);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         $this->twig = $twig;

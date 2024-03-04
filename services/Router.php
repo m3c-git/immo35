@@ -16,6 +16,7 @@ class Router
     {
         $this->ac = new AuthController();
         $this->bc = new DefaultController();
+        $this->hc = new AdminController();
     }
     public function handleRequest(array $get) : void
     {

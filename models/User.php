@@ -3,7 +3,7 @@
 class User
 {
     private ? int $id = null;
-    private string $created_at = date('d m Y h:i:s');
+    
 
     public function __construct(private string $firstName, private string $lastName, private string $address, private string $phone, private string $email, private string $password, private string $role = "USER")
     {
@@ -107,7 +107,7 @@ class User
     }
 
     /* Le getter de l'attribut created_at */
-    public function getCreatedAt() : string 
+    public function getCreatedAt() : DateTime 
     {
         return $this->created_at;
     }

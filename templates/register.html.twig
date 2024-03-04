@@ -1,0 +1,81 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+{{ parent() }}
+{% endblock %}
+
+{% block main %}
+<main id="register" class="container py-5 px-3">
+    
+    {% if _SESSION["error-message"] is defined %}
+    
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session.error-message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    <h1 class="mb-5">Immo35</h1>
+
+    <h2 class="mt-5">Register</h2>
+
+    <form action="index.php?route=check-register" method="post">
+        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
+        <fieldset class="my-1">
+            <label for="firstName" class="form-label">
+                Prénom
+            </label>
+            <input type="text" name="firstName" id="firstName" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="lastName" class="form-label">
+                Nom
+            </label>
+            <input type="text" name="lastName" id="lastName" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="address" class="form-label">
+                Adresse
+            </label>
+            <input type="text" name="address" id="address" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="phone" class="form-label">
+                Téléphone
+            </label>
+            <input type="text" name="phone" id="phone" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="email" class="form-label">
+                Email
+            </label>
+            <input type="email" name="email" id="email" class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="password" class="form-label">
+                Mot de passe
+            </label>
+            <input type="password" name="password" id="password" class="form-control" />
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="confirm-password" class="form-label">
+                Confirmation mot de passe
+            </label>
+            <input type="password" name="confirm-password" id="confirm-password"  class="form-control"/>
+        </fieldset>
+        <fieldset class="my-1">
+            <label for="role" class="form-check-label">
+                Role Admin
+            </label>
+            <input type="checkbox" name="role" id="role"  value="ADMIN" class="form-check-input me-1"/>
+        </fieldset>
+        <fieldset>
+            <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+        </fieldset>
+    </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+

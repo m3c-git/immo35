@@ -3,10 +3,12 @@
 class User
 {
     private ? int $id = null;
+
     
 
-    public function __construct(private string $firstName, private string $lastName, private string $address, private string $phone, private string $email, private string $password, private string $role = "USER")
+    public function __construct(private string $firstName, private string $lastName, private string $address, private string $phone, private string $email, private ? string $password, private string $role = "USER")
     {
+
         $this->role = $role;
     }
 
@@ -83,7 +85,7 @@ class User
     }
 
     /* Le getter de l'attribut password */
-    public function getPassword() : string 
+    public function getPassword() : ? string 
     {
         return $this->password;
     }
@@ -107,16 +109,16 @@ class User
     }
 
     /* Le getter de l'attribut created_at */
-    public function getCreatedAt() : DateTime 
+   /*  public function getCreatedAt() : string 
     {
-        return $this->created_at;
-    }
+        return $this->createdAt;
+    } */
 
     /* Le setter de l'attribut created_at */
-    public function setCreatedAt(string $created_at) : void
+    /* public function setCreatedAt(string $createdAt) : void
     {
-        $this->created_at = $created_at;
-    }
+        $this->createdAt = $createdAt;
+    } */
     
 
 }

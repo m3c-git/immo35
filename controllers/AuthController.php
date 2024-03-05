@@ -31,13 +31,21 @@ class AuthController extends AbstractController
                         if($user->getRole() === "ADMIN")
                         {
                             $_SESSION["role"] = $user->getRole();
+                           
+                            $_SESSION["user"] = $user->getId();
+
+                            unset($_SESSION["error-message"]);
+
+                            $this->redirect("index.php?route=admin");
+                            //dump($_SESSION);
+                        }
+                        else
+                        {
+                            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+                            $this->redirect("index.php?route=login");
                         }
                         
-                        $_SESSION["user"] = $user->getId();
 
-                        unset($_SESSION["error-message"]);
-
-                        $this->redirect("index.php?route=admin");
                     }
                     else
                     {
@@ -66,7 +74,17 @@ class AuthController extends AbstractController
 
     public function register() : void
     {
-        $this->render("register.html.twig", []);
+        if($_SESSION["role"] === "ADMIN")
+        {
+            $this->render("register.html.twig", []);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+        
     }
 
     public function checkRegister() : void
@@ -99,7 +117,7 @@ class AuthController extends AbstractController
                             $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
                             
                             
-                            $um->create($user);
+                            $um->createAdmin($user);
 
                             $_SESSION["user"] = $user->getId();
 
@@ -140,8 +158,8 @@ class AuthController extends AbstractController
 
     public function logout() : void
     {
+        unset($_SESSION);
         session_destroy();
-
         $this->redirect("index.php");
     }
 }

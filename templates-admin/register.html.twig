@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %}
+{% extends "layout-admin.html.twig" %}
 
 {% block header %}
 {{ parent() }}
@@ -16,7 +16,7 @@
     {% endif %}
     <h1 class="mb-5">Immo35</h1>
 
-    <h2 class="mt-5">Register</h2>
+    <h2 class="mt-5">Ajouter un Administrateur pour le site Immo35</h2>
 
     <form action="index.php?route=check-register" method="post">
         <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
@@ -62,11 +62,13 @@
             </label>
             <input type="password" name="confirm-password" id="confirm-password"  class="form-control"/>
         </fieldset>
-        <fieldset class="my-1">
-            <label for="role" class="form-check-label">
-                Role Admin
+        <fieldset class="form-check form-switch">
+            <input class="form-check-input" name="role" id="role[]" value="ADMIN" type="checkbox" role="switch" checked disabled>
+            <label class="form-check-label" for="role">L'utilisateur aura les droits administrateur sur ce site</label>
+<!--             <label for="role" class="form-check-label">
+                Role Admin  
             </label>
-            <input type="checkbox" name="role" id="role"  value="ADMIN" class="form-check-input me-1"/>
+            <input type="checkbox" name="role" id="role"  value="ADMIN" class="form-check-input me-1"/> -->
         </fieldset>
         <fieldset>
             <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>

@@ -4,11 +4,169 @@ class AdminController extends AbstractController
 {
     public function admin() : void
     {
-        $this->render("home-admin.html.twig", []);
+        if($_SESSION["role"] === "ADMIN")
+        {
+
+            $users = new UserManager();
+            $users = $users->findAll();
+            $this->render("home-admin.html.twig", ["users" =>$users]);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+    
     
     }
 
-    public function users() : void
+    public function addUser() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+
+            $this->render("add-user.html.twig", []);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+
+        
+
+    }
+
+    public function checkAddUser() : void
+    {
+        if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"]))
+        {
+            $tokenManager = new CSRFTokenManager();
+            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
+            {
+                if($_SESSION["role"] === "ADMIN")
+                {
+                    $um = new UserManager();
+                    $user = $um->findByEmail($_POST["email"]);
+
+                    if($user === null)
+                    {
+                        $firstName = htmlspecialchars($_POST["firstName"]);
+                        $lastName = htmlspecialchars($_POST["lastName"]);
+                        $address = htmlspecialchars($_POST["address"]);
+                        $phone = htmlspecialchars($_POST["phone"]);
+                        $email = htmlspecialchars($_POST["email"]);
+                        $password = NULL;
+                        $role = htmlspecialchars($_POST["role"]);
+                        $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
+                        
+                        $um->createAdmin($user);
+
+                        unset($_SESSION["error-message"]);
+
+                        $this->redirect("index.php?route=admin");
+                    }
+                    else
+                    {
+                        $_SESSION["error-message"] = "A user already exists with this email";
+                        $this->redirect("index.php?route=add-user.html.twig");
+                    }
+                    
+
+                    
+
+
+                }
+                else
+                {
+                    $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+                    $this->redirect("index.php?route=login");
+                }
+                        
+                
+            }
+            else
+            {
+                $_SESSION["error-message"] = "Invalid CSRF token";
+                $this->redirect("index.php?route=add-user.html.twig");
+            }
+        }
+        else
+        {   
+            $_SESSION["error-message"] = "Missing fields";
+            $this->redirect("index.php?route=add-user.html.twig");
+        }
+    }
+
+    public function updateUser() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+            $um = new UserManager();
+            $userById = $um->findOne($_GET["id"]);
+            dump($userById);
+            $this->render("update-user.html.twig", ["userById" =>$userById]);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+
+        
+    }
+
+    public function checkUpdateUser() : void
+    {
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        {
+            $tokenManager = new CSRFTokenManager();
+
+            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
+            {
+
+                $um = new UserManager();
+                $userById = $um->findOne($_GET["id"]);
+
+                if($userById !== null)
+                {
+                unset($_SESSION["message"]);
+                //$this->render("update-user.html.twig", ["users" =>$userById]);
+                dump($_SESSION);
+                }
+                else
+                {
+                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
+                    //$this->redirect("index.php?route=admin");
+                    dump($_SESSION);
+
+                }
+
+            }
+            else
+            {
+                $_SESSION["error-message"] = "Invalid CSRF token";
+                //$this->redirect("index.php?route=admin");
+                dump($_SESSION);                dump($_POST["csrf-token"]);
+
+
+            }
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            //$this->redirect("index.php?route=login");
+            dump($_SESSION);
+
+        }
+
+    }
+
+    public function userByRole() : void
     {
 
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
@@ -18,48 +176,38 @@ class AdminController extends AbstractController
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
                 $um = new UserManager();
-                $user = $um->findByRole($_GET["role"]);
+                $usersByRolerole = $um->findByRole($_GET["role"]);
 
-                if($user !== null)
+                if($usersByRolerole !== null)
                 {
-                    if(password_verify($_POST["password"], $user->getPassword()))
-                    {
-                        $_SESSION["user"] = $user->getId();
+                    
 
-                        unset($_SESSION["error-message"]);
+                        unset($_SESSION["message"]);
+                        $_GET["route"] = "users-proprietaires";
+                        $this->redirect("index.php?route=admin", [$usersByRolerole]);
 
-                        $this->redirect("index.php?route=admin");
-                    }
-                    else
-                    {
-                        $_SESSION["error-message"] = "Invalid login information";
-                        $this->redirect("index.php?route=login");
-                    }
+                        
+                       
+                    
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "Invalid login information";
-                    $this->redirect("index.php?route=login");
+                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
+                    $this->redirect("index.php?route=admin");
                 }
             }
             else
             {
                 $_SESSION["error-message"] = "Invalid CSRF token";
-                $this->redirect("index.php?route=login");
+                $this->redirect("index.php?route=admin");
             }
         }
         else
         {
-            $_SESSION["error-message"] = "Missing fields";
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
             $this->redirect("index.php?route=login");
         }
     }
-
-
-/*     public function admin() : void
-    {
-        $this->render("home-admin.html.twig", []);
-    } */
 
 
 }

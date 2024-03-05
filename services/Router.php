@@ -94,6 +94,22 @@ class Router
         {
             $this->hc->admin();
         }
+        else if(isset($get["route"]) && $get["route"] === "add-user")
+        {
+            $this->hc->addUser();
+        }
+        else if(isset($get["route"]) && $get["route"] === "checkAddUser")
+        {
+            $this->hc->checkAddUser();
+        }
+        else if(isset($get["route"]) && $get["route"] === 'update-user')
+        {
+            $this->hc->updateUser();
+        }
+        else if(isset($get["route"]) && $get["route"] === "users-proprietaires")
+        {
+            $this->hc->users();
+        }
         else if(isset($get["route"]) && $get["route"] === "add-property")
         {
             $this->hc->addProperty();

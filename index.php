@@ -23,6 +23,6 @@ $dotenv->load();
 date_default_timezone_set('Europe/Paris');
 $router = new Router();
 $router = $router->handleRequest($_GET);
-
+dump($_GET);
 
 

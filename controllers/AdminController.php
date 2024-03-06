@@ -129,19 +129,19 @@ class AdminController extends AbstractController
             {
 
                 $um = new UserManager();
-                $userById = $um->findOne($_GET["id"]);
+                $userById = $um->updateUser($_POST['userId']);
 
                 if($userById !== null)
                 {
                 unset($_SESSION["message"]);
-                //$this->render("update-user.html.twig", ["users" =>$userById]);
-                dump($_SESSION);
+                $this->redirect("index.php?route=admin");
+                //dump($_SESSION);
                 }
                 else
                 {
                     $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    //$this->redirect("index.php?route=admin");
-                    dump($_SESSION);
+                    $this->redirect("index.php?route=admin");
+                    //dump($_SESSION);
 
                 }
 
@@ -149,8 +149,8 @@ class AdminController extends AbstractController
             else
             {
                 $_SESSION["error-message"] = "Invalid CSRF token";
-                //$this->redirect("index.php?route=admin");
-                dump($_SESSION);                dump($_POST["csrf-token"]);
+                $this->redirect("index.php?route=admin");
+                //dump($_SESSION);
 
 
             }
@@ -159,11 +159,31 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            //$this->redirect("index.php?route=login");
-            dump($_SESSION);
+            $this->redirect("index.php?route=login");
+            //dump($_SESSION);
 
         }
 
+    }
+
+    public function deleteUser() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+            $um = new UserManager();
+            $userById = $um->deleteUser($_GET["id"]);
+            $this->redirect("index.php?route=admin");
+            //dump($_SESSION);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+            dump($_SESSION);
+        }
+
+        
     }
 
     public function userByRole() : void
@@ -183,7 +203,7 @@ class AdminController extends AbstractController
                     
 
                         unset($_SESSION["message"]);
-                        $_GET["route"] = "users-proprietaires";
+                       
                         $this->redirect("index.php?route=admin", [$usersByRolerole]);
 
                         

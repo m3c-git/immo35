@@ -106,6 +106,14 @@ class Router
         {
             $this->hc->updateUser();
         }
+        else if(isset($get["route"]) && $get["route"] === 'check-update-user')
+        {
+            $this->hc->checkUpdateUser();
+        }
+        else if(isset($get["route"]) && $get["route"] === 'delete-user')
+        {
+            $this->hc->deleteUser();
+        }
         else if(isset($get["route"]) && $get["route"] === "users-proprietaires")
         {
             $this->hc->users();

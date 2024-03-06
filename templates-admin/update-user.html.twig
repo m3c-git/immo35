@@ -7,28 +7,51 @@
 {% block main %}
 <main class="container py-5">
     <h1>
-        Mettre à jour les informations de 
+        Mettre à jour les informations de {{ userById.firstName ~ " " ~ userById.lastName }}
     </h1>
     <form action='index.php?route=check-update-user' method="POST" class="mt-5">
         <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
-        <input type="hidden" id="userId" name="userId" value="{{ get }}" />
-        <fieldset>
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-control" value="{{ userById.email }}"/>
+        <input type="hidden" id="userId" name="userId" value="{{ userById.id }}" />
+        <fieldset class="my-1">
+            <label for="firstName" class="form-label">
+                Prénom
+            </label>
+            <input type="text" name="firstName" id="firstName" class="form-control" value="{{ userById.firstName }}"/>
         </fieldset>
-        <fieldset>
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" id="password" name="password" class="form-control" value="{{ userById.password }}"/>
+        <fieldset class="my-1">
+            <label for="lastName" class="form-label">
+                Nom
+            </label>
+            <input type="text" name="lastName" id="lastName" class="form-control" value="{{ userById.lastName }}"/>
         </fieldset>
-        <fieldset>
-            <label for="firstName" class="form-label">Prénom</label>
-            <input type="text" id="firstName" name="firstName" class="form-control" value="{{ userById.firstName }}"/>
+        <fieldset class="my-1">
+            <label for="address" class="form-label">
+                Adresse
+            </label>
+            <input type="text" name="address" id="address" class="form-control" value="{{ userById.address }}"/>
         </fieldset>
-        <fieldset>
-            <label for="lastName" class="form-label">Nom</label>
-            <input type="text" id="lastName" name="lastName" class="form-control" value="{{ userById.lastName }}"/>
+        <fieldset class="my-1">
+            <label for="phone" class="form-label">
+                Téléphone
+            </label>
+            <input type="text" name="phone" id="phone" class="form-control" value="{{ userById.phone }}"/>
         </fieldset>
-        <button type="submit" class="mt-3 btn btn-primary">Sauvegarder</button>
+        <fieldset class="my-1">
+            <label for="email" class="form-label">
+                Email
+            </label>
+            <input type="email" name="email" id="email" class="form-control" value="{{ userById.email }}"/>
+        </fieldset>
+        <fieldset class="my-1 form-floating">
+            <select class="form-select" id="role" name="role" aria-label="Floating label select example">
+                <option selected>{{ userById.role }}</option>
+                <option value="Proprietaire">Propriétaire</option>
+                <option value="Locataire">Locataire</option>
+            </select>
+            <label for="floatingSelect">Listes des Rôles utilisateurs</label>
+        </fieldset>
+        <button type="submit" class="mt-3 btn btn-primary">Mettre à jour</button>
+        <a class="btn btn-danger" href="index.php?route=delete-user&id={{ userById.id }}" role="button">Supprimer l'utilisateur</a>
     </form>
 </main>
     

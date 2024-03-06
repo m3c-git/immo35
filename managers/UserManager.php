@@ -56,7 +56,7 @@ class UserManager extends AbstractManager
 
     }
 
-    public function findByRole(string $role) : ? User
+    public function findByRole(string $role) : ? array
     {
         $query = $this->db->prepare('SELECT * FROM users WHERE role = :role');
 
@@ -65,12 +65,13 @@ class UserManager extends AbstractManager
         ];
 
         $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
         if($result)
         {
-            $users = new User($result["first_name"], $result["last_name"], $result["address"], $result["phone"], $result["email"], $result["password"], $result["role"], $result["created_at"]);
-            $users->setId($result["id"]);
+            $value = new User($result["first_name"], $result["last_name"], $result["address"], $result["phone"], $result["email"], NULL, $result["role"], $result["created_at"]);
+            $value->setId($result["id"]);
+            $users[] = $value;
 
             return $users;
         }
@@ -146,4 +147,48 @@ class UserManager extends AbstractManager
         $user->setId($this->db->lastInsertId());
 
     }
+
+    public function updateUser(int $userId) : void
+    {
+        if(isset($_POST))
+        {
+       
+           $userId = intval($_POST['userId']) ;
+           $firstName = $this->CheckInput($_POST['firstName']);
+           $lastName = $this->CheckInput($_POST['lastName']);
+           $address = $this->CheckInput($_POST['address']);
+           $phone = $this->CheckInput($_POST['phone']);
+           $email = $this->checkInput($_POST['email']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
+           $role = $this->CheckInput($_POST['role']);       
+       
+           
+          /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
+           N pas mettre les valeurs du VALUE entre backquote*/
+           $query = $this->db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name, address = :address, phone = :phone, email = :email,  role = :role WHERE id = :id");
+           $parameters = [
+               'id' => $userId, 'first_name' => $firstName, 'last_name' => $lastName, 'address' => $address, 'phone' => $phone, 'email' => $email, 'role' => $role,
+               ];
+           $query->execute($parameters);
+       
+        }
+    }
+
+    public function deleteUser( int $userId) : void
+    {
+        $query = $this->db->prepare('DELETE FROM users WHERE id=:id');
+        $parameters = [
+            "id" => $userId,
+        ];
+        $query->execute($parameters);
+
+        /* foreach($this->user as $key => $item)
+        {
+            if($item->getId() === $user->getId())
+            {
+                unset($this->users[$key]);
+            }
+        } */
+    }
+
+
 }

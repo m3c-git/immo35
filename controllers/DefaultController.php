@@ -6,4 +6,9 @@ class DefaultController extends AbstractController
     {
         $this->render("home.html.twig", []);
     }
+
+    public function page404() : void
+    {
+        $this->render("404.html.twig", []);
+    }
 }

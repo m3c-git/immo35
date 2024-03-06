@@ -114,9 +114,16 @@ class Router
         {
             $this->hc->deleteUser();
         }
-        else if(isset($get["route"]) && $get["route"] === "users-proprietaires")
+        else if(isset($get["route"]) && ($get["route"] === "users-proprietaire" || $get["route"] === "users-locataire" || $get["route"] === "users-admin"))
         {
-            $this->hc->users();
+            if(isset($get["role"]))
+            {
+                $this->hc->userByRole();
+            }
+            else
+            {
+                $this->hc->admin();
+            }
         }
         else if(isset($get["route"]) && $get["route"] === "add-property")
         {
@@ -134,9 +141,13 @@ class Router
         {
             $this->hc->deleteProperty();
         }
-        else
+        else if(!isset($get["route"]))
         {
             $this->bc->home();
+        }
+        else
+        {
+            $this->bc->page404();
         }
     }
 }

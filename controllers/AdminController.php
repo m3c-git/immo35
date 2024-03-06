@@ -193,39 +193,34 @@ class AdminController extends AbstractController
         {
             $tokenManager = new CSRFTokenManager();
 
-            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
-            {
+
                 $um = new UserManager();
                 $usersByRolerole = $um->findByRole($_GET["role"]);
 
                 if($usersByRolerole !== null)
                 {
-                    
 
-                        unset($_SESSION["message"]);
-                       
-                        $this->redirect("index.php?route=admin", [$usersByRolerole]);
-
-                        
-                       
+                    unset($_SESSION["message"]);
+                    $this->render("home-admin.html.twig", ["usersByRolerole" =>$usersByRolerole]);
                     
                 }
                 else
                 {
                     $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    $this->redirect("index.php?route=admin");
+                    //$this->redirect("index.php?route=admin");
+                    dump($_GET);
+                    dump($_SESSION);
+
+
                 }
-            }
-            else
-            {
-                $_SESSION["error-message"] = "Invalid CSRF token";
-                $this->redirect("index.php?route=admin");
-            }
+            
         }
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
+            //$this->redirect("index.php?route=login");
+            dump($_GET);
+            dump($_SESSION);
         }
     }
 

@@ -65,18 +65,24 @@ class UserManager extends AbstractManager
         ];
 
         $query->execute($parameters);
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        if($result)
+        if($results)
         {
-            $value = new User($result["first_name"], $result["last_name"], $result["address"], $result["phone"], $result["email"], NULL, $result["role"], $result["created_at"]);
-            $value->setId($result["id"]);
-            $users[] = $value;
+            foreach($results as $result)
+            { 
+                if($result !== null)
+                {
+                    $value = new User($result["first_name"], $result["last_name"], $result["address"], $result["phone"], $result["email"], NULL, $result["role"], $result["created_at"]);
+                    $value->setId($result["id"]);
+                    $users[] = $value;
+                }
+
+            }
 
             return $users;
-        }
+        }   
 
-        return null;
     }
 
     public function findOne(int $id) : ? User

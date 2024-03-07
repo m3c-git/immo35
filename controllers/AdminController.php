@@ -2,14 +2,15 @@
 
 class AdminController extends AbstractController
 {
+
+    /******* Partie Admin *******/
+
     public function admin() : void
     {
         if($_SESSION["role"] === "ADMIN")
         {
-
-            $users = new UserManager();
-            $users = $users->findAll();
-            $this->render("home-admin.html.twig", ["users" =>$users]);
+            $adminManage = ["Gestion des biens", "Gestion des utilisateurs", "Administration"];
+            $this->render("home-admin.html.twig", ["adminManage" => $adminManage]);
 
         }
         else
@@ -19,6 +20,63 @@ class AdminController extends AbstractController
         }
     
     
+    }
+
+    /******* Partie Admin des utilisateurs *******/
+
+    public function adminUsersRole() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+            
+            $this->render("admin-users-role.html.twig", []);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+    
+    
+    }
+
+    public function adminUsersByRole() : void
+    {
+
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        {
+            $tokenManager = new CSRFTokenManager();
+
+
+                $um = new UserManager();
+                $usersByRolerole = $um->findByRole($_GET["role"]);
+
+                if($usersByRolerole !== null)
+                {
+
+                    unset($_SESSION["message"]);
+                    $this->render("admin-users-by-role.html.twig", ["usersByRolerole" =>$usersByRolerole]);
+                    
+                }
+                else
+                {
+                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
+                    $this->redirect("index.php?route=admin-users-role");
+                    //dump($_GET);
+                    //dump($_SESSION);
+
+
+                }
+            
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            $this->redirect("index.php?route=login");
+            //dump($_GET);
+            //dump($_SESSION);
+        }
     }
 
     public function addUser() : void
@@ -106,7 +164,7 @@ class AdminController extends AbstractController
         {
             $um = new UserManager();
             $userById = $um->findOne($_GET["id"]);
-            dump($userById);
+
             $this->render("update-user.html.twig", ["userById" =>$userById]);
 
         }
@@ -186,43 +244,62 @@ class AdminController extends AbstractController
         
     }
 
-    public function userByRole() : void
-    {
+     /******* Partie Admin des propriétés *******/
 
-        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-        {
-            $tokenManager = new CSRFTokenManager();
+     public function adminPropertyType() : void
+     {
+         if($_SESSION["role"] === "ADMIN")
+         {
+            $um = new PropertyManager();
+            $propertyType = $um->findTypes();
 
+             $this->render("admin-property-type.html.twig", ["propertyType" => $propertyType]);
+ 
+         }
+         else
+         {
+             $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+             $this->redirect("index.php?route=login");
+         }
+     
+     
+     }
 
-                $um = new UserManager();
-                $usersByRolerole = $um->findByRole($_GET["role"]);
-
-                if($usersByRolerole !== null)
-                {
-
+     public function adminPropertysByType() : void
+     {
+ 
+         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+         { 
+ 
+                 $um = new PropertyManager();
+                 $propertysByType = $um->findByType($_GET["type"]);
+ 
+                 if($propertysByType !== null)
+                 {
+ 
                     unset($_SESSION["message"]);
-                    $this->render("home-admin.html.twig", ["usersByRolerole" =>$usersByRolerole]);
-                    
-                }
-                else
-                {
-                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    //$this->redirect("index.php?route=admin");
-                    dump($_GET);
-                    dump($_SESSION);
-
-
-                }
-            
-        }
-        else
-        {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            //$this->redirect("index.php?route=login");
-            dump($_GET);
-            dump($_SESSION);
-        }
-    }
-
+                    $this->render("admin-propertys-by-type.html.twig", ["propertysByType" => $propertysByType]);
+                     
+                 }
+                 else
+                 {
+                     $_SESSION["message"] = "Aucun biens trouvés";
+                     $this->redirect("index.php?route=admin-property-type");
+                     //dump($propertysByType);
+                     //dump($_SESSION);
+ 
+ 
+                 }
+             
+         }
+         else
+         {
+             $_SESSION["error-message"] = "Utilisateur non autorisé ";
+             $this->redirect("index.php?route=login");
+             //dump($_GET);
+             //dump($_SESSION);
+         }
+     }
+ 
 
 }

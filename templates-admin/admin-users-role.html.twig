@@ -1,0 +1,43 @@
+{% extends "layout-admin.html.twig" %}
+
+{% block header %}
+{{ parent() }}
+{% endblock %}
+
+{% block main %}
+<main>
+    <section>
+        <h2 class="mt-5">Gestion de utilisateurs <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a></h2>
+        
+        <article class="card mb-sm-5" style="width: 18rem;">
+            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+            <div class="card-body">
+            <h5 class="card-title">Propriétaires</h5>
+            <p class="card-text">Ici pour gérer les propriétaires.</p>
+            <a href="index.php?route=users-proprietaire&role=proprietaire" class="btn btn-primary">Gérer les Propriétaires</a>
+            </div>
+        </article>
+    
+        <article class="card mb-sm-5" style="width: 18rem;">
+            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Locataires</h5>
+                <p class="card-text">Ici pour gérer les locataires.</p>
+                <a href="index.php?route=users-locataire&role=locataire" class="btn btn-primary">Gérer les locataires</a>
+            </div>
+        </article>
+    </section>
+
+
+</main>
+
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
+{% endblock %}

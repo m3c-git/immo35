@@ -26,50 +26,42 @@
         </li>
     </ul>
     <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien</a>
-    <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a>
-
-    {% if usersByRolerole %}
-        {% for user in usersByRolerole %}
-        <article class="row">
-            
-            <div class="col-sm-3 mb-3 mb-sm-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ user.firstName ~ " " ~ user.lastName }}</h5>
-                        <ul>
-                                <li>{{ user.address }}</li>
-                                <li>{{ user.phone }}</li>
-                                <li>{{ user.email }}</li>
-                                <li>{{ user.role }}</li>
-                        </ul>
-                        <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
-                    </div>
-            </div>
-            </div>
-        </article>
-        {% endfor %} 
-
-    {% endif %}
-
-    {% for user in users %}
-    <article class="row">
-        
-        <div class="col-sm-3 mb-3 mb-sm-0">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ user.firstName ~ " " ~ user.lastName }}</h5>
-                    <ul>
-                            <li>{{ user.address }}</li>
-                            <li>{{ user.phone }}</li>
-                            <li>{{ user.email }}</li>
-                            <li>{{ user.role }}</li>
-                    </ul>
-                    <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
-                </div>
-          </div>
+ 
+    <article class="card  mb-sm-5" style="width: 25rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Gestion des biens</h5>
+            <ul class="list-group list-group-flush">
+                  Ici pour la gestion des biens.
+            </ul>
+            <a href="index.php?route=admin-property-type" class="btn btn-primary">Gérer</a>
         </div>
     </article>
-    {% endfor %} 
+    <article class="card  mb-sm-5" style="width: 25rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Gestion des utilisateurs</h5>
+            <ul class="list-group list-group-flush">
+                  Ici pour la gestion des utilisateurs.
+            </ul>
+            <a href="index.php?route=admin-users-role" class="btn btn-primary">Gérer</a>
+        </div>
+    </article>
+
+    <article class="card  mb-sm-5" style="width: 25rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Administration</h5>
+            <ul class="list-group list-group-flush">
+                  Ici pour la gestion de l'Administration.
+            </ul>
+            <a href="index.php?route=users-admin&role=admin" class="btn btn-primary">Gérer</a>
+        </div>
+    </article>
+
+   
+        
+
 
  
 </main>

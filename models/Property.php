@@ -9,7 +9,7 @@ class Property
     private ? int $rentCharge = null;
     private ? int $charge = null;
     private ? int $securityDeposit = null;
-    private ? int $agencyFees = null;
+    private ? int $agencyFeesRent = null;
     private ? int $energyPerformanceId = null;
 
 
@@ -359,7 +359,7 @@ class Property
      */
     public function getAgencyFees(): ? int
     {
-        return $this->agencyFees;
+        return $this->agencyFeesRent;
     }
 
     /**
@@ -368,9 +368,9 @@ class Property
      * @param   int  $agencyFees  
      *
      */
-    public function setAgencyFees($agencyFees): void
+    public function setAgencyFees($agencyFeesRent): void
     {
-        $this->agencyFees = $agencyFees;
+        $this->agencyFeesRent = $agencyFeesRent;
 
     }
 

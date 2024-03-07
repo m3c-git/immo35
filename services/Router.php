@@ -94,6 +94,21 @@ class Router
         {
             $this->hc->admin();
         }
+        else if(isset($get["route"]) && $get["route"] === "admin-users-role")
+        {
+            $this->hc->adminUsersRole();
+        }
+        else if(isset($get["route"]) && ($get["route"] === "users-proprietaire" || $get["route"] === "users-locataire" || $get["route"] === "users-admin"))
+        {
+            if(isset($get["role"]))
+            {
+                $this->hc->adminUsersByRole();
+            }
+            else
+            {
+                $this->hc->admin();
+            }
+        }
         else if(isset($get["route"]) && $get["route"] === "add-user")
         {
             $this->hc->addUser();
@@ -114,15 +129,19 @@ class Router
         {
             $this->hc->deleteUser();
         }
-        else if(isset($get["route"]) && ($get["route"] === "users-proprietaire" || $get["route"] === "users-locataire" || $get["route"] === "users-admin"))
+        else if(isset($get["route"]) && $get["route"] === 'admin-property-type')
         {
-            if(isset($get["role"]))
+            $this->hc->adminPropertyType();
+        }
+        else if(isset($get["route"]) && ($get["route"] === "admin-property-by-type"))
+        {
+            if(isset($get["type"]))
             {
-                $this->hc->userByRole();
+                $this->hc->adminPropertysByType();
             }
             else
             {
-                $this->hc->admin();
+                $this->hc->adminPropertyType();
             }
         }
         else if(isset($get["route"]) && $get["route"] === "add-property")

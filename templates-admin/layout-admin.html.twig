@@ -9,7 +9,24 @@
 <body>
     {% block header %}
     <header>
-        <nav class="px-2 navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="px-2 navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Biens</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Biens à louer</a></li>
+                  <li><a class="dropdown-item" href="#">Biens à vendre</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="index.php?route=users" role="button" aria-expanded="false">Utilisateurs</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="index.php?route=users-proprietaire&role=proprietaire">Propriétaires</a></li>
+                  <li><a class="dropdown-item" href="index.php?route=users-locataire&role=locataire">Locataires</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="index.php?route=users-admin&role=admin">Admins du site</a></li>
+                </ul>
+            </li>
+            
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?route=register">Register</a>
                 </li>

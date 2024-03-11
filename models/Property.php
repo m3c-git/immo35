@@ -10,11 +10,14 @@ class Property
     private ? int $charge = null;
     private ? int $securityDeposit = null;
     private ? int $agencyFeesRent = null;
-    private ? int $energyPerformanceId = null;
+    private ? EnergyDiagnostics $energyDiagnostics;
+    private ? GreenhouseGasEmissionIndices $greenhouseGasEmissionIndices;
 
 
-    public function __construct(private int $statusPropertyId, private int $stateId, private int $typesId, private $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private int $locationId, private int $usersId, private int $rentalManagementId)
+    public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
     {
+        $this->energyDiagnostics = new EnergyDiagnostics("", "");
+        $this->greenhouseGasEmissionIndices = new GreenhouseGasEmissionIndices("", "");
 
     }
 
@@ -43,68 +46,68 @@ class Property
 
 
     /**
-     * Get the value of statusPropertyId
+     * Get the value of statusProperty
      *
-     * @return  int
+     * @return  StatusProperty
      */
-    public function getStatusPropertyId(): int
+    public function getStatusProperty(): StatusProperty
     {
-        return $this->statusPropertyId;
+        return $this->statusProperty;
     }
 
     /**
-     * Set the value of statusPropertyId
+     * Set the value of statusProperty
      *
-     * @param   int  $statusPropertyId  
-     *
-     */
-    public function setStatusPropertyId($statusPropertyId): void
-    {
-        $this->statusPropertyId = $statusPropertyId;
-
-    }
-
-    /**
-     * Get the value of stateId
-     *
-     * @return  int
-     */
-    public function getStateId(): int
-    {
-        return $this->stateId;
-    }
-
-    /**
-     * Set the value of stateId
-     *
-     * @param   int  $stateId  
+     * @param   StatusProperty  $statusProperty
      *
      */
-    public function setStateId($stateId): void
+    public function setStatusProperty($statusProperty): void
     {
-        $this->stateId = $stateId;
+        $this->statusProperty = $statusProperty;
 
     }
 
     /**
-     * Get the value of typesId
+     * Get the value of state
      *
-     * @return  int
+     * @return  State
      */
-    public function getTypesId(): int
+    public function getState(): State
     {
-        return $this->typesId;
+        return $this->state;
     }
 
     /**
-     * Set the value of typesId
+     * Set the value of state
      *
-     * @param   int  $typesId  
+     * @param   State  $state  
      *
      */
-    public function setTypesId($typesId): void
+    public function setStateId($state): void
     {
-        $this->typesId = $typesId;
+        $this->state = $state;
+
+    }
+
+    /**
+     * Get the value of type
+     *
+     * @return  Type
+     */
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @param   Type  $type
+     *
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
 
     }
 
@@ -219,24 +222,24 @@ class Property
     }
 
     /**
-     * Get the value of locationId
+     * Get the value of location
      *
-     * @return  int
+     * @return  Location
      */
-    public function getLocationId(): int
+    public function getLocation(): Location
     {
-        return $this->locationId;
+        return $this->location;
     }
 
     /**
-     * Set the value of locationId
+     * Set the value of location
      *
-     * @param   int  $locationId  
+     * @param   Location  $location  
      *
      */
-    public function setLocationId($locationId): void
+    public function setLocationId(Location $location): void
     {
-        $this->locationId = $locationId;
+        $this->location = $location;
 
     }
 
@@ -375,68 +378,112 @@ class Property
     }
 
     /**
-     * Get the value of energyPerformanceId
+     * Get the value of energyDiagnostics
      *
-     * @return  int|null
+     * @return  EnergyDiagnostics|null
      */
-    public function getEnergyPerformanceId(): ? int
+    public function getEnergyDiagnostics(): ? EnergyDiagnostics
     {
-        return $this->energyPerformanceId;
+        return $this->energyDiagnostics;
     }
 
     /**
-     * Set the value of energyPerformanceId
+     * Set the value of energyDiagnostics
      *
-     * @param   int  $energyPerformanceId  
+     * @param   int  $energyDiagnostics  
      *
      */
-    public function setEnergyPerformanceId($energyPerformanceId): void
+    public function setEnergyDiagnostics($energyDiagnostics): void
     {
-        $this->energyPerformanceId = $energyPerformanceId;
+        $this->energyDiagnostics = $energyDiagnostics;
+
+    }
+
+        /**
+     * Get the value of greenhouseGasEmissionIndices
+     *
+     * @return  GreenhouseGasEmissionIndices|null
+     */
+    public function getGreenhouseGasEmissionIndices(): ? GreenhouseGasEmissionIndices
+    {
+        return $this->greenhouseGasEmissionIndices;
+    }
+
+    /**
+     * Set the value of greenhouseGasEmissionIndices
+     *
+     * @param   int  $greenhouseGasEmissionIndices  
+     *
+     */
+    public function setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndices): void
+    {
+        $this->greenhouseGasEmissionIndices = $greenhouseGasEmissionIndices;
 
     }
 
     /**
-     * Get the value of usersId
+     * Get the value of owner
      *
-     * @return  int|null
+     * @return  User
      */
-    public function getUsersId(): ? int
+    public function getOwner(): ? User
     {
-        return $this->usersId;
+        return $this->owner;
     }
 
     /**
-     * Set the value of usersId
+     * Set the value of owner
      *
-     * @param   int  $usersId  
+     * @param   User  $owner  
      *
      */
-    public function setUsersId($usersId): void
+    public function setOwner($owner): void
     {
-        $this->usersId = $usersId;
+        $this->owner = $owner;
 
     }
 
     /**
-     * Get the value of rentalManagementId
+     * Get the value of tenant
      *
-     * @return  int|null
+     * @return  User|null
      */
-    public function getRentalManagementId(): ? int
+    public function getTenant(): ? User
     {
-        return $this->rentalManagementId;
+        return $this->tenant;
     }
 
     /**
-     * Set the value of rentalManagementId
+     * Set the value of tenant
      *
-     * @param   int  $rentalManagementId  
+     * @param   User  $tenant  
      *
      */
-    public function setRentalManagementId($rentalManagementId): void
+    public function setTenant($tenant): void
     {
-        $this->rentalManagementId = $rentalManagementId;
+        $this->tenant = $tenant;
+
+    }
+
+    /**
+     * Get the value of rentalManagement
+     *
+     * @return  RentalManagement|null
+     */
+    public function getRentalManagement(): ? RentalManagement
+    {
+        return $this->rentalManagement;
+    }
+
+    /**
+     * Set the value of rentalManagement
+     *
+     * @param   RentalManagement  $rentalManagement  
+     *
+     */
+    public function setRentalManagement($rentalManagement): void
+    {
+        $this->rentalManagement = $rentalManagement;
 
     }
 }

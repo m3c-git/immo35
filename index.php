@@ -6,7 +6,7 @@ session_start();
 use Symfony\Component\VarDumper\Cloner\Data;
 require "vendor/autoload.php";
 
-
+// génère un CSRF token
 if(!isset($_SESSION["csrf-token"]))
 {
     $tokenManager = new CSRFTokenManager();

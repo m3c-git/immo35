@@ -10,7 +10,7 @@
     <h2 class="mt-5">Gestion des biens <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien</a></h2>
     {% for type in propertyType  %}
     <article class="card mb-sm-5" style="width: 18rem;">
-        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+        <img class="card-img-top" src="{{ type.media }}" alt="Card image cap">
         <div class="card-body">
         <h5 class="card-title">{{type.typeName}}</h5>
         <p class="card-text">Ici pour gérer les {{type.typeName}}.</p>

@@ -154,7 +154,15 @@ class Router
         }
         else if(isset($get["route"]) && $get["route"] === "update-property")
         {
-            $this->hc->updateProperty();
+            if(isset($get["id"]))
+            {
+                $this->hc->updateProperty();
+            }
+            else
+            {
+                $this->hc->adminPropertysByType();
+            }
+            
         }
         else if(isset($get["route"]) && $get["route"] === "delete-property")
         {

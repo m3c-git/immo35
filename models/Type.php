@@ -4,6 +4,7 @@
 class Type
 {
     private ? int $id = null;
+    private ? string $media = null;
 
     public function __construct(private string $typeName)
     {
@@ -52,6 +53,28 @@ class Type
     public function setTypeName($typeName): void
     {
         $this->typeName = $typeName;
+
+    }
+
+    /**
+     * Get the value of media
+     *
+     * @return  string
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
+    /**
+     * Set the value of media
+     *
+     * @param   string  $media  
+     *
+     */
+    public function setMedia($media): void
+    {
+        $this->media = $media;
 
     }
 }

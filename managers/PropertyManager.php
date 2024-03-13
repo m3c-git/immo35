@@ -73,6 +73,7 @@ class PropertyManager extends AbstractManager
                 {
                     $value = new Type($result["type_name"]);
                     $value->setId($result["id"]);
+                    $value->setMedia($result["type_media"]);
                     $types[] = $value;
                 }
 
@@ -92,7 +93,7 @@ class PropertyManager extends AbstractManager
         JOIN states ON propertys.state_id = states.id
         JOIN location ON propertys.location_id = location.id
         JOIN users owner ON propertys.owner_id = owner.id
-        JOIN users tenant ON propertys.tenant_id = tenant.id
+        LEFT JOIN users tenant ON propertys.tenant_id = tenant.id
         JOIN rental_management ON propertys.rental_management_id = rental_management.id
         JOIN energy_diagnostics ON propertys.energy_diagnostics_id = energy_diagnostics.id
         JOIN greenhouse_gas_emission_indices ON propertys.greenhouse_gas_emission_indices_id = greenhouse_gas_emission_indices.id 
@@ -104,19 +105,26 @@ class PropertyManager extends AbstractManager
 
         $query->execute($parameters);
         $results = $query->fetchAll(PDO::FETCH_NAMED);
-
+        //dump($results);
         if($results ==! null)
         {
             foreach($results as $result)
-            { dump($result);
-                if($result !== null)
+            { //dump($result);
+                if($result)
                 {
                     $statusProperty = new StatusProperty($result["status_name"]);
                     $state = new State($result["state_name"]);
                     $type = new Type($result["type_name"]);
+                    $type->setMedia($result["type_media"]);
                     $location = new Location($result["city"]);
                     $owner = new User($result["first_name"][0], $result["last_name"][0], $result["address"][0], $result["phone"][0], $result["email"][0], NULL, $result["role"][0]);
-                    $tenant = new User($result["first_name"][1], $result["last_name"][1], $result["address"][1], $result["phone"][1], $result["email"][1], NULL, $result["role"][1]);
+                    $tenant = null;
+                    if( $result["tenant_id"] !== null)
+                    {
+                        $tenant = new User($result["first_name"][1], $result["last_name"][1], $result["address"][1], $result["phone"][1], $result["email"][1], NULL, $result["role"][1]);
+                        $tenant->setId($result["tenant_id"]);
+                    }
+                    
                     $rentalManagement = new RentalManagement($result["management"]);
 
                     $value = new Property($statusProperty, $state, $type, $result["availability_date"], $result["title"], $result["rooms"], $result["surface"], $result["description"], $location, $owner, $tenant, $rentalManagement);
@@ -136,7 +144,7 @@ class PropertyManager extends AbstractManager
                     $type->setId($result["types_id"]);
                     $location->setId($result["location_id"]);
                     $owner->setId($result["owner_id"]);
-                    $tenant->setId($result["tenant_id"]);
+                    
                     $rentalManagement->setId($result["rental_management_id"]);
 
                     $users[] = $value;
@@ -145,27 +153,75 @@ class PropertyManager extends AbstractManager
             }
 
             return $users;
-        }   
+        } 
+        return null;
 
     }
 
-    public function findOne(int $id) : ? User
+    public function findOne(int $id) : ? Property
     {
-        $query = $this->db->prepare('SELECT * FROM users WHERE id=:id');
+        $query = $this->db->prepare('SELECT propertys.*, status_property.*, states.*, types.*, location.*, owner.*, tenant.*, rental_management.*, energy_diagnostics.*, greenhouse_gas_emission_indices.* FROM propertys 
+        JOIN types 
+        ON propertys.types_id = types.id 
+        JOIN status_property ON propertys.status_property_id = status_property.id
+        JOIN states ON propertys.state_id = states.id
+        JOIN location ON propertys.location_id = location.id
+        JOIN users owner ON propertys.owner_id = owner.id
+        LEFT JOIN users tenant ON propertys.tenant_id = tenant.id
+        JOIN rental_management ON propertys.rental_management_id = rental_management.id
+        JOIN energy_diagnostics ON propertys.energy_diagnostics_id = energy_diagnostics.id
+        JOIN greenhouse_gas_emission_indices ON propertys.greenhouse_gas_emission_indices_id = greenhouse_gas_emission_indices.id 
+        WHERE propertys.id = :id');;
 
         $parameters = [
             "id" => $id
         ];
 
         $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
+        $result = $query->fetch(PDO::FETCH_NAMED);
 
-        if($result)
+         
+        //dump($result);
+        if($result !== null)
         {
-            $user = new User($result["first_name"], $result["last_name"], $result["address"], $result["phone"], $result["email"], $result["password"], $result["role"], $result["created_at"]);
-            $user->setId($result["id"]);
 
-            return $user;
+            $statusProperty = new StatusProperty($result["status_name"]);
+            $state = new State($result["state_name"]);
+            $type = new Type($result["type_name"]);
+            $type->setMedia($result["type_media"]);
+            $location = new Location($result["city"]);
+            $owner = new User($result["first_name"][0], $result["last_name"][0], $result["address"][0], $result["phone"][0], $result["email"][0], NULL, $result["role"][0]);
+            $tenant = null;
+            if( $result["tenant_id"] !== null)
+            {
+                $tenant = new User($result["first_name"][1], $result["last_name"][1], $result["address"][1], $result["phone"][1], $result["email"][1], NULL, $result["role"][1]);
+                $tenant->setId($result["tenant_id"]);
+            }
+            
+            $rentalManagement = new RentalManagement($result["management"]);
+
+            $property = new Property($statusProperty, $state, $type, $result["availability_date"], $result["title"], $result["rooms"], $result["surface"], $result["description"], $location, $owner, $tenant, $rentalManagement);
+            $property->setId($result["id"][0]); 
+            $property->setSalesPrice($result["sales_price"]);
+            $property->setRent($result["rent"]);
+            $property->setRentCharge($result["rent_charge"]);
+            $property->setCharge($result["charge"]);
+            $property->setSecurityDeposit($result["security_deposit"]);
+            $property->setAgencyFees($result["agency_fees_rent"]);
+            $property->getEnergyDiagnostics()->setId($result["energy_diagnostics_id"]);
+            $property->getEnergyDiagnostics()->setNote($result["note_energy_diagnostics"]);
+            $property->getGreenhouseGasEmissionIndices()->setId($result["greenhouse_gas_emission_indices_id"]);
+            $property->getGreenhouseGasEmissionIndices()->setNote($result["note_greenhouse_gas_emission_indices"]);
+            $statusProperty->setId($result["status_property_id"]);
+            $state->setId($result["state_id"]);
+            $type->setId($result["types_id"]);
+            $location->setId($result["location_id"]);
+            $owner->setId($result["owner_id"]);
+            
+            $rentalManagement->setId($result["rental_management_id"]);
+            dump($property);
+
+            return $property;
         }
 
         return null;

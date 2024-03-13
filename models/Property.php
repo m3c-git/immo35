@@ -14,7 +14,7 @@ class Property
     private ? GreenhouseGasEmissionIndices $greenhouseGasEmissionIndices;
 
 
-    public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
+    public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private string $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
     {
         $this->energyDiagnostics = new EnergyDiagnostics("", "");
         $this->greenhouseGasEmissionIndices = new GreenhouseGasEmissionIndices("", "");
@@ -114,9 +114,9 @@ class Property
     /**
      * Get the value of availabilityDate
      *
-     * @return  DateTime
+     * @return  string
      */
-    public function getAvailabilityDate(): DateTime
+    public function getAvailabilityDate(): string
     {
         return $this->availabilityDate;
     }
@@ -124,10 +124,10 @@ class Property
     /**
      * Set the value of availabilityDate
      *
-     * @param   DateTime  $availabilityDate  
+     * @param   string  $availabilityDate  
      *
      */
-    public function setAvailabilityDate($availabilityDate): void
+    public function setAvailabilityDate(string $availabilityDate): void
     {
         $this->availabilityDate = $availabilityDate;
 

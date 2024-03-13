@@ -246,60 +246,102 @@ class AdminController extends AbstractController
 
      /******* Partie Admin des propriétés *******/
 
-     public function adminPropertyType() : void
-     {
-         if($_SESSION["role"] === "ADMIN")
-         {
+    public function adminPropertyType() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+        $um = new PropertyManager();
+        $propertyType = $um->findTypes();
+
+        $this->render("admin-property-type.html.twig", ["propertyType" => $propertyType]);
+
+        }
+        else
+        {
+        $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+        $this->redirect("index.php?route=login");
+        }
+    
+    
+    }
+
+    public function adminPropertysByType() : void
+    {
+
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        { 
+
+            $pm = new PropertyManager();
+            $propertysByType = $pm->findByType($_GET["type"]);
+
+            $mm = new MediaManager();
+            $mediasByType = $mm->findByIdProperty();
+
+            if($propertysByType !== null)
+            {
+
+                $propertys = [];  
+                foreach($mediasByType as $media)
+                {
+                    foreach($propertysByType as $property)
+                    {
+                        
+                        if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
+                        {
+                            
+                            $propertys[]= ["property" => $property, "vignette_url" => $media->getUrl()];
+                        }
+                        elseif(!$propertys)
+                        { 
+                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];dump($propertys);
+                        }
+
+                    }
+                        
+                }
+        
+                unset($_SESSION["message"]);
+                $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys]);
+                
+            }
+            else
+            {
+                $_SESSION["message"] = "Aucun biens trouvés";
+                $this->redirect("index.php?route=admin-property-type");
+                //dump($propertysByType);
+                //dump($_SESSION);
+
+
+            }
+                
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            $this->redirect("index.php?route=login");
+            //dump($_GET);
+            //dump($_SESSION);
+        }
+    }
+ 
+
+    public function updateProperty() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
             $um = new PropertyManager();
-            $propertyType = $um->findTypes();
+            $propertyById = $um->findOne($_GET["id"]);
 
-             $this->render("admin-property-type.html.twig", ["propertyType" => $propertyType]);
- 
-         }
-         else
-         {
-             $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-             $this->redirect("index.php?route=login");
-         }
-     
-     
-     }
+            $this->render("update-property.html.twig", ["propertyById" =>$propertyById]);
 
-     public function adminPropertysByType() : void
-     {
- 
-         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-         { 
- 
-                 $um = new PropertyManager();
-                 $propertysByType = $um->findByType($_GET["type"]);
- 
-                 if($propertysByType !== null)
-                 {
- 
-                    unset($_SESSION["message"]);
-                    $this->render("admin-propertys-by-type.html.twig", ["propertysByType" => $propertysByType]);
-                     
-                 }
-                 else
-                 {
-                     $_SESSION["message"] = "Aucun biens trouvés";
-                     $this->redirect("index.php?route=admin-property-type");
-                     //dump($propertysByType);
-                     //dump($_SESSION);
- 
- 
-                 }
-             
-         }
-         else
-         {
-             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-             $this->redirect("index.php?route=login");
-             //dump($_GET);
-             //dump($_SESSION);
-         }
-     }
- 
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+
+        
+    }
 
 }

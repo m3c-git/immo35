@@ -12,9 +12,27 @@
         </h1>
         <p>Propriétaire du bien: {{ propertyById.owner.firstName ~ " " ~ propertyById.owner.lastName }}</p>
         <p>Locataire du bien: {{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</p>
-        <form action='index.php?route=check-update-property' method="POST" class="mt-5">
+
+        <form action='index.php?route=check-update-property' method="POST" enctype="multipart/form-data" class="mt-5">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
-            <input type="hidden" id="propertyId" name="propertyId" value="{{ property.id }}" />
+            <input type="hidden" id="propertyId" name="propertyId" value="{{ propertyById.id }}" />
+            <fieldset class="my-1">
+                {% if propertyById.medias is empty %}
+                <figure>
+                    <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="...">
+                  </figure>
+                  {% else %}
+                  {% for key, media in propertyById.medias  %}
+                  <figure>
+                    <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="...">
+                    <figcaption>{{ media.url }}</figcaption>
+                  </figure>
+                  <label for="formFile" class="form-label">Default file input example</label>
+                  <input class="form-control" type="file" name="formFile_{{ key }}" id="formFile">
+                 
+                {% endfor %} 
+                {% endif %}
+            </fieldset>
             <fieldset class="my-1">
                 <label for="salesPrice" class="form-label">
                     Prix de vente
@@ -152,7 +170,7 @@
             </fieldset>
             <fieldset class="my-1 form-floating">
                 <select class="form-select" id="rentalManagement" name="rentalManagement" aria-label="Floating label select example">
-                    <!-- <option selected>{{ propertyById.rentalManagement.management }}</option> -->
+                    <option selected>{{ propertyById.rentalManagement.management }}</option>
                     <option value="OUI">OUI</option>
                     <option value="NON">NON</option>
                 </select>

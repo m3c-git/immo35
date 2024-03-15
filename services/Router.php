@@ -164,6 +164,13 @@ class Router
             }
             
         }
+        else if(isset($get["route"]) && $get["route"] === "check-update-property")
+        {
+           
+            $this->hc->checkUpdateProperty();
+            
+            
+        }
         else if(isset($get["route"]) && $get["route"] === "delete-property")
         {
             $this->hc->deleteProperty();

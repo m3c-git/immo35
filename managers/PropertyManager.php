@@ -219,7 +219,7 @@ class PropertyManager extends AbstractManager
             $owner->setId($result["owner_id"]);
             
             $rentalManagement->setId($result["rental_management_id"]);
-            dump($property);
+            //dump($property);
 
             return $property;
         }

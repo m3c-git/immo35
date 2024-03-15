@@ -275,7 +275,7 @@ class AdminController extends AbstractController
             $propertysByType = $pm->findByType($_GET["type"]);
 
             $mm = new MediaManager();
-            $mediasByType = $mm->findByIdProperty();
+            $mediasByType = $mm->findByTypeMedia($_GET["typeMedia"]);
 
             if($propertysByType !== null)
             {
@@ -286,7 +286,7 @@ class AdminController extends AbstractController
                     foreach($propertysByType as $property)
                     {
                         
-                        if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
+                        if($property->getId() === $media->getPropertyId())
                         {
                             
                             $propertys[]= ["property" => $property, "vignette_url" => $media->getUrl()];
@@ -329,11 +329,18 @@ class AdminController extends AbstractController
     {
         if($_SESSION["role"] === "ADMIN")
         {
-            $um = new PropertyManager();
-            $propertyById = $um->findOne($_GET["id"]);
+            $pm = new PropertyManager();
+            $propertyById = $pm->findOne($_GET["id"]);
 
+            $mm = new MediaManager();
+            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
+            $propertyById->setMedias($mediaByIdProperty);
+
+            dump($propertyById, $_FILES);
+            unset($_SESSION["message"]);
+            
             $this->render("update-property.html.twig", ["propertyById" =>$propertyById]);
-
+            
         }
         else
         {
@@ -342,6 +349,53 @@ class AdminController extends AbstractController
         }
 
         
+    }
+
+    public function checkUpdateProperty() : void
+    {
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        {dump($_FILES);
+            /* $tokenManager = new CSRFTokenManager();
+
+            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
+            {
+
+                $um = new UserManager();
+                $userById = $um->updateUser($_POST['userId']);
+
+                if($userById !== null)
+                {
+                unset($_SESSION["message"]);
+                $this->redirect("index.php?route=admin");
+                //dump($_SESSION);
+                }
+                else
+                {
+                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
+                    $this->redirect("index.php?route=admin");
+                    //dump($_SESSION);
+
+                }
+
+            }
+            else
+            {
+                $_SESSION["error-message"] = "Invalid CSRF token";
+                $this->redirect("index.php?route=admin");
+                //dump($_SESSION);
+
+
+            }
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            $this->redirect("index.php?route=login");
+            //dump($_SESSION); */
+
+        }
+
     }
 
 }

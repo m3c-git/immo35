@@ -12,6 +12,7 @@ class Property
     private ? int $agencyFeesRent = null;
     private ? EnergyDiagnostics $energyDiagnostics;
     private ? GreenhouseGasEmissionIndices $greenhouseGasEmissionIndices;
+    private ? array $medias;
 
 
     public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private string $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
@@ -484,6 +485,28 @@ class Property
     public function setRentalManagement($rentalManagement): void
     {
         $this->rentalManagement = $rentalManagement;
+
+    }
+
+    /**
+     * Get the value of medias
+     *
+     * @return  array
+     */
+    public function getMedias(): array
+    {
+        return $this->medias;
+    }
+
+    /**
+     * Set the value of medias
+     *
+     * @param   array  $medias  
+     *
+     */
+    public function setMedias($medias): void
+    {
+        $this->medias = $medias;
 
     }
 }

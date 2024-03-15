@@ -336,10 +336,15 @@ class AdminController extends AbstractController
             $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
             $propertyById->setMedias($mediaByIdProperty);
 
+            $fm = new PropertyFeaturesManager();
+            $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
+            $propertyById->setPropertyFeatures($featureByIdProperty);
+            $allFeatures = $fm->findAll();
+
             dump($propertyById, $_FILES);
             unset($_SESSION["message"]);
             
-            $this->render("update-property.html.twig", ["propertyById" =>$propertyById]);
+            $this->render("update-property.html.twig", ["propertyById" =>$propertyById, "allFeatures" => $allFeatures]);
             
         }
         else
@@ -354,7 +359,7 @@ class AdminController extends AbstractController
     public function checkUpdateProperty() : void
     {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-        {dump($_FILES);
+        {dump($_POST);
             /* $tokenManager = new CSRFTokenManager();
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))

@@ -341,10 +341,42 @@ class AdminController extends AbstractController
             $propertyById->setPropertyFeatures($featureByIdProperty);
             $allFeatures = $fm->findAll();
 
-            dump($propertyById, $_FILES);
+            $um = new UserManager();
+            $usersProprietaire = $um->findByRole("Proprietaire");
+            $usersLocataire = $um->findByRole("Locataire");
+
+            $em = new EnergyDiagnosticsManager();
+            $allNoteEnergy = $em->findAll();
+
+            $gm = new GreenhouseGasEmissionIndicesManager();
+            $allNoteGreenhouse = $gm->findAll();
+
+            $rm = new RentalManagementManager();
+            $allManagement = $rm->findAll();
+
+            $spm = new StatusPropertyManager();
+            $allStatus = $spm->findAll();
+
+            $sm = new StateManager();
+            $allState = $sm->findAll();
+
+            $tm = new TypeManager();
+            $allType = $tm->findAll();
+
+            dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
             unset($_SESSION["message"]);
             
-            $this->render("update-property.html.twig", ["propertyById" =>$propertyById, "allFeatures" => $allFeatures]);
+            $this->render("update-property.html.twig", ["propertyById" =>$propertyById, 
+                                                        "allFeatures" => $allFeatures, 
+                                                        "usersProprietaire" => $usersProprietaire, 
+                                                        "usersLocataire" => $usersLocataire,
+                                                        "allNoteEnergy" => $allNoteEnergy,
+                                                        "allNoteGreenhouse" => $allNoteGreenhouse,
+                                                        "allManagement" => $allManagement,
+                                                        "allStatus" => $allStatus,
+                                                        "allState" => $allState,
+                                                        "allType" => $allType
+                                                    ]);
             
         }
         else
@@ -359,7 +391,7 @@ class AdminController extends AbstractController
     public function checkUpdateProperty() : void
     {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-        {dump($_POST);
+        {dump($_POST, $_FILES);
             /* $tokenManager = new CSRFTokenManager();
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))

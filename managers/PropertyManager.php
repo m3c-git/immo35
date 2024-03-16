@@ -274,12 +274,12 @@ class PropertyManager extends AbstractManager
 
     }
 
-    public function updateUser(int $userId) : void
+    public function updateProperty(int $propertyId) : void
     {
         if(isset($_POST))
         {
        
-           $userId = intval($_POST['userId']) ;
+           $propertyId = intval($_POST['propertyId']) ;
            $firstName = $this->CheckInput($_POST['firstName']);
            $lastName = $this->CheckInput($_POST['lastName']);
            $address = $this->CheckInput($_POST['address']);
@@ -292,7 +292,7 @@ class PropertyManager extends AbstractManager
            N pas mettre les valeurs du VALUE entre backquote*/
            $query = $this->db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name, address = :address, phone = :phone, email = :email,  role = :role WHERE id = :id");
            $parameters = [
-               'id' => $userId, 'first_name' => $firstName, 'last_name' => $lastName, 'address' => $address, 'phone' => $phone, 'email' => $email, 'role' => $role,
+               'id' => $propertyId, 'first_name' => $firstName, 'last_name' => $lastName, 'address' => $address, 'phone' => $phone, 'email' => $email, 'role' => $role,
                ];
            $query->execute($parameters);
        

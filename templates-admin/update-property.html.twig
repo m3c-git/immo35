@@ -16,17 +16,34 @@
         <form action='index.php?route=check-update-property' method="POST" enctype="multipart/form-data" class="mt-5">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
             <input type="hidden" id="propertyId" name="propertyId" value="{{ propertyById.id }}" />
-
+            <fieldset class="my-1 form-floating">
+                <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.owner.id }}" selected>{{ propertyById.owner.firstName ~ " " ~ propertyById.owner.lastName }}</option>
+                    {% for proprietaire in usersProprietaire  %}
+                    <option value="{{  proprietaire.id }}">{{ proprietaire.firstName ~ " " ~ proprietaire.lastName }}</option>
+                    {% endfor %}
+                </select>
+                <label for="owner">Propriétaire du bien:</label>
+            </fieldset>
+            <fieldset class="my-1 form-floating">
+                <select class="form-select" id="tenantId" name="tenantId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.tenant.id }}" selected>{{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</option>
+                    {% for locataire in usersLocataire  %}
+                    <option value="{{  locataire.id }}">{{ locataire.firstName ~ " " ~ locataire.lastName }}</option>
+                    {% endfor %}
+                </select>
+                <label for="owner">Locataire du bien:</label>
+            </fieldset>
             <fieldset class="my-1">
                 <legend>Caractéristiques du bien</legend>
                 {% for key, features in propertyById.propertyFeatures  %}
-                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features_{{ key }}" id="features_{{ key }}" checked>
+                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features[]" id="features_{{ key }}" checked>
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
                 </label>
                 {% endfor %}
                 {% for key, features in allFeatures  %}
-                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features_{{ key }}" id="features_{{ key }}">
+                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features[]" id="features_{{ key }}">
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
                 </label>
@@ -87,61 +104,49 @@
                 <input type="number" name="agencyFeesRent" id="agencyFeesRent" class="form-control" value="{{ propertyById.agencyFeesRent }}"/>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="energyDiagnostics" name="energyDiagnostics" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.energyDiagnostics.note }}</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
+                <select class="form-select" id="energyDiagnosticsId" name="energyDiagnosticsId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.energyDiagnostics.id }}" selected>{{ propertyById.energyDiagnostics.note }}</option>
+                    {% for noteEnergy in allNoteEnergy  %}
+                    <option value="{{  noteEnergy.id }}">{{ noteEnergy.note }}</option>
+                    {% endfor %}
                 </select>
-                <label for="energyDiagnostics">Note diagnostique énergétique</label>
+                <label for="energyDiagnosticsId">Note diagnostique énergétique</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="greenhouseGasEmissionIndices" name="greenhouseGasEmissionIndices" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.greenhouseGasEmissionIndices.note }}</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
+                <select class="form-select" id="greenhouseGasEmissionIndicesId" name="greenhouseGasEmissionIndicesId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.greenhouseGasEmissionIndices.id }}" selected>{{ propertyById.greenhouseGasEmissionIndices.note }}</option>
+                    {% for noteGreenhouse in allNoteGreenhouse  %}
+                    <option value="{{  noteGreenhouse.id }}">{{ noteGreenhouse.note }}</option>
+                    {% endfor %}
                 </select>
-                <label for="greenhouseGasEmissionIndices">Note emisssion gaz à effet de serre</label>
+                <label for="greenhouseGasEmissionIndicesId">Note emisssion gaz à effet de serre</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="statusProperty" name="statusProperty" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.statusProperty.statusName }}</option>
-                    <option value="A LOUER">A LOUER</option>
-                    <option value="LOUE">LOUE</option>
-                    <option value="A VENDRE">A VENDRE</option>
-                    <option value="VENDU">VENDU</option>
-                    <option value="VACANCE LOCATIVE">VACANCE LOCATIVE</option>
+                <select class="form-select" id="StatusId" name="StatusId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.statusProperty.id }}" selected>{{ propertyById.statusProperty.stateName }}</option>
+                    {% for status in allStatus  %}
+                    <option value="{{  status.id }}">{{ status.statusName }}</option>
+                    {% endfor %}
                 </select>
-                <label for="statusProperty">Status de la propriété</label>
+                <label for="StatusId">Etat de la propriété</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="state" name="state" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.state.stateName }}</option>
-                    <option value="Neuf">Neuf</option>
-                    <option value="Ancien">Ancien</option>
-                    <option value="Rénové">Rénové</option>       
+                <select class="form-select" id="StateId" name="StateId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.state.id }}" selected>{{ propertyById.state.stateName }}</option>
+                    {% for state in allState  %}
+                    <option value="{{  state.id }}">{{ state.management }}</option>
+                    {% endfor %}
                 </select>
-                <label for="state">Etat de la propriété</label>
+                <label for="StateId">Etat de la propriété</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="type" name="type" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.type.typeName }}</option>
-                    <option value="Neuf">Appartements</option>
-                    <option value="Ancien">Maisons</option>
-                    <option value="Rénové">Stationnements</option>     
-                    <option value="Ancien">Terrains</option>
-                    <option value="Rénové">Immeubles</option>     
+                <select class="form-select" id="TypeId" name="TypeId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.type.id }}" selected>{{ propertyById.type.typeName }}</option>
+                    {% for type in allType  %}
+                    <option value="{{  type.id }}">{{ type.management }}</option>
+                    {% endfor %}
                 </select>
-                <label for="type">Types de propriété</label>
+                <label for="TypeId">Types de propriété</label>
             </fieldset>
             <fieldset class="my-1">
                 <label for="availabilityDate" class="form-label">
@@ -186,12 +191,13 @@
                 <input type="text" name="district" id="district" class="form-control" value="{{ propertyById.location.district }}"/>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="rentalManagement" name="rentalManagement" aria-label="Floating label select example">
-                    <option selected>{{ propertyById.rentalManagement.management }}</option>
-                    <option value="OUI">OUI</option>
-                    <option value="NON">NON</option>
+                <select class="form-select" id="rentalManagementId" name="rentalManagementId" aria-label="Floating label select example">
+                    <option value="{{  propertyById.rentalManagement.id }}" selected>{{ propertyById.rentalManagement.management }}</option>
+                    {% for management in allManagement  %}
+                    <option value="{{  management.id }}">{{ management.management }}</option>
+                    {% endfor %}
                 </select>
-                <label for="rentalManagement">Gestion locative</label>
+                <label for="rentalManagementId">Gestion locative</label>
             </fieldset>
             <button type="submit" class="mt-3 btn btn-primary">Mettre à jour</button>
             <a class="btn btn-danger" href="index.php?route=delete-user&id={{ userById.id }}" role="button">Supprimer le bien</a>

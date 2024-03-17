@@ -363,7 +363,7 @@ class AdminController extends AbstractController
             $tm = new TypeManager();
             $allType = $tm->findAll();
 
-            dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
+            //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
             unset($_SESSION["message"]);
             
             $this->render("update-property.html.twig", ["propertyById" =>$propertyById, 
@@ -391,28 +391,18 @@ class AdminController extends AbstractController
     public function checkUpdateProperty() : void
     {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-        {dump($_POST, $_FILES);
-            /* $tokenManager = new CSRFTokenManager();
+        {//dump($_POST, $_FILES);
+            $tokenManager = new CSRFTokenManager();
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
 
-                $um = new UserManager();
-                $userById = $um->updateUser($_POST['userId']);
+                $um = new PropertyManager();
+                $property = $um->updateProperty($_POST['propertyId']);
 
-                if($userById !== null)
-                {
                 unset($_SESSION["message"]);
-                $this->redirect("index.php?route=admin");
+                $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
                 //dump($_SESSION);
-                }
-                else
-                {
-                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    $this->redirect("index.php?route=admin");
-                    //dump($_SESSION);
-
-                }
 
             }
             else
@@ -428,8 +418,8 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
-            //dump($_SESSION); */
+            //$this->redirect("index.php?route=login");
+            dump($_SESSION);
 
         }
 

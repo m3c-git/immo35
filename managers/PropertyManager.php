@@ -147,12 +147,12 @@ class PropertyManager extends AbstractManager
                     
                     $rentalManagement->setId($result["rental_management_id"]);
 
-                    $users[] = $value;
+                    $propertys[] = $value;
                 }
 
             }
 
-            return $users;
+            return $propertys;
         } 
         return null;
 
@@ -280,19 +280,142 @@ class PropertyManager extends AbstractManager
         {
        
            $propertyId = intval($_POST['propertyId']) ;
-           $firstName = $this->CheckInput($_POST['firstName']);
-           $lastName = $this->CheckInput($_POST['lastName']);
-           $address = $this->CheckInput($_POST['address']);
-           $phone = $this->CheckInput($_POST['phone']);
-           $email = $this->checkInput($_POST['email']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
-           $role = $this->CheckInput($_POST['role']);       
-       
+           $status_property_id = $this->CheckInput($_POST['statusId']);
+           $state_id = $this->CheckInput($_POST['stateId']);
+           $types_id = $this->CheckInput($_POST['typeId']);
+           $availability_date = $this->CheckInput($_POST['availabilityDate']);
+           $title = $this->checkInput($_POST['title']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
+           $rooms = $this->CheckInput($_POST['rooms']); 
+           $surface = $this->CheckInput($_POST['surface']);
+           $description = $this->CheckInput($_POST['description']);
+           $location_id  = $this->CheckInput('1');
+
+           if($this->CheckInput($_POST['salesPrice']) === '')
+           {
+                $sales_price = NULL;
+           }
+           else
+           {
+            $sales_price = $this->CheckInput($_POST['salesPrice']);
+
+           }
+
+           if($this->CheckInput($_POST['rent']) === '')
+           {
+                $rent = NULL;
+           }
+           else
+           {
+                $rent = $this->CheckInput($_POST['rent']);
+
+           }
+
+           if($this->CheckInput($_POST['rentCharge']) === '')
+           {
+                $rent_charge = NULL;
+           }
+           else
+           {
+                $rent_charge = $this->CheckInput($_POST['rentCharge']);
+           }
+
+           if($this->CheckInput($_POST['charge']) === '')
+           {
+                $charge = NULL;
+           }
+           else
+           {
+                $charge = $this->CheckInput($_POST['charge']);
+           }
+
+           if($this->CheckInput($_POST['securityDeposit']) === '')
+           {
+                $security_deposit = NULL;
+           }
+           else
+           {
+                $security_deposit = $this->CheckInput($_POST['securityDeposit']);
+           }
+
+           if($this->CheckInput($_POST['agencyFeesRent']) === '')
+           {
+                $agency_fees_rent = NULL;
+           }
+           else
+           {
+                $agency_fees_rent = $this->CheckInput($_POST['agencyFeesRent']);
+           }
+
+           if($this->CheckInput($_POST['energyDiagnosticsId']) === '')
+           {
+                $energy_diagnostics_id = NULL;
+           }
+           else
+           {
+                $energy_diagnostics_id = $this->CheckInput($_POST['energyDiagnosticsId']);
+           }
+
+           if($this->CheckInput($_POST['greenhouseGasEmissionIndicesId']) === '')
+           {
+                $greenhouse_gas_emission_indices_id = NULL;
+           }
+           else
+           {
+                $greenhouse_gas_emission_indices_id = $this->CheckInput($_POST['greenhouseGasEmissionIndicesId']);
+           }
+
+           if($this->CheckInput($_POST['tenantId']) === '')
+           {
+            $tenant_id = NULL;
+           }
+           else
+           {
+                $tenant_id = $this->CheckInput($_POST['tenantId']);   
+           }
+                        
+    
+                 
+           
+/*            $rent = $this->CheckInput($_POST['rent']);
+           $rent_charge = $this->CheckInput($_POST['rentCharge']);
+           $charge = $this->CheckInput($_POST['charge']);
+           $security_deposit = $this->CheckInput($_POST['securityDeposit']);
+           $agency_fees_rent = $this->CheckInput($_POST['agencyFeesRent']);
+           $energy_diagnostics_id = $this->CheckInput($_POST['energyDiagnosticsId']);
+           $greenhouse_gas_emission_indices_id = $this->CheckInput($_POST['greenhouseGasEmissionIndicesId']); */
+           $owner_id = $this->CheckInput($_POST['ownerId']);
+           //$tenant_id = $this->CheckInput($_POST['tenantId']);
+           $rental_management_id = $this->CheckInput($_POST['rentalManagementId']);
+           //$medias = $this->CheckInput($_FILES);
+           //$propertyFeatures = $this->CheckInput($_POST['features']);
+
+
            
           /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
            N pas mettre les valeurs du VALUE entre backquote*/
-           $query = $this->db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name, address = :address, phone = :phone, email = :email,  role = :role WHERE id = :id");
+           $query = $this->db->prepare("UPDATE propertys SET status_property_id = :status_property_id, state_id = :state_id, types_id = :types_id, availability_date = :availability_date, title = :title,  rooms = :rooms, surface = :surface, description = :description, location_id = :location_id, sales_price = :sales_price, rent = :rent, rent_charge = :rent_charge, charge = :charge, security_deposit = :security_deposit, agency_fees_rent = :agency_fees_rent, energy_diagnostics_id = :energy_diagnostics_id, greenhouse_gas_emission_indices_id = :greenhouse_gas_emission_indices_id, owner_id = :owner_id, tenant_id = :tenant_id, rental_management_id = :rental_management_id WHERE id = :id");
            $parameters = [
-               'id' => $propertyId, 'first_name' => $firstName, 'last_name' => $lastName, 'address' => $address, 'phone' => $phone, 'email' => $email, 'role' => $role,
+               'id' => $propertyId,
+               'status_property_id' => $status_property_id,
+               'state_id' => $state_id,
+               'types_id' => $types_id,
+               'availability_date' => $availability_date,
+               'title' => $title,
+               'rooms' => $rooms,
+               'surface' => $surface,
+               'description' => $description,
+               'location_id'  => $location_id,
+               'sales_price' => $sales_price,     
+               'rent' => $rent,
+               'rent_charge' => $rent_charge,
+               'charge' => $charge,
+               'security_deposit' => $security_deposit,
+               'agency_fees_rent' => $agency_fees_rent,
+               'energy_diagnostics_id' => $energy_diagnostics_id,
+               'greenhouse_gas_emission_indices_id' => $greenhouse_gas_emission_indices_id,
+               'owner_id' => $owner_id,
+               'tenant_id' => $tenant_id,
+               'rental_management_id' => $rental_management_id,
                ];
            $query->execute($parameters);
        

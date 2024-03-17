@@ -80,10 +80,10 @@
                 <input type="number" name="rent" id="rent" class="form-control" value="{{ propertyById.rent }}"/>
             </fieldset>
             <fieldset class="my-1">
-                <label for="Charge" class="form-label">
+                <label for="charge" class="form-label">
                     Charge
                 </label>
-                <input type="number" name="Charge" id="Charge" class="form-control" value="{{ propertyById.Charge }}"/>
+                <input type="number" name="charge" id="charge" class="form-control" value="{{ propertyById.Charge }}"/>
             </fieldset>
             <fieldset class="my-1">
                 <label for="rentCharge" class="form-label">
@@ -122,31 +122,31 @@
                 <label for="greenhouseGasEmissionIndicesId">Note emisssion gaz à effet de serre</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="StatusId" name="StatusId" aria-label="Floating label select example">
+                <select class="form-select" id="statusId" name="statusId" aria-label="Floating label select example">
                     <option value="{{  propertyById.statusProperty.id }}" selected>{{ propertyById.statusProperty.stateName }}</option>
                     {% for status in allStatus  %}
                     <option value="{{  status.id }}">{{ status.statusName }}</option>
                     {% endfor %}
                 </select>
-                <label for="StatusId">Etat de la propriété</label>
+                <label for="statusId">Etat de la propriété</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="StateId" name="StateId" aria-label="Floating label select example">
+                <select class="form-select" id="stateId" name="stateId" aria-label="Floating label select example">
                     <option value="{{  propertyById.state.id }}" selected>{{ propertyById.state.stateName }}</option>
                     {% for state in allState  %}
                     <option value="{{  state.id }}">{{ state.management }}</option>
                     {% endfor %}
                 </select>
-                <label for="StateId">Etat de la propriété</label>
+                <label for="stateId">Etat de la propriété</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
-                <select class="form-select" id="TypeId" name="TypeId" aria-label="Floating label select example">
+                <select class="form-select" id="typeId" name="typeId" aria-label="Floating label select example">
                     <option value="{{  propertyById.type.id }}" selected>{{ propertyById.type.typeName }}</option>
                     {% for type in allType  %}
                     <option value="{{  type.id }}">{{ type.management }}</option>
                     {% endfor %}
                 </select>
-                <label for="TypeId">Types de propriété</label>
+                <label for="typeId">Types de propriété</label>
             </fieldset>
             <fieldset class="my-1">
                 <label for="availabilityDate" class="form-label">

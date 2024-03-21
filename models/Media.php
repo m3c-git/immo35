@@ -61,7 +61,7 @@ class Media
      *
      * @return  int
      */
-    public function getPropertyId()
+    public function getPropertyId(): int
     {
         return $this->propertyId;
     }
@@ -83,7 +83,7 @@ class Media
      *
      * @return  string|null
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }

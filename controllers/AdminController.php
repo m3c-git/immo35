@@ -341,6 +341,9 @@ class AdminController extends AbstractController
             $propertyById->setPropertyFeatures($featureByIdProperty);
             $allFeatures = $fm->findAll();
 
+            /* $feat= array_diff($allFeatures, array($featureByIdProperty));
+            dump($feat); */
+
             $um = new UserManager();
             $usersProprietaire = $um->findByRole("Proprietaire");
             $usersLocataire = $um->findByRole("Locataire");
@@ -362,6 +365,7 @@ class AdminController extends AbstractController
 
             $tm = new TypeManager();
             $allType = $tm->findAll();
+
 
             //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
             unset($_SESSION["message"]);
@@ -391,26 +395,102 @@ class AdminController extends AbstractController
     public function checkUpdateProperty() : void
     {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
-        {//dump($_POST, $_FILES);
+        {
             $tokenManager = new CSRFTokenManager();
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
+                /*gestion des caracterisque du bien*/
 
                 $um = new PropertyManager();
                 $property = $um->updateProperty($_POST['propertyId']);
 
-                unset($_SESSION["message"]);
-                $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
-                //dump($_SESSION);
+                
 
+                if(isset($_POST["features"]) && isset($_FILES))
+                {
+                    $mm = new MediaManager();
+                    $pfm = new PropertyFeaturesManager();
+                    $featureByIdProperty = $pfm->findFeatureByIdProperty($_POST['propertyId']);
+                    
+                    $allFeatureProperty = [];
+                    $newfeatures = [];
+                    foreach($_POST["features"] as $newfeature)
+                    {
+                        $newfeatures[] = (int) $newfeature;
+                    }
+
+                    foreach($featureByIdProperty as $feature)
+                    {
+                        $allFeatureProperty[] = (int) $feature->getId();
+                    }
+    
+                    foreach($allFeatureProperty as $feature)
+                    {
+                        if (!in_array($feature, $newfeatures, true)) 
+                        {
+        
+                            $pfm->deleteFeatureProperty($_POST["propertyId"], $feature);
+                        }    
+                        
+                    }
+                    
+                    foreach($newfeatures as $newfeature)
+                    {   
+                        
+                        
+                        if (!in_array($newfeature, $allFeatureProperty, true))
+                        {
+                            $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
+                        }
+                        
+                    }
+
+                    /*gestion des medias du bien*/
+        
+                    $upload = new Uploader();
+                    $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
+                    $keys = array_keys($_FILES);
+
+                    foreach($keys as $index => $key)
+                    {//dump($_FILES[$key]['name']);dump($oldMedias[$index]->getUrl());
+                        if($_FILES[$key]['name'] === $oldMedias[$index]->getUrl())
+                        {
+                            echo "déja utilisé<br>";
+                            
+                        }
+                        elseif(empty($_FILES[$key]["name"]))
+                        {
+                            echo "pas de fichier choisi";
+
+                        }
+                        else
+                        {
+                            $newMedias = $upload->upload($_FILES, $key);
+                            $mm->addMedia($newMedias);
+                            $mm->deleteMedia($oldMedias[$index]);
+                            echo "a garder";
+
+                                //$imageError = "Il y a eu une erreur lors de l'upload";
+
+                        }
+                        
+                    }
+       
+                }
+                
+
+                unset($_SESSION["message"]);
+                //$this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
+                //dump($_SESSION);
+                dump($_POST, $_FILES);
             }
             else
             {
                 $_SESSION["error-message"] = "Invalid CSRF token";
                 $this->redirect("index.php?route=admin");
                 //dump($_SESSION);
-
+                
 
             }
 

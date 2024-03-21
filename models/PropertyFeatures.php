@@ -15,7 +15,7 @@ class PropertyFeatures
      *
      * @return  int|null
      */
-    public function getId(): ?int
+    public function getId(): ? int
     {
         return $this->id;
     }
@@ -26,7 +26,7 @@ class PropertyFeatures
      * @param   int  $id  
      *
      */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
 

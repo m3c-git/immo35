@@ -37,7 +37,7 @@ class MediaManager extends AbstractManager
 
     }
 
-    public function findByIdProperty($id) : ? array
+    public function findByIdProperty(int $id) : ? array
     {
         $query = $this->db->prepare('SELECT * FROM medias WHERE property_id = :id');
         
@@ -65,6 +65,34 @@ class MediaManager extends AbstractManager
             
         }
 
+    }
+
+
+    public function addMedia(Media $media) : void
+    {
+
+        /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
+        N pas mettre les valeurs du VALUE entre backquote*/
+        $query = $this->db->prepare('INSERT INTO medias (id, url, property_id, type) VALUES (NULL, :url, :property_id, :type)');
+
+        $parameters = [
+            'url' => $media->getUrl(),
+            'property_id' => $media->getPropertyId(),
+            'type' => $media->getType(),
+            ];
+        $query->execute($parameters);
+    }
+
+    
+    public function deleteMedia(Media $media) : void
+    {
+    
+        $query = $this->db->prepare('DELETE FROM medias WHERE url = :url');
+        $parameters = [
+            "url" => $media->getUrl(),
+        ];
+        $query->execute($parameters);
+    
     }
 
 

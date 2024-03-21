@@ -37,13 +37,13 @@
             <fieldset class="my-1">
                 <legend>Caractéristiques du bien</legend>
                 {% for key, features in propertyById.propertyFeatures  %}
-                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features[]" id="features_{{ key }}" checked>
+                <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}" checked>
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
                 </label>
                 {% endfor %}
                 {% for key, features in allFeatures  %}
-                <input class="form-check-input" type="checkbox" value="{{ features.propertyFeaturesName }}" name="features[]" id="features_{{ key }}">
+                <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}">
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
                 </label>
@@ -61,8 +61,8 @@
                     <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="...">
                     <figcaption>{{ media.url }}</figcaption>
                   </figure>
-                  <label for="formFile" class="form-label">Default file input example</label>
-                  <input class="form-control" type="file" name="formFile_{{ key }}" id="formFile">
+                  <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
+                  <input class="form-control" type="file" name="formFile_{{ key }}" id="formFile_{{ key }}">
                  
                 {% endfor %} 
                 {% endif %}

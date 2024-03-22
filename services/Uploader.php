@@ -47,19 +47,35 @@ class Uploader {
                 if(in_array($file_ext, $this->extensions) === false && $file_ext !== ""){
                    throw new Exception("Bad file extension. Please upload a JPG, PDF or PNG file.");
                 }
-                elseif($uploadField === $keys[0])
+                elseif($uploadField === $keys[0] && !empty($file_name))
                 {
+                    if(!move_uploaded_file($file_tmp, $this->uploadFolder."/".$url))
+                    {
+                        throw new Exception("Il y a eu une erreur lors de l'upload");
+                    
+                    }
+                    else
+                    {
+                        $type = "vignette";
+                        return new Media($url, $this->propertyId, $type);
 
-                    move_uploaded_file($file_tmp, $this->uploadFolder."/".$url);
-                    $type = "vignette";
-                    return new Media($url, $this->propertyId, $type);
+                    }
+                    
                 
                 }
                 else
                 {   
-                    move_uploaded_file($file_tmp, $this->uploadFolder."/".$url);
-                    $type = null;
-                    return new Media($url, $this->propertyId, $type);
+                    if(!move_uploaded_file($file_tmp, $this->uploadFolder."/".$url))
+                    {
+                        throw new Exception("Il y a eu une erreur lors de l'upload");
+
+                    }
+                    else
+                    {
+                        $type = null;
+                        return new Media($url, $this->propertyId, $type);
+                    }
+                    
 
                 }
                 

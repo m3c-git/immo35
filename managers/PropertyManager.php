@@ -251,10 +251,8 @@ class PropertyManager extends AbstractManager
 
     }
 
-    public function createUser(User $user) : void
+    public function createProperty(Property $property) : void
     {
-
-        $currentDateTime = date('Y-m-d H:i:s');
 
 
         $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, address, phone, email, password, role, created_at) VALUES (NULL, :firstName, :lastName, :address, :phone, :email, NULL, :role, :createdAt)');
@@ -270,7 +268,7 @@ class PropertyManager extends AbstractManager
 
         $query->execute($parameters);
 
-        $user->setId($this->db->lastInsertId());
+        $property->setId($this->db->lastInsertId());
 
     }
 

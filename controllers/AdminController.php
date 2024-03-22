@@ -2,6 +2,10 @@
 
 class AdminController extends AbstractController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /******* Partie Admin *******/
 
@@ -124,12 +128,13 @@ class AdminController extends AbstractController
 
                         unset($_SESSION["error-message"]);
 
+                       
                         $this->redirect("index.php?route=admin");
                     }
                     else
                     {
                         $_SESSION["error-message"] = "A user already exists with this email";
-                        $this->redirect("index.php?route=add-user.html.twig");
+                        $this->redirect("index.php?route=add-user");
                     }
                     
 
@@ -291,7 +296,7 @@ class AdminController extends AbstractController
                             
                             $propertys[]= ["property" => $property, "vignette_url" => $media->getUrl()];
                         }
-                        elseif(!$propertys)
+                        elseif($media->getType() === null)
                         { 
                             $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];dump($propertys);
                         }
@@ -323,7 +328,242 @@ class AdminController extends AbstractController
             //dump($_SESSION);
         }
     }
- 
+
+    
+    public function addProperty() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+
+            $fm = new PropertyFeaturesManager();
+            $allFeatures = $fm->findAll();
+
+            $um = new UserManager();
+            $usersProprietaire = $um->findByRole("Proprietaire");
+            $usersLocataire = $um->findByRole("Locataire");
+
+            $em = new EnergyDiagnosticsManager();
+            $allNoteEnergy = $em->findAll();
+
+            $gm = new GreenhouseGasEmissionIndicesManager();
+            $allNoteGreenhouse = $gm->findAll();
+
+            $rm = new RentalManagementManager();
+            $allManagement = $rm->findAll();
+
+            $spm = new StatusPropertyManager();
+            $allStatus = $spm->findAll();
+
+            $sm = new StateManager();
+            $allState = $sm->findAll();
+
+            $tm = new TypeManager();
+            $allType = $tm->findAll();
+
+
+            $this->render("add-property.html.twig", ["allFeatures" => $allFeatures,
+                                                    "usersProprietaire" => $usersProprietaire, 
+                                                    "usersLocataire" => $usersLocataire,
+                                                    "allNoteEnergy" => $allNoteEnergy,
+                                                    "allNoteGreenhouse" => $allNoteGreenhouse,
+                                                    "allManagement" => $allManagement,
+                                                    "allStatus" => $allStatus,
+                                                    "allState" => $allState,
+                                                    "allType" => $allType
+                                                ]);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+        }
+
+    
+    }
+
+    public function checkAddProperty() : void
+    {
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        {
+            $tokenManager = new CSRFTokenManager();
+
+            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
+            {
+                /*gestion des caracterisque du bien*/
+
+                $pm = new PropertyManager();
+
+                $pfm = new PropertyFeaturesManager();
+                $allFeatures = $pfm->findAll();
+    
+                $um = new UserManager();
+                $usersProprietaire = $um->findByRole("Proprietaire");
+                $usersLocataire = $um->findByRole("Locataire");
+    
+                $em = new EnergyDiagnosticsManager();
+                $allNoteEnergy = $em->findAll();
+    
+                $gm = new GreenhouseGasEmissionIndicesManager();
+                $allNoteGreenhouse = $gm->findAll();
+    
+                $rm = new RentalManagementManager();
+                $allManagement = $rm->findAll();
+    
+                $spm = new StatusPropertyManager();
+                $allStatus = $spm->findAll();
+    
+                $sm = new StateManager();
+                $allState = $sm->findAll();
+    
+                $tm = new TypeManager();
+                $allType = $tm->findAll();
+
+                if(isset($_POST) && isset($_FILES))
+                {
+
+                    dump($_POST, $_FILES);
+
+                    $ownerId = $this->checkInput($_POST["ownerId"]);
+                    $tenantId = $this->checkInput($_POST["tenantId"]);
+                    $featuresId = $this->checkInput($_POST["features"]);
+                    $salesPrice = $this->checkInput($_POST["salesPrice"]);
+                    $rent = $this->checkInput($_POST["rent"]);
+                    $charge = $this->checkInput($_POST["charge"]);
+                    $rentCharge = $this->checkInput($_POST["rentCharge"]);
+                    $agencyFeesRent = $this->checkInput($_POST["agencyFeesRent"]);
+                    $energyDiagnosticsId = $this->checkInput($_POST["energyDiagnosticsId"]);
+                    $greenhouseGasEmissionIndicesId = $this->checkInput($_POST["greenhouseGasEmissionIndicesId"]);
+                    $statusId = $this->checkInput($_POST["statusId"]);
+                    $stateId = $this->checkInput($_POST["stateId"]);
+                    $typeId = $this->checkInput($_POST["typeId"]);
+                    $availabilityDate = $this->checkInput($_POST["role"]);
+                    $title = $this->checkInput($_POST["title"]);
+                    $rooms = $this->checkInput($_POST["rooms"]);
+                    $surface = $this->checkInput($_POST["surface"]);
+                    $description = $this->checkInput($_POST["description"]);
+                    $city = $this->checkInput($_POST["city"]);
+                    $district = $this->checkInput($_POST["district"]);
+                    $rentalManagementId = $this->checkInput($_POST["rentalManagementId"]);
+                    $location = $this->checkInput($_POST["location"]);
+
+                    
+                    foreach($usersProprietaire as $proprietaire)
+                    {
+                        if($proprietaire->getId() === $ownerId)
+                        {
+                            $ownerId = new User($proprietaire->getFirstName(), $proprietaire->getLastName(), $proprietaire->getAddress(),  $proprietaire->getPhone(), $proprietaire->getEmail(), null, $proprietaire->getRole());
+                        }
+                    }
+
+                    foreach($usersLocataire as $locataire)
+                    {
+                        if($locataire->getId() === $tenantId)
+                        {
+                            $tenantId = new User($locataire->getFirstName(), $locataire->getLastName(), $locataire->getAddress(),  $locataire->getPhone(), $locataire->getEmail(), null, $locataire->getRole());
+                        }
+                    }
+
+                    foreach($allNoteEnergy as $energy)
+                    {
+                        if($energy->getId() === $energyDiagnosticsId)
+                        {
+                            $energyDiagnosticsId = new EnergyDiagnostics($energy->getNote());
+                        }
+                    }
+
+                    foreach($allManagement as $management)
+                    {
+                        if($management->getId() === $rentalManagementId)
+                        {
+                            $rentalManagementId = new RentalManagement($management->getManagement());
+                        }
+                    }
+
+                    foreach($allNoteGreenhouse as $greenhouse)
+                    {
+                        if($greenhouse->getId() === $energyDiagnosticsId)
+                        {
+                            $energyDiagnosticsId = new RentalManagementManager($greenhouse->getNote());
+                        }
+                    }
+
+                    foreach($allStatus as $status)
+                    {
+                        if($status->getId() === $statusId)
+                        {
+                            $statusId = new StatusProperty($status->getStatusName());
+                        }
+                    }
+
+                    foreach($allState as $state)
+                    {
+                        if($state->getId() === $stateId)
+                        {
+                            $stateId = new State($status->getStateName());
+                        }
+                    }
+
+                    foreach($allType as $type)
+                    {
+                        if($type->getId() === $typeId)
+                        {
+                            $typeId = new Type($type->getTypeName());
+                        }
+                    }
+
+                    if($district === null)
+                    {
+                        $location = new Location($city);
+                    }
+                    else
+                    {
+                        $location = new Location($city);
+                        $location->setDistrict($district);
+                    }
+                    
+
+                    $property = new Property($statusId, $stateId,  $typeId, $availabilityDate, $title, $rooms, $surface, $description, $location, $ownerId, $ownerId, $rentalManagementId);
+                    
+                    $pm->createProperty($property);
+
+                    //traiter features après création du bien
+                    foreach($allFeatures as $feature)
+                        {
+                            foreach($_POST["features"] as $featureId)
+                            {
+                                if($feature->getId() === $featureId)
+                                $featureId = $pfm->updateFeatureProperty($property->getId(), $featureId);
+                            }
+                        }
+
+
+                    unset($_SESSION["error-message"]);
+                    $this->redirect("index.php?route=add-property");
+                }
+                //dump($_SESSION);
+                
+            }
+            else
+            {
+                $_SESSION["error-message"] = "Invalid CSRF token";
+                $this->redirect("index.php?route=admin");
+                //dump($_SESSION);
+                
+
+            }
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            //$this->redirect("index.php?route=login");
+            dump($_SESSION);
+
+        }
+
+    }
+
 
     public function updateProperty() : void
     {
@@ -340,9 +580,6 @@ class AdminController extends AbstractController
             $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
             $propertyById->setPropertyFeatures($featureByIdProperty);
             $allFeatures = $fm->findAll();
-
-            /* $feat= array_diff($allFeatures, array($featureByIdProperty));
-            dump($feat); */
 
             $um = new UserManager();
             $usersProprietaire = $um->findByRole("Proprietaire");
@@ -453,15 +690,20 @@ class AdminController extends AbstractController
                     $keys = array_keys($_FILES);
 
                     foreach($keys as $index => $key)
-                    {//dump($_FILES[$key]['name']);dump($oldMedias[$index]->getUrl());
+                    {//dump($_FILES[$key]);
                         if($_FILES[$key]['name'] === $oldMedias[$index]->getUrl())
                         {
                             echo "déja utilisé<br>";
                             
                         }
+                        elseif($_FILES[$key]['error'] === 1)
+                        {
+                            echo "Le fichier ne doit pas dépasser 2 Mo";
+
+                        }
                         elseif(empty($_FILES[$key]["name"]))
                         {
-                            echo "pas de fichier choisi";
+                            echo "pas de fichier choisi<br>";
 
                         }
                         else
@@ -469,7 +711,7 @@ class AdminController extends AbstractController
                             $newMedias = $upload->upload($_FILES, $key);
                             $mm->addMedia($newMedias);
                             $mm->deleteMedia($oldMedias[$index]);
-                            echo "a garder";
+                            echo "a garder<br>";
 
                                 //$imageError = "Il y a eu une erreur lors de l'upload";
 
@@ -481,7 +723,7 @@ class AdminController extends AbstractController
                 
 
                 unset($_SESSION["message"]);
-                //$this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
+                $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
                 //dump($_SESSION);
                 dump($_POST, $_FILES);
             }

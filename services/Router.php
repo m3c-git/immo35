@@ -152,6 +152,13 @@ class Router
         {
             $this->hc->viewProperty();
         }
+        else if(isset($get["route"]) && $get["route"] === "check-add-property")
+        {
+           
+            $this->hc->checkAddProperty();
+            
+            
+        }
         else if(isset($get["route"]) && $get["route"] === "update-property")
         {
             if(isset($get["id"]))

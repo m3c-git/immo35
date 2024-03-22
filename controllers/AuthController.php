@@ -116,14 +116,15 @@ class AuthController extends AbstractController
                             $email = htmlspecialchars($_POST["email"]);
                             $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
                             
-                            
+                            dump($_POST);
                             $um->createAdmin($user);
 
                             $_SESSION["user"] = $user->getId();
 
                             unset($_SESSION["error-message"]);
 
-                            $this->redirect("index.php");
+                            
+                            $this->redirect("index.php=register");
                         }
                         else
                         {

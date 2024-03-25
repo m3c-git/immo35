@@ -134,7 +134,7 @@ class PropertyManager extends AbstractManager
                     $value->setRentCharge($result["rent_charge"]);
                     $value->setCharge($result["charge"]);
                     $value->setSecurityDeposit($result["security_deposit"]);
-                    $value->setAgencyFees($result["agency_fees_rent"]);
+                    $value->setAgencyFeesRent($result["agency_fees_rent"]);
                     $value->getEnergyDiagnostics()->setId($result["energy_diagnostics_id"]);
                     $value->getEnergyDiagnostics()->setNote($result["note_energy_diagnostics"]);
                     $value->getGreenhouseGasEmissionIndices()->setId($result["greenhouse_gas_emission_indices_id"]);
@@ -207,7 +207,7 @@ class PropertyManager extends AbstractManager
             $property->setRentCharge($result["rent_charge"]);
             $property->setCharge($result["charge"]);
             $property->setSecurityDeposit($result["security_deposit"]);
-            $property->setAgencyFees($result["agency_fees_rent"]);
+            $property->setAgencyFeesRent($result["agency_fees_rent"]);
             $property->getEnergyDiagnostics()->setId($result["energy_diagnostics_id"]);
             $property->getEnergyDiagnostics()->setNote($result["note_energy_diagnostics"]);
             $property->getGreenhouseGasEmissionIndices()->setId($result["greenhouse_gas_emission_indices_id"]);
@@ -227,48 +227,48 @@ class PropertyManager extends AbstractManager
         return null;
     }
 
-    public function createAdmin(User $user) : void
-    {
-
-        $currentDateTime = date('Y-m-d H:i:s');
-
-
-        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, address, phone, email, password, role, created_at) VALUES (NULL, :firstName, :lastName, :address, :phone, :email, :password, :role, :createdAt)');
-        $parameters = [
-            "firstName" => $user->getFirstName(),
-            "lastName" => $user->getLastName(),
-            "address" => $user->getAddress(),
-            "phone" => $user->getPhone(),
-            "email" => $user->getEmail(),
-            "password" => $user->getPassword(),
-            "role" => $user->getRole(),
-            "createdAt" => $currentDateTime,
-        ];
-
-        $query->execute($parameters);
-
-        $user->setId($this->db->lastInsertId());
-
-    }
 
     public function createProperty(Property $property) : void
     {
+        
+       
 
-
-        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, address, phone, email, password, role, created_at) VALUES (NULL, :firstName, :lastName, :address, :phone, :email, NULL, :role, :createdAt)');
+        if($property->getTenant() === null)
+        {
+            $tenant = null;
+        }
+        else{
+            $tenant = $property->getTenant()->getId();
+        }
+        
+        $query = $this->db->prepare('INSERT INTO propertys (id, status_property_id, state_id, types_id, availability_date, title, rooms, surface, description, location_id, sales_price, rent, rent_charge, charge, security_deposit, agency_fees_rent, energy_diagnostics_id, greenhouse_gas_emission_indices_id, owner_id, tenant_id, rental_management_id) VALUES (NULL, :status_property_id, :state_id, :types_id, :availability_date, :title, :rooms, :surface, :description, :location_id, :sales_price, :rent, :rent_charge, :charge, :security_deposit, :agency_fees_rent, :energy_diagnostics_id, :greenhouse_gas_emission_indices_id, :owner_id, :tenant_id, :rental_management_id)');
         $parameters = [
-            "firstName" => $user->getFirstName(),
-            "lastName" => $user->getLastName(),
-            "address" => $user->getAddress(),
-            "phone" => $user->getPhone(),
-            "email" => $user->getEmail(),
-            "role" => $user->getRole(),
-            "createdAt" => $currentDateTime,
+            "status_property_id" => $property->getStatusProperty()->getId(),
+            "state_id" => $property->getState()->getId(),
+            "types_id" => $property->getType()->getId(),
+            "availability_date" => $property->getAvailabilityDate(),
+            "title" => $property->getTitle(),
+            "rooms" => $property->getRooms(),
+            "surface" => $property->getSurface(),
+            "description" => $property->getDescription(),
+            "location_id" => $property->getLocation()->getId(),
+            "sales_price" => $property->getSalesPrice(),
+            "rent" => $property->getRent(),
+            "rent_charge" => $property->getRentCharge(),
+            "charge" => $property->getCharge(),
+            "security_deposit" => $property->getSecurityDeposit(),
+            "agency_fees_rent" => $property->getAgencyFeesRent(),
+            "energy_diagnostics_id" => $property->getEnergyDiagnostics()->getId(),
+            "greenhouse_gas_emission_indices_id" => $property->getGreenhouseGasEmissionIndices()->getId(),
+            "owner_id" => $property->getOwner()->getId(),
+            "tenant_id" => $tenant,
+            "rental_management_id" => $property->getRentalManagement()->getId(),
         ];
 
         $query->execute($parameters);
 
         $property->setId($this->db->lastInsertId());
+        
 
     }
 

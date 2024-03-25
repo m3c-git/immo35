@@ -12,8 +12,8 @@ class Property
     private ? int $agencyFeesRent = null;
     private ? EnergyDiagnostics $energyDiagnostics;
     private ? GreenhouseGasEmissionIndices $greenhouseGasEmissionIndices;
-    private ? array $medias;
-    private ? array $propertyFeatures;
+    private ? array $medias = [];
+    private ? array $propertyFeatures = [];
 
 
     public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private string $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
@@ -358,22 +358,22 @@ class Property
     }
 
     /**
-     * Get the value of agencyFees
+     * Get the value of agencyFeesRent
      *
      * @return  int|null
      */
-    public function getAgencyFees(): ? int
+    public function getAgencyFeesRent(): ? int
     {
         return $this->agencyFeesRent;
     }
 
     /**
-     * Set the value of agencyFees
+     * Set the value of agencyFeesRent
      *
-     * @param   int  $agencyFees  
+     * @param   int  $agencyFeesRent
      *
      */
-    public function setAgencyFees($agencyFeesRent): void
+    public function setAgencyFeesRent($agencyFeesRent): void
     {
         $this->agencyFeesRent = $agencyFeesRent;
 
@@ -392,10 +392,10 @@ class Property
     /**
      * Set the value of energyDiagnostics
      *
-     * @param   int  $energyDiagnostics  
+     * @param   EnergyDiagnostics  $energyDiagnostics  
      *
      */
-    public function setEnergyDiagnostics($energyDiagnostics): void
+    public function setEnergyDiagnostics(EnergyDiagnostics $energyDiagnostics): void
     {
         $this->energyDiagnostics = $energyDiagnostics;
 
@@ -414,10 +414,10 @@ class Property
     /**
      * Set the value of greenhouseGasEmissionIndices
      *
-     * @param   int  $greenhouseGasEmissionIndices  
+     * @param   GreenhouseGasEmissionIndices  $greenhouseGasEmissionIndices  
      *
      */
-    public function setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndices): void
+    public function setGreenhouseGasEmissionIndices(GreenhouseGasEmissionIndices $greenhouseGasEmissionIndices): void
     {
         $this->greenhouseGasEmissionIndices = $greenhouseGasEmissionIndices;
 

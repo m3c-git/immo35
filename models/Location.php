@@ -4,7 +4,7 @@
 class Location
 {
     private ? int $id = null;
-    private ? int $district = null;
+    private ? string $district = null;
 
     public function __construct(private string $city)
     {
@@ -27,7 +27,7 @@ class Location
      * @param   int  $id  
      *
      */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
 
@@ -58,9 +58,9 @@ class Location
     /**
      * Get the value of district
      *
-     * @return  int|null
+     * @return  string|null
      */
-    public function getDistrict(): ?int
+    public function getDistrict(): ?string
     {
         return $this->district;
     }
@@ -68,10 +68,10 @@ class Location
     /**
      * Set the value of district
      *
-     * @param   int  $district  
+     * @param   string  $district  
      *
      */
-    public function setDistrict($district): void
+    public function setDistrict(string $district): void
     {
         $this->district = $district;
 

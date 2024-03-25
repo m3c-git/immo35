@@ -21,7 +21,7 @@ class TypeManager extends AbstractManager
                 
                 if($result !== null)
                 {
-                    $value = new State($result["type_name"]);
+                    $value = new Type($result["type_name"]);
                     $value->setId($result["id"]);
                     $allType[] = $value;
                 }

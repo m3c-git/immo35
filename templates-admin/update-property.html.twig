@@ -36,12 +36,16 @@
             </fieldset>
             <fieldset class="my-1">
                 <legend>Caractéristiques du bien</legend>
+                
                 {% for key, features in propertyById.propertyFeatures  %}
+                
                 <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}" checked>
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
                 </label>
+                
                 {% endfor %}
+                
                 {% for key, features in allFeatures  %}
                 <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}">
                 <label class="form-check-label" for="features_{{ key }}">
@@ -176,7 +180,7 @@
                 <label for="description" class="form-label">
                     Description
                 </label>
-                <input type="text" name="description" id="description" class="form-control" value="{{ propertyById.description }}"/>
+                <textarea class="form-control" name="description" id="description"  value="{{ propertyById.description }}" rows="5"></textarea>
             </fieldset>
             <fieldset class="my-1">
                 <label for="city" class="form-label">

@@ -13,7 +13,7 @@ class User
     }
 
     /* Le getter de l'attribut id */
-    public function getId() : int 
+    public function getId() : ? int 
     {
         return $this->id;
     }

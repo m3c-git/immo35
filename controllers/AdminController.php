@@ -288,6 +288,10 @@ class AdminController extends AbstractController
                 $propertys = [];  
                 foreach($mediasByType as $media)
                 {
+                    if($propertysByType !== null)
+                    {
+                        
+                    }
                     foreach($propertysByType as $property)
                     {
                         
@@ -298,13 +302,18 @@ class AdminController extends AbstractController
                         }
                         elseif($media->getType() === null)
                         { 
-                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];dump($propertys);
+                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                        }
+                        else
+                        {
+                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+
                         }
 
                     }
                         
                 }
-        
+       
                 unset($_SESSION["message"]);
                 $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys]);
                 
@@ -360,6 +369,9 @@ class AdminController extends AbstractController
             $tm = new TypeManager();
             $allType = $tm->findAll();
 
+            $lm = new LocationManager();
+            $allLocation = $lm->findAll();
+            
 
             $this->render("add-property.html.twig", ["allFeatures" => $allFeatures,
                                                     "usersProprietaire" => $usersProprietaire, 
@@ -369,7 +381,8 @@ class AdminController extends AbstractController
                                                     "allManagement" => $allManagement,
                                                     "allStatus" => $allStatus,
                                                     "allState" => $allState,
-                                                    "allType" => $allType
+                                                    "allType" => $allType,
+                                                    "allLocation" => $allLocation
                                                 ]);
 
         }
@@ -396,6 +409,8 @@ class AdminController extends AbstractController
 
                 $pfm = new PropertyFeaturesManager();
                 $allFeatures = $pfm->findAll();
+
+                $mm = new MediaManager();
     
                 $um = new UserManager();
                 $usersProprietaire = $um->findByRole("Proprietaire");
@@ -419,49 +434,77 @@ class AdminController extends AbstractController
                 $tm = new TypeManager();
                 $allType = $tm->findAll();
 
+                $lm = new LocationManager();
+                $allLocation = $lm->findAll();
+
                 if(isset($_POST) && isset($_FILES))
                 {
+                  
+                    dump($_POST);
+                   
 
-                    dump($_POST, $_FILES);
-
-                    $ownerId = $this->checkInput($_POST["ownerId"]);
-                    $tenantId = $this->checkInput($_POST["tenantId"]);
-                    $featuresId = $this->checkInput($_POST["features"]);
-                    $salesPrice = $this->checkInput($_POST["salesPrice"]);
-                    $rent = $this->checkInput($_POST["rent"]);
-                    $charge = $this->checkInput($_POST["charge"]);
-                    $rentCharge = $this->checkInput($_POST["rentCharge"]);
-                    $agencyFeesRent = $this->checkInput($_POST["agencyFeesRent"]);
-                    $energyDiagnosticsId = $this->checkInput($_POST["energyDiagnosticsId"]);
-                    $greenhouseGasEmissionIndicesId = $this->checkInput($_POST["greenhouseGasEmissionIndicesId"]);
-                    $statusId = $this->checkInput($_POST["statusId"]);
-                    $stateId = $this->checkInput($_POST["stateId"]);
-                    $typeId = $this->checkInput($_POST["typeId"]);
-                    $availabilityDate = $this->checkInput($_POST["role"]);
+                    $ownerId = (int) $this->checkInput($_POST["ownerId"]);
+                    $featuresId = [];
+                    $salesPrice = (int) $this->checkInput($_POST["salesPrice"]);
+                    $rent = (int) $this->checkInput($_POST["rent"]);
+                    $charge = (int) $this->checkInput($_POST["charge"]);
+                    $securityDeposit = (int) $this->checkInput($_POST["securityDeposit"]);
+                    $rentCharge = (int)$this->checkInput($_POST["rentCharge"]);
+                    $agencyFeesRent = (int) $this->checkInput($_POST["agencyFeesRent"]);
+                    $energyDiagnosticsId = (int) $this->checkInput($_POST["energyDiagnosticsId"]);
+                    $greenhouseGasEmissionIndicesId = (int) $this->checkInput($_POST["greenhouseGasEmissionIndicesId"]);
+                    $statusId = (int) $this->checkInput($_POST["statusId"]);
+                    $stateId = (int) $this->checkInput($_POST["stateId"]);
+                    $typeId = (int) $this->checkInput($_POST["typeId"]);
+                    $availabilityDate = $this->checkInput($_POST["availabilityDate"]);
                     $title = $this->checkInput($_POST["title"]);
-                    $rooms = $this->checkInput($_POST["rooms"]);
-                    $surface = $this->checkInput($_POST["surface"]);
+                    $rooms = (int) $this->checkInput($_POST["rooms"]);
+                    $surface = (int) $this->checkInput($_POST["surface"]);
                     $description = $this->checkInput($_POST["description"]);
-                    $city = $this->checkInput($_POST["city"]);
-                    $district = $this->checkInput($_POST["district"]);
-                    $rentalManagementId = $this->checkInput($_POST["rentalManagementId"]);
-                    $location = $this->checkInput($_POST["location"]);
+                    $locationId = (int) $this->checkInput($_POST["city"]);
+                    $rentalManagementId = (int) $this->checkInput($_POST["rentalManagementId"]);
+            
 
-                    
+
+                    if($this->checkInput($_POST["district"] !== ""))
+                    {
+                        $district = (int) $this->checkInput($_POST["district"]);
+                    }
+                    else
+                    {
+                        $district = $this->checkInput($_POST["district"]);
+
+                    }
+
                     foreach($usersProprietaire as $proprietaire)
                     {
                         if($proprietaire->getId() === $ownerId)
-                        {
+                        { 
                             $ownerId = new User($proprietaire->getFirstName(), $proprietaire->getLastName(), $proprietaire->getAddress(),  $proprietaire->getPhone(), $proprietaire->getEmail(), null, $proprietaire->getRole());
+                            $ownerId->setId($proprietaire->getId());
                         }
                     }
 
-                    foreach($usersLocataire as $locataire)
+                    if($this->CheckInput($_POST['tenantId']) === "")
                     {
-                        if($locataire->getId() === $tenantId)
+                     $tenantId = NULL;
+                    }
+                    else
+                    {
+                        $tenantId = (int) $this->CheckInput($_POST['tenantId']);   
+                        
+                        foreach($usersLocataire as $locataire)
                         {
-                            $tenantId = new User($locataire->getFirstName(), $locataire->getLastName(), $locataire->getAddress(),  $locataire->getPhone(), $locataire->getEmail(), null, $locataire->getRole());
+                            if($locataire->getId() === $tenantId)
+                            {
+                            
+
+                                $tenantId = new User($locataire->getFirstName(), $locataire->getLastName(), $locataire->getAddress(),  $locataire->getPhone(), $locataire->getEmail(), null, $locataire->getRole());
+                                $tenantId->setId($locataire->getId());
+
+                            }
                         }
+                    
                     }
 
                     foreach($allNoteEnergy as $energy)
@@ -469,22 +512,16 @@ class AdminController extends AbstractController
                         if($energy->getId() === $energyDiagnosticsId)
                         {
                             $energyDiagnosticsId = new EnergyDiagnostics($energy->getNote());
-                        }
-                    }
-
-                    foreach($allManagement as $management)
-                    {
-                        if($management->getId() === $rentalManagementId)
-                        {
-                            $rentalManagementId = new RentalManagement($management->getManagement());
+                            $energyDiagnosticsId->setId($energy->getId());
                         }
                     }
 
                     foreach($allNoteGreenhouse as $greenhouse)
                     {
-                        if($greenhouse->getId() === $energyDiagnosticsId)
+                        if($greenhouse->getId() === $greenhouseGasEmissionIndicesId)
                         {
-                            $energyDiagnosticsId = new RentalManagementManager($greenhouse->getNote());
+                            $greenhouseGasEmissionIndicesId = new GreenhouseGasEmissionIndices($greenhouse->getNote());
+                            $greenhouseGasEmissionIndicesId->setId($greenhouse->getId());
                         }
                     }
 
@@ -493,6 +530,7 @@ class AdminController extends AbstractController
                         if($status->getId() === $statusId)
                         {
                             $statusId = new StatusProperty($status->getStatusName());
+                            $statusId->setId($status->getId());
                         }
                     }
 
@@ -500,7 +538,8 @@ class AdminController extends AbstractController
                     {
                         if($state->getId() === $stateId)
                         {
-                            $stateId = new State($status->getStateName());
+                            $stateId = new State($state->getStateName());
+                            $stateId->setId($state->getId());
                         }
                     }
 
@@ -509,37 +548,100 @@ class AdminController extends AbstractController
                         if($type->getId() === $typeId)
                         {
                             $typeId = new Type($type->getTypeName());
+                            $typeId->setId($type->getId());
                         }
                     }
 
-                    if($district === null)
+                    foreach($allManagement as $management)
                     {
-                        $location = new Location($city);
+                        if($management->getId() === $rentalManagementId)
+                        {
+                            $rentalManagementId = new RentalManagement($management->getManagement());
+                            $rentalManagementId->setId($management->getId());
+                        }
                     }
-                    else
-                    {
-                        $location = new Location($city);
-                        $location->setDistrict($district);
-                    }
-                    
 
-                    $property = new Property($statusId, $stateId,  $typeId, $availabilityDate, $title, $rooms, $surface, $description, $location, $ownerId, $ownerId, $rentalManagementId);
-                    
+                    foreach($allLocation as $location)
+                    {
+                        if($location->getId() === $locationId)
+                        {
+                            $locationId = new Location($location->getCity());
+                            $locationId->setId($location->getId());
+                                
+                            if($district !== "")
+                            {
+                               $locationId->setDistrict($location->getDistrict());
+                                
+                            }
+                        }
+                            
+                    }   
+
+                    $property = new Property($statusId, $stateId,  $typeId, $availabilityDate, $title, $rooms, $surface, $description, $locationId, $ownerId, $tenantId, $rentalManagementId);
+                    $property->setSalesPrice($salesPrice);
+                    $property->setRent($rent);
+                    $property->setRentCharge($rentCharge);
+                    $property->setCharge($charge);
+                    $property->setSecurityDeposit($securityDeposit);
+                    $property->setAgencyFeesRent($agencyFeesRent);
+                    $property->setEnergyDiagnostics($energyDiagnosticsId);
+                    $property->setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndicesId);
+
                     $pm->createProperty($property);
+                    $_SESSION["new-property-id"] = $property->getId();
 
-                    //traiter features après création du bien
+                    //traitement des features après création du bien
                     foreach($allFeatures as $feature)
                         {
-                            foreach($_POST["features"] as $featureId)
+                            foreach($_POST["features"] as $id)
                             {
-                                if($feature->getId() === $featureId)
-                                $featureId = $pfm->updateFeatureProperty($property->getId(), $featureId);
+                                $featuresId = (int) $this->checkInput($id);
+                                
+                                if($feature->getId() === $featuresId)
+                                {
+                                    $pfm->updateFeatureProperty($property->getId(), $featuresId);
+                                }
+                                
                             }
                         }
 
 
+                    /*traitement des medias après création du bien*/
+                    $upload = new Uploader();
+                    $file_ary = $upload->reArrayFiles($_FILES['formFile']);
+                    dump($file_ary);
+
+                
+
+                    foreach($file_ary as $key => $file)
+                    {
+                        if($file['error'] === 1)
+                        {
+                            echo "Le fichier ne doit pas dépasser 2 Mo";
+
+                        }
+                        elseif(empty($file['name']))
+                        {
+                            echo "pas de fichier choisi<br>";
+
+                        }
+                        else
+                        {
+                            //dump($upload->rearrange($_FILES));
+                            $newMedias = $upload->upload($file, $key);dump($newMedias);
+                            $mm->addMedia($newMedias);
+                            
+                            echo "a garder<br>";
+
+                                //$imageError = "Il y a eu une erreur lors de l'upload";
+
+                        }
+                        
+                    }dump($property);
+
                     unset($_SESSION["error-message"]);
-                    $this->redirect("index.php?route=add-property");
+                    //$this->redirect("index.php?route=add-property");
+                    //dump($_POST, $_FILES);
                 }
                 //dump($_SESSION);
                 
@@ -578,7 +680,12 @@ class AdminController extends AbstractController
 
             $fm = new PropertyFeaturesManager();
             $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
-            $propertyById->setPropertyFeatures($featureByIdProperty);
+
+            if($propertyById->getPropertyFeatures() === null)
+            {
+                $featureByIdProperty = false;
+            }
+            
             $allFeatures = $fm->findAll();
 
             $um = new UserManager();

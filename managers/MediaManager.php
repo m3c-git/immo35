@@ -83,6 +83,19 @@ class MediaManager extends AbstractManager
         $query->execute($parameters);
     }
 
+    public function updateMedia(Media $media) : void
+    {
+        $type = "vignette";
+
+        /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
+        N pas mettre les valeurs du VALUE entre backquote*/
+        $query = $this->db->prepare("UPDATE medias SET type = :type WHERE id = :id");
+           $parameters = [
+               'id' => $media->getId(),
+               'type' => $type,
+               ];
+           $query->execute($parameters);
+    }
     
     public function deleteMedia(Media $media) : void
     {

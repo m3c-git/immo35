@@ -284,36 +284,27 @@ class AdminController extends AbstractController
 
             if($propertysByType !== null)
             {
-
                 $propertys = [];  
-                foreach($mediasByType as $media)
-                {
-                    if($propertysByType !== null)
-                    {
-                        
-                    }
+                
+                   
                     foreach($propertysByType as $property)
-                    {
-                        
-                        if($property->getId() === $media->getPropertyId())
+                    {$val = "";
+                        foreach($mediasByType as $media)
                         {
                             
-                            $propertys[]= ["property" => $property, "vignette_url" => $media->getUrl()];
-                        }
-                        elseif($media->getType() === null)
-                        { 
-                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
-                        }
-                        else
+                            if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
+                            {
+                                $val= ["property" => $property, "vignette_url" => $media->getUrl()];
+                            }
+                            
+                        }                          
+                        if(!$val) 
                         {
-                            $propertys[]= ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
-
+                            $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
                         }
-
+                        $propertys[] = $val;
                     }
-                        
-                }
-       
+
                 unset($_SESSION["message"]);
                 $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys]);
                 
@@ -676,14 +667,23 @@ class AdminController extends AbstractController
 
             $mm = new MediaManager();
             $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
-            $propertyById->setMedias($mediaByIdProperty);
+            
+            if($mediaByIdProperty !== [])
+            {
+                if($mediaByIdProperty[0]->gettype() === null)
+                {
+                    $mm->updateMedia($mediaByIdProperty[0]);
+                }
+                $propertyById->setMedias($mediaByIdProperty);
+
+            }
 
             $fm = new PropertyFeaturesManager();
             $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
 
-            if($propertyById->getPropertyFeatures() === null)
+            if($featureByIdProperty !== null)
             {
-                $featureByIdProperty = false;
+                $propertyById->setPropertyFeatures($featureByIdProperty);
             }
             
             $allFeatures = $fm->findAll();
@@ -709,13 +709,15 @@ class AdminController extends AbstractController
 
             $tm = new TypeManager();
             $allType = $tm->findAll();
-
-
+           
+            //dump($propertyById);
             //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
             unset($_SESSION["message"]);
             
-            $this->render("update-property.html.twig", ["propertyById" =>$propertyById, 
+            $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
                                                         "allFeatures" => $allFeatures, 
+                                                        "featureByIdProperty" => $featureByIdProperty,
+                                                        "mediaByIdProperty" => $mediaByIdProperty,
                                                         "usersProprietaire" => $usersProprietaire, 
                                                         "usersLocataire" => $usersLocataire,
                                                         "allNoteEnergy" => $allNoteEnergy,
@@ -749,13 +751,13 @@ class AdminController extends AbstractController
                 $um = new PropertyManager();
                 $property = $um->updateProperty($_POST['propertyId']);
 
+                $pfm = new PropertyFeaturesManager();
+                $featureByIdProperty = $pfm->findFeatureByIdProperty($_POST['propertyId']);
                 
+                $mm = new MediaManager();
 
-                if(isset($_POST["features"]) && isset($_FILES))
+                if(isset($_POST["features"]))
                 {
-                    $mm = new MediaManager();
-                    $pfm = new PropertyFeaturesManager();
-                    $featureByIdProperty = $pfm->findFeatureByIdProperty($_POST['propertyId']);
                     
                     $allFeatureProperty = [];
                     $newfeatures = [];
@@ -764,10 +766,14 @@ class AdminController extends AbstractController
                         $newfeatures[] = (int) $newfeature;
                     }
 
-                    foreach($featureByIdProperty as $feature)
+                    if($featureByIdProperty !== null)
                     {
-                        $allFeatureProperty[] = (int) $feature->getId();
+                        foreach($featureByIdProperty as $feature)
+                        {
+                            $allFeatureProperty[] = (int) $feature->getId();
+                        }
                     }
+                    
     
                     foreach($allFeatureProperty as $feature)
                     {
@@ -787,12 +793,84 @@ class AdminController extends AbstractController
                         {
                             $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
                         }
+                        elseif($allFeatureProperty === [])
+                        {
+                            $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
+                        }
                         
                     }
 
-                    /*gestion des medias du bien*/
+                    if(isset($_FILES))
+                    {
+
+                    
+
+                        /*gestion des medias du bien*/
+                        $upload = new Uploader();
+                        $oldMedias = $mm->findByIdProperty($_POST['propertyId']);dump($oldMedias, $_FILES);
+                        $file_ary = $upload->reArrayFiles($_FILES['formFile']);
+
+                       
+                            foreach($file_ary as $key => $file)
+                            {dump($file);
+                               
+                                    $newMedias = $upload->upload($file, $key);
+                                    
+                                    if($file['error'] === 1)
+                                    {
+                                        echo "Le fichier ne doit pas dépasser 2 Mo";
+
+                                    }
+                                    elseif(empty($file['name']))
+                                    {
+                                        echo "pas de fichier choisi<br>";
+
+                                    }
+                                    elseif($oldMedias === [])
+                                    {
+                                        $mm->addMedia($newMedias);
+                                    }
+                                    elseif($oldMedias !== null)
+                                    {//dump($oldMedias[$i++]);
+
+                                        foreach($oldMedias as $media)
+                                        {dump($file);
+                             
+                                        
+                                            if($file['name'] === $media->getUrl())
+                                            {
+                                                echo "déja utilisé<br>";  
+                                            }
+                                            else
+                                            {
+                                                //dump($upload->rearrange($_FILES));
+                                                
+                                                $mm->deleteMedia($media);
+                                            }                                        
+                                        }
+                                        $mm->addMedia($newMedias);
+                                    }
+                                    
+                                   /*  else
+                                    {
+                                        //dump($upload->rearrange($_FILES));
+                                        
+                                        $mm->addMedia($newMedias);
+                                        
+                                        echo "a garder<br>";
+
+                                            //$imageError = "Il y a eu une erreur lors de l'upload";
+
+                                    } */
+                                
+                                
+                            }dump($property);
+                        
+                    }
+
+
         
-                    $upload = new Uploader();
+                   /*  $upload = new Uploader();
                     $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
                     $keys = array_keys($_FILES);
 
@@ -824,13 +902,13 @@ class AdminController extends AbstractController
 
                         }
                         
-                    }
+                    } */
        
                 }
                 
 
                 unset($_SESSION["message"]);
-                $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
+                //$this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
                 //dump($_SESSION);
                 dump($_POST, $_FILES);
             }
@@ -852,6 +930,51 @@ class AdminController extends AbstractController
 
         }
 
+    }
+
+    public function deleteProperty() : void
+    {
+        if($_SESSION["role"] === "ADMIN")
+        {
+            $mm = new MediaManager();
+            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
+
+            $pfm = new PropertyFeaturesManager();
+            $featureByIdProperty = $pfm->findFeatureByIdProperty($_GET["id"]);
+            
+            $pm = new PropertyManager();
+            
+            if($featureByIdProperty !== [])
+            {
+                foreach($featureByIdProperty as $feature)
+                {
+                    $pfm->deleteFeatureProperty($_GET["id"], $feature->getId());
+                }
+            }
+            
+            if($mediaByIdProperty !== [])
+            {
+                foreach($mediaByIdProperty as $media)
+                {
+                    $mm->deleteMedia($media);
+                }
+            }
+
+            $pm->deleteProperty($_GET["id"]);
+
+
+            $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
+            //dump($_SESSION);
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+            dump($_SESSION);
+        }
+
+        
     }
 
 }

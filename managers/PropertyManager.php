@@ -420,11 +420,11 @@ class PropertyManager extends AbstractManager
         }
     }
 
-    public function deleteUser( int $userId) : void
+    public function deleteProperty( int $propertyId) : void
     {
-        $query = $this->db->prepare('DELETE FROM users WHERE id=:id');
+        $query = $this->db->prepare('DELETE FROM propertys WHERE id = :id');
         $parameters = [
-            "id" => $userId,
+            "id" => $propertyId,
         ];
         $query->execute($parameters);
 

@@ -37,8 +37,7 @@
             <fieldset class="my-1">
                 <legend>Caractéristiques du bien</legend>
                 
-                {% for key, features in propertyById.propertyFeatures  %}
-                
+                {% for key, features in featureByIdProperty  %}
                 <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}" checked>
                 <label class="form-check-label" for="features_{{ key }}">
                     {{ features.propertyFeaturesName }}
@@ -59,6 +58,8 @@
                 <figure>
                     <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="...">
                   </figure>
+                  <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
+                  <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>
                   {% else %}
                   {% for key, media in propertyById.medias  %}
                   <figure>
@@ -66,10 +67,13 @@
                     <figcaption>{{ media.url }}</figcaption>
                   </figure>
                   <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
-                  <input class="form-control" type="file" name="formFile_{{ key }}" id="formFile_{{ key }}">
+                  <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" >
                  
                 {% endfor %} 
                 {% endif %}
+                <label for="formFile_{{ key }}" class="form-label">Ajouter des photos supplementaire</label>
+                <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>
+
             </fieldset>
             <fieldset class="my-1">
                 <label for="salesPrice" class="form-label">
@@ -147,7 +151,7 @@
                 <select class="form-select" id="typeId" name="typeId" aria-label="Floating label select example">
                     <option value="{{  propertyById.type.id }}" selected>{{ propertyById.type.typeName }}</option>
                     {% for type in allType  %}
-                    <option value="{{  type.id }}">{{ type.management }}</option>
+                    <option value="{{  type.id }}">{{ type.typeName }}</option>
                     {% endfor %}
                 </select>
                 <label for="typeId">Types de propriété</label>
@@ -204,7 +208,7 @@
                 <label for="rentalManagementId">Gestion locative</label>
             </fieldset>
             <button type="submit" class="mt-3 btn btn-primary">Mettre à jour</button>
-            <a class="btn btn-danger" href="index.php?route=delete-user&id={{ userById.id }}" role="button">Supprimer le bien</a>
+            <a class="btn btn-danger" href="index.php?route=delete-property&id={{ propertyById.id }}&type={{ propertyById.type.typeName }}&typeMedia=vignette" role="button">Supprimer le bien</a>
         </form>
 
    

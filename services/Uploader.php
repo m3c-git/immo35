@@ -82,10 +82,10 @@ class Uploader {
                     
                 
                 }
-                else
+                elseif(!empty($file_name))
                 {   
                     if(!move_uploaded_file($file_tmp, $this->uploadFolder."/".$url))
-                    {
+                    {dump("ici",$file_tmp, $this->uploadFolder."/".$url);
                         throw new Exception("Il y a eu une erreur lors de l'upload");
 
                     }

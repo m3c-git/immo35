@@ -186,17 +186,23 @@
                 </label>
                 <textarea class="form-control" name="description" id="description"  value="{{ propertyById.description }}" rows="5"></textarea>
             </fieldset>
-            <fieldset class="my-1">
-                <label for="city" class="form-label">
-                    Ville
-                </label>
-                <input type="text" name="city" id="city" class="form-control" value="{{ propertyById.location.city }}"/>
+            <fieldset class="my-1 form-floating">
+                <select class="form-select" id="city" name="city" aria-label="Floating label select example">
+                    <option selected value="">Selectionner une ville</option>
+                    {% for location in allLocation  %}
+                    <option value="{{  location.id }}">{{ location.city }}</option>
+                    {% endfor %}
+                </select>
+                <label for="city">Ville</label>
             </fieldset>
-            <fieldset class="my-1">
-                <label for="district" class="form-label">
-                    Quartier
-                </label>
-                <input type="text" name="district" id="district" class="form-control" value="{{ propertyById.location.district }}"/>
+            <fieldset class="my-1 form-floating">
+                <select class="form-select" id="district" name="district" aria-label="Floating label select example">
+                    <option selected value="">Selectionner un code postal</option>
+                    {% for location in allLocation  %}
+                    <option value="{{  location.id }}">{{ location.district }}</option>
+                    {% endfor %}
+                </select>
+                <label for="district">Quartier</label>
             </fieldset>
             <fieldset class="my-1 form-floating">
                 <select class="form-select" id="rentalManagementId" name="rentalManagementId" aria-label="Floating label select example">

@@ -698,6 +698,9 @@ class AdminController extends AbstractController
             $gm = new GreenhouseGasEmissionIndicesManager();
             $allNoteGreenhouse = $gm->findAll();
 
+            $lm = new LocationManager();
+            $allLocation = $lm->findAll();
+
             $rm = new RentalManagementManager();
             $allManagement = $rm->findAll();
 
@@ -719,6 +722,7 @@ class AdminController extends AbstractController
                                                         "featureByIdProperty" => $featureByIdProperty,
                                                         "mediaByIdProperty" => $mediaByIdProperty,
                                                         "usersProprietaire" => $usersProprietaire, 
+                                                        "allLocation" => $allLocation,
                                                         "usersLocataire" => $usersLocataire,
                                                         "allNoteEnergy" => $allNoteEnergy,
                                                         "allNoteGreenhouse" => $allNoteGreenhouse,

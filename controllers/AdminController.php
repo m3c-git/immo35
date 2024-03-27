@@ -243,7 +243,7 @@ class AdminController extends AbstractController
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
             $this->redirect("index.php?route=login");
-            dump($_SESSION);
+            //dump($_SESSION);
         }
 
         
@@ -431,7 +431,7 @@ class AdminController extends AbstractController
                 if(isset($_POST) && isset($_FILES))
                 {
                   
-                    dump($_POST);
+                    //dump($_POST);
                    
 
                     $ownerId = (int) $this->checkInput($_POST["ownerId"]);
@@ -600,7 +600,7 @@ class AdminController extends AbstractController
                     /*traitement des medias après création du bien*/
                     $upload = new Uploader();
                     $file_ary = $upload->reArrayFiles($_FILES['formFile']);
-                    dump($file_ary);
+                    //dump($file_ary);
 
                 
 
@@ -619,7 +619,7 @@ class AdminController extends AbstractController
                         else
                         {
                             //dump($upload->rearrange($_FILES));
-                            $newMedias = $upload->upload($file, $key);dump($newMedias);
+                            $newMedias = $upload->upload($file, $key);
                             $mm->addMedia($newMedias);
                             
                             echo "a garder<br>";
@@ -628,7 +628,7 @@ class AdminController extends AbstractController
 
                         }
                         
-                    }dump($property);
+                    }
 
                     unset($_SESSION["error-message"]);
                     //$this->redirect("index.php?route=add-property");
@@ -650,8 +650,8 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            //$this->redirect("index.php?route=login");
-            dump($_SESSION);
+            $this->redirect("index.php?route=login");
+            //dump($_SESSION);
 
         }
 
@@ -799,118 +799,81 @@ class AdminController extends AbstractController
                         }
                         
                     }
-
-                    if(isset($_FILES))
-                    {
-
-                    
-
-                        /*gestion des medias du bien*/
-                        $upload = new Uploader();
-                        $oldMedias = $mm->findByIdProperty($_POST['propertyId']);dump($oldMedias, $_FILES);
-                        $file_ary = $upload->reArrayFiles($_FILES['formFile']);
-
-                       
-                            foreach($file_ary as $key => $file)
-                            {dump($file);
-                               
-                                    $newMedias = $upload->upload($file, $key);
-                                    
-                                    if($file['error'] === 1)
-                                    {
-                                        echo "Le fichier ne doit pas dépasser 2 Mo";
-
-                                    }
-                                    elseif(empty($file['name']))
-                                    {
-                                        echo "pas de fichier choisi<br>";
-
-                                    }
-                                    elseif($oldMedias === [])
-                                    {
-                                        $mm->addMedia($newMedias);
-                                    }
-                                    elseif($oldMedias !== null)
-                                    {//dump($oldMedias[$i++]);
-
-                                        foreach($oldMedias as $media)
-                                        {dump($file);
-                             
-                                        
-                                            if($file['name'] === $media->getUrl())
-                                            {
-                                                echo "déja utilisé<br>";  
-                                            }
-                                            else
-                                            {
-                                                //dump($upload->rearrange($_FILES));
-                                                
-                                                $mm->deleteMedia($media);
-                                            }                                        
-                                        }
-                                        $mm->addMedia($newMedias);
-                                    }
-                                    
-                                   /*  else
-                                    {
-                                        //dump($upload->rearrange($_FILES));
-                                        
-                                        $mm->addMedia($newMedias);
-                                        
-                                        echo "a garder<br>";
-
-                                            //$imageError = "Il y a eu une erreur lors de l'upload";
-
-                                    } */
-                                
-                                
-                            }dump($property);
-                        
-                    }
-
-
-        
-                   /*  $upload = new Uploader();
-                    $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
-                    $keys = array_keys($_FILES);
-
-                    foreach($keys as $index => $key)
-                    {//dump($_FILES[$key]);
-                        if($_FILES[$key]['name'] === $oldMedias[$index]->getUrl())
-                        {
-                            echo "déja utilisé<br>";
-                            
-                        }
-                        elseif($_FILES[$key]['error'] === 1)
-                        {
-                            echo "Le fichier ne doit pas dépasser 2 Mo";
-
-                        }
-                        elseif(empty($_FILES[$key]["name"]))
-                        {
-                            echo "pas de fichier choisi<br>";
-
-                        }
-                        else
-                        {
-                            $newMedias = $upload->upload($_FILES, $key);
-                            $mm->addMedia($newMedias);
-                            $mm->deleteMedia($oldMedias[$index]);
-                            echo "a garder<br>";
-
-                                //$imageError = "Il y a eu une erreur lors de l'upload";
-
-                        }
-                        
-                    } */
-       
                 }
+
+                if(isset($_FILES))
+                {
+
                 
 
+                    /*gestion des medias du bien*/
+                    $upload = new Uploader();
+                    $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
+                    $file_ary = $upload->reArrayFiles($_FILES['formFile']);
+
+                    
+                        foreach($file_ary as $key => $file)
+                        {//dump($file);
+                            
+                                $newMedias = $upload->upload($file, $key);
+                                
+                                if($file['error'] === 1)
+                                {
+                                    echo "Le fichier ne doit pas dépasser 2 Mo";
+
+                                }
+                                elseif(empty($file['name']))
+                                {
+                                    echo "pas de fichier choisi<br>";
+
+                                }
+                                elseif($oldMedias === [])
+                                {
+                                    $mm->addMedia($newMedias);
+                                }
+                                elseif($oldMedias !== null)
+                                {//dump($oldMedias[$i++]);
+
+                                    foreach($oldMedias as $media)
+                                    {//dump($file);
+                            
+                                    
+                                        if($file['name'] === $media->getUrl())
+                                        {
+                                            echo "déja utilisé<br>";  
+                                        }
+                                        else
+                                        {
+                                            //dump($upload->rearrange($_FILES));
+                                            
+                                            $mm->deleteMedia($media);
+                                        }                                        
+                                    }
+                                    $mm->addMedia($newMedias);
+                                }
+                                
+                                /*  else
+                                {
+                                    //dump($upload->rearrange($_FILES));
+                                    
+                                    $mm->addMedia($newMedias);
+                                    
+                                    echo "a garder<br>";
+
+                                        //$imageError = "Il y a eu une erreur lors de l'upload";
+
+                                } */
+                            
+                            
+                        }//dump($property);
+                    
+                }
+
+
                 unset($_SESSION["message"]);
-                //$this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
+                $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
                 //dump($_SESSION);
-                dump($_POST, $_FILES);
+                //dump($_POST, $_FILES);
             }
             else
             {
@@ -925,8 +888,8 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            //$this->redirect("index.php?route=login");
-            dump($_SESSION);
+            $this->redirect("index.php?route=login");
+            //dump($_SESSION);
 
         }
 
@@ -944,7 +907,7 @@ class AdminController extends AbstractController
             
             $pm = new PropertyManager();
             
-            if($featureByIdProperty !== [])
+            if($featureByIdProperty !== null)
             {
                 foreach($featureByIdProperty as $feature)
                 {
@@ -955,8 +918,20 @@ class AdminController extends AbstractController
             if($mediaByIdProperty !== [])
             {
                 foreach($mediaByIdProperty as $media)
-                {
+                {//dump($media->getUrl());
+                    // Suppression du fichier image en locale
+                    $file = "upload/". $media->getUrl();
+
+                    if( file_exists ( $file))
+                    {
+                       
+                        unlink( $file );
+                        
+                    }
+                     
+                    // Suppression des innformations du media en BDD
                     $mm->deleteMedia($media);
+                
                 }
             }
 
@@ -971,7 +946,7 @@ class AdminController extends AbstractController
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
             $this->redirect("index.php?route=login");
-            dump($_SESSION);
+            //dump($_SESSION);
         }
 
         

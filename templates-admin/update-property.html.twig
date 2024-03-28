@@ -7,6 +7,13 @@
 {% block main %}
     <h1> page pour mettre à jour un bien </h1>
     <main class="container py-5">
+        {% if errormessage is defined %}
+      
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ errormessage }} 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
         <h1>
             Mettre à jour les informations de la propriété
         </h1>
@@ -14,7 +21,7 @@
         <p>Locataire du bien: {{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</p>
 
         <form action='index.php?route=check-update-property' method="POST" enctype="multipart/form-data" class="mt-5">
-            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
             <input type="hidden" id="propertyId" name="propertyId" value="{{ propertyById.id }}" />
             <fieldset class="my-1 form-floating">
                 <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example">
@@ -131,7 +138,7 @@
             </fieldset>
             <fieldset class="my-1 form-floating">
                 <select class="form-select" id="statusId" name="statusId" aria-label="Floating label select example">
-                    <option value="{{  propertyById.statusProperty.id }}" selected>{{ propertyById.statusProperty.stateName }}</option>
+                    <option value="{{  propertyById.statusProperty.id }}" selected>{{ propertyById.statusProperty.statusName }}</option>
                     {% for status in allStatus  %}
                     <option value="{{  status.id }}">{{ status.statusName }}</option>
                     {% endfor %}
@@ -142,7 +149,7 @@
                 <select class="form-select" id="stateId" name="stateId" aria-label="Floating label select example">
                     <option value="{{  propertyById.state.id }}" selected>{{ propertyById.state.stateName }}</option>
                     {% for state in allState  %}
-                    <option value="{{  state.id }}">{{ state.management }}</option>
+                    <option value="{{  state.id }}">{{ state.stateName }}</option>
                     {% endfor %}
                 </select>
                 <label for="stateId">Etat de la propriété</label>
@@ -164,7 +171,7 @@
             </fieldset>
             <fieldset class="my-1">
                 <label for="title" class="form-label">
-                    Adresse
+                    Titre
                 </label>
                 <input type="text" name="title" id="title" class="form-control" value="{{ propertyById.title }}"/>
             </fieldset>

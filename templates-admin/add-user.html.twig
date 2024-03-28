@@ -7,19 +7,19 @@
 {% block main %}
 <main id="register" class="container py-5 px-3">
     
-    {% if _SESSION["error-message"] is defined %}
-    
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ _SESSION["error-message"] }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
-        </div>
+    {% if errormessage is defined %}
+      
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ errormessage }} 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
     {% endif %}
     <h1 class="mb-5">Immo35</h1>
 
     <h2 class="mt-5">Ajouter un utilisateur</h2>
 
     <form action="index.php?route=checkAddUser" method="post">
-        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
+        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
         <fieldset class="my-1">
             <label for="firstName" class="form-label">
                 Prénom

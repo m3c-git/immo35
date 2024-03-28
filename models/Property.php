@@ -3,7 +3,7 @@
 
 class Property
 {
-    private ? int $id = null;
+    private ? int $id = null; 
     private ? int $salesPrice = null; 
     private ? int $rent = null;
     private ? int $rentCharge = null;
@@ -16,7 +16,7 @@ class Property
     private ? array $propertyFeatures = [];
 
 
-    public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private string $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
+    public function __construct(private StatusProperty $statusProperty, private State $state, private Type $type, private ?string $availabilityDate, private string $title, private int $rooms, private int $surface, private string $description, private Location $location, private User $owner, private ? User $tenant, private RentalManagement $rentalManagement)
     {
         $this->energyDiagnostics = new EnergyDiagnostics("", "");
         $this->greenhouseGasEmissionIndices = new GreenhouseGasEmissionIndices("", "");
@@ -116,9 +116,9 @@ class Property
     /**
      * Get the value of availabilityDate
      *
-     * @return  string
+     * @return  null|string
      */
-    public function getAvailabilityDate(): string
+    public function getAvailabilityDate(): ?string
     {
         return $this->availabilityDate;
     }
@@ -126,7 +126,7 @@ class Property
     /**
      * Set the value of availabilityDate
      *
-     * @param   string  $availabilityDate  
+     * @param   null|string  $availabilityDate  
      *
      */
     public function setAvailabilityDate(string $availabilityDate): void

@@ -8,12 +8,19 @@
 {% block main %}
     <h1> page pour créer un bien </h1>
     <main class="container py-5">
+        {% if errormessage is defined %}
+      
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ errormessage }} 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
         <h1>
             Ajouter un bien en location
         </h1>
 
         <form action='index.php?route=check-add-property' method="POST" enctype="multipart/form-data" class="mt-5">
-            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" >
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" >
             <fieldset class="my-1 form-floating">
                 <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example">
                     <option selected value="">Selectionner le proprietaire du bien</option>

@@ -15,8 +15,9 @@ class Router
     public function __construct()
     {
         $this->ac = new AuthController();
-        $this->bc = new DefaultController();
         $this->hc = new AdminController();
+        $this->bc = new DefaultController();
+        $this->cc = new PropertyController();
     }
     public function handleRequest(array $get) : void
     {
@@ -44,26 +45,30 @@ class Router
         {
             $this->ac->logout();
         }
+        else if(isset($get["route"]) && $get["route"] === "details-property")
+        {
+            $this->cc->detailsProperty();
+        }
         else if(isset($get["route"]) && $get["route"] === "rent")
         {
-            if(isset($get["property-id"]))
+            if(isset($get["status"]) && $get["status"] === "A LOUER")
             {
-                $this->cc->rent($get["property-id"]);
+                $this->cc->showPropertysByStatus($get["status"]);
             }
             else
             {
-                $this->bc->home();
+                $this->bc->page404();
             }
         }
         else if(isset($get["route"]) && $get["route"] === "buy")
         {
-            if(isset($get["property-id"]))
+            if(isset($get["status"]) && $get["status"] === "A VENDRE")
             {
-                $this->cc->buy($get["property-id"]);
+                $this->cc->showPropertysByStatus($get["status"]);
             }
             else
             {
-                $this->bc->home();
+                $this->bc->page404();
             }
         }
         else if(isset($get["route"]) && $get["route"] === "sell")
@@ -147,10 +152,6 @@ class Router
         else if(isset($get["route"]) && $get["route"] === "add-property")
         {
             $this->hc->addProperty();
-        }
-        else if(isset($get["route"]) && $get["route"] === "view-property")
-        {
-            $this->hc->viewProperty();
         }
         else if(isset($get["route"]) && $get["route"] === "check-add-property")
         {

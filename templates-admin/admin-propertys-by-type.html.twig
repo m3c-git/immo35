@@ -10,7 +10,7 @@
 
     <article class="card  mb-sm-5" style="width: 25rem;">
         
-        <img class="card-img-top" src='{{  "../upload/" ~ property.vignette_url }}' alt="Card image cap">
+        <img class="card-img-top" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
         
         <div class="card-body">
             <h5 class="card-title">{{ property.property.title }}</h5>
@@ -19,11 +19,13 @@
                     <li class="list-group-item">{{ property.property.surface }} M²</li>
                     <li class="list-group-item">{{ property.property.rooms }} pièces</li>
                     <li class="list-group-item">{{ property.property.type.typeName }}</li>
-                    <li class="list-group-item">Loyer {{ property.property.rentCharge }} €</li>
-                    {% if prproperty.rentCharge is not null %}
-                    <li class="list-group-item">Loyer: {{ property.property.rentCharge }} €</li>
+                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
+                    {% endif %}                    
+                    {% if property.property.charge != null or property.property.charge != 0  %}
+                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
                     {% endif %}
-                    {% if property.salesPrice is not null %}
+                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
                     <li class="list-group-item">Prix de vente: {{ property.property.salesPrice }} €</li>
                     {% endif %}
             </ul>

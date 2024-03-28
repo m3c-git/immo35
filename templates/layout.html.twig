@@ -7,12 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title> {% block title %}{% endblock %}| Immo35</title>
 </head>
-<body>
+<body>            
         {% block header %}
         <header>
             <nav class="h-nav">
-                <li><a href="index.php?route=buy">acheter</a></li>
-                <li><a href="index.php?route=rent">louer</a></li>
+                <li><a href="index.php?route=rent&status=A LOUER&typeMedia=vignette">louer</a></li>
+                <li><a href="index.php?route=buy&status=A VENDRE&typeMedia=vignette">acheter</a></li>
                 <li><a  href="index.php?route=sell">vendre</a></li>
                 <li><a href="index.php?route=manage">gérer</a></li>
                 <li><a href="index.php?route=contact">contact</a></li>

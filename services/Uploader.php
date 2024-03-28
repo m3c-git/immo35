@@ -25,7 +25,8 @@ class Uploader {
         }
     }
     
-    function reArrayFiles($file_post) {//dump($_FILES);
+    public function reArrayFiles($file_post) 
+    {//dump($_FILES);
 
         $file_ary = array();//dump($file_post);
         $file_count = count($file_post['name']);

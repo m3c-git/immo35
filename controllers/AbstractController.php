@@ -9,7 +9,16 @@ abstract class AbstractController
         $twig = new \Twig\Environment($loader,[
             'debug' => true,
         ]);
-        $twig->addGlobal('session', $_SESSION["csrf-token"]);
+        $twig->addGlobal('token', $_SESSION["csrf-token"]);
+        if(isset($_SESSION["error-message"]))
+        {
+            $twig->addGlobal('errormessage', $_SESSION["error-message"]);
+        }
+        elseif(isset($_SESSION["message"]))
+        {
+            $twig->addGlobal('message', $_SESSION["message"]);
+        }
+        
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         $this->twig = $twig;

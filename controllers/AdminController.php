@@ -287,23 +287,23 @@ class AdminController extends AbstractController
                 $propertys = [];  
                 
                    
-                    foreach($propertysByType as $property)
-                    {$val = "";
-                        foreach($mediasByType as $media)
+                foreach($propertysByType as $property)
+                {$val = "";
+                    foreach($mediasByType as $media)
+                    {
+                        
+                        if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
                         {
-                            
-                            if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
-                            {
-                                $val= ["property" => $property, "vignette_url" => $media->getUrl()];
-                            }
-                            
-                        }                          
-                        if(!$val) 
-                        {
-                            $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                            $val= ["property" => $property, "vignette_url" => $media->getUrl()];
                         }
-                        $propertys[] = $val;
+                        
+                    }                          
+                    if(!$val) 
+                    {
+                        $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
                     }
+                    $propertys[] = $val;
+                }
 
                 unset($_SESSION["message"]);
                 $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys]);

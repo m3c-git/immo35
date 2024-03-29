@@ -1,0 +1,77 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+<main>
+    <h1>Votre recherche</h1>
+<section>
+    <form action="index.php?route=result&typeMedia=vignette" method="post">
+        <fieldset>
+            <select name="status" id="status">
+                <option selected value="" disabled>Status</option>
+                <option value="A LOUER">Louer</option>
+                <option value="A VENDRE">Acheter</option>
+            </select>
+            <label for="status">Status</label>
+            <fieldset>
+                <select class="" id="type" name="type">
+                    <option selected value="" disabled>Type</option>
+                    {% for type in allType  %}
+                    <option value="{{ type.typeName }}">{{ type.typeName }}</option>
+                    {% endfor %}
+                </select>
+                <label for="type">Types de propriété</label>
+        </fieldset>
+        <fieldset>
+            <select class="" id="location" name="location">
+                <option selected value="" disabled>Localisation</option>
+                {% for location in allLocation  %}
+                <option value="{{ location.city }}">{{ location.city }}</option>
+                {% endfor %}
+            </select>
+            <label for="location">Ville</label>
+    </fieldset>
+    <button type="submit">Rechercher</button>
+    </form>
+</section>
+<section class="card-section">
+    {% if propertysResearch != [] %}
+    {% for property in propertysResearch %}  
+
+    <article class="card" style="width: 25rem;">
+        <div class="card-body">
+            <h5 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h5>
+            <ul class="">
+                    <li class="list-group-item">{{ property.property.location.city }}</li>
+                    <li class="list-group-item">{{ property.property.surface }} M²</li>
+                    <li class="list-group-item">{{ property.property.rooms }} pièces</li>
+                    <li class="list-group-item">{{ property.property.type.typeName }}</li>
+                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
+                    {% endif %}                    
+                    {% if property.property.charge != null or property.property.charge != 0  %}
+                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
+                    {% endif %}
+                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
+                    <li class="list-group-item">Prix de vente: {{ property.property.salesPrice | number_format(0, '', ' ') }} €</li>
+                    {% endif %}
+            </ul>
+        </div>
+        <figure>
+            <img style="width: 100%; height: auto;" class="" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
+        </figure>
+    </article>
+   
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ message }} 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+</section>
+   
+</main>
+    
+{% endblock %}
+

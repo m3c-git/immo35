@@ -45,6 +45,10 @@ class Router
         {
             $this->ac->logout();
         }
+        else if(isset($get["route"]) && $get["route"] === "result")
+        {
+            $this->bc->research();
+        }
         else if(isset($get["route"]) && $get["route"] === "details-property")
         {
             $this->cc->detailsProperty();

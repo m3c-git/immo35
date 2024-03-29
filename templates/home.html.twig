@@ -3,7 +3,35 @@
 {% block main %}
 <main>
     <h1>Accueil</h1>
-
+<section>
+    <form action="index.php?route=result&typeMedia=vignette" method="post">
+        <fieldset>
+            <select name="status" id="status">
+                <option value="A LOUER">Louer</option>
+                <option value="A VENDRE">Acheter</option>
+            </select>
+            <label for="status">Status</label>
+            <fieldset>
+                <select class="" id="type" name="type">
+                    <option selected value="" disabled>Type</option>
+                    {% for type in allType  %}
+                    <option value="{{ type.typeName }}">{{ type.typeName }}</option>
+                    {% endfor %}
+                </select>
+                <label for="type">Types de propriété</label>
+        </fieldset>
+        <fieldset>
+            <select class="" id="location" name="location">
+                <option selected value="" disabled>Localisation</option>
+                {% for location in allLocation  %}
+                <option value="{{ location.city }}">{{ location.city }}</option>
+                {% endfor %}
+            </select>
+            <label for="location">Ville</label>
+    </fieldset>
+    <button type="submit">Rechercher</button>
+    </form>
+</section>
    
 </main>
     

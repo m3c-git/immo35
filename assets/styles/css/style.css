@@ -78,6 +78,10 @@ header a {
   margin: 1rem;
 }
 
+.slick-arrow::before {
+  background: #2169ec;
+}
+
 .dropzone {
   display: inline-block;
   width: 600px;

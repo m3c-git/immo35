@@ -96,7 +96,7 @@ class PropertyController extends AbstractController
         
     }
 
-    /******* Liste des biens en location ou en vente Admin *******/
+    /******* Liste des biens en location ou en vente  *******/
 
     public function showPropertysByStatus() : void
     {
@@ -129,14 +129,15 @@ class PropertyController extends AbstractController
                 $propertys[] = $val;
             }
 
-            unset($_SESSION["message"]);
+            
             if($_GET["status"] === "A LOUER")
-            {
+            {   unset($_SESSION["message"]);
                 $this->render("rent.html.twig", ["propertys" => $propertys]);
 
             }
             elseif($_GET["status"] === "A VENDRE")
             {
+                unset($_SESSION["message"]);
                 $this->render("buy.html.twig", ["propertys" => $propertys]);
 
             }
@@ -144,16 +145,47 @@ class PropertyController extends AbstractController
         }
         else
         {
-            $_SESSION["message"] = "Aucun biens trouvés";
+            $info = "Aucun biens trouvés";
+            $this->render("buy.html.twig", ["info" => $info]);
             //dump($_SESSION["message"]);
         }
 
         
-
-       
-        
     }
     
+    public function propertyDetails() : void
+    {
+        $pm = new PropertyManager();
+            $propertyById = $pm->findOne($_GET["id"]);
 
+            $mm = new MediaManager();
+            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
+            
+            if($mediaByIdProperty !== [])
+            {
+                if($mediaByIdProperty[0]->gettype() === null)
+                {
+                    $mm->updateMedia($mediaByIdProperty[0]);
+                }
+                $propertyById->setMedias($mediaByIdProperty);
+
+            }
+
+            $fm = new PropertyFeaturesManager();
+            $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
+
+            if($featureByIdProperty !== null)
+            {
+                $propertyById->setPropertyFeatures($featureByIdProperty);
+            }
+
+            unset($_SESSION["message"]);
+            
+            $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
+                                                        "featureByIdProperty" => $featureByIdProperty,
+                                                        "mediaByIdProperty" => $mediaByIdProperty,
+
+                                                    ]);
+    }
 
 }

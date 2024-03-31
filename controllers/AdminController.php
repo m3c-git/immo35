@@ -631,7 +631,7 @@ class AdminController extends AbstractController
                     }
 
                     unset($_SESSION["error-message"]);
-                    //$this->redirect("index.php?route=add-property");
+                    $this->redirect("index.php?route=add-property");
                     //dump($_POST, $_FILES);
                 }
                 //dump($_SESSION);

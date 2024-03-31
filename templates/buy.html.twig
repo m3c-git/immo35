@@ -3,7 +3,13 @@
 {% block main %}
 <main>
     <h1> page des biens à vendre</h1>
-
+    {% if info is defined %}
+      
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ info }} 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
     <section class="card-section">
         {% for property in propertys %}    
     

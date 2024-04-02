@@ -29,16 +29,35 @@ abstract class AbstractController
         echo $this->twig->render($template, $data);
     }
 
+    protected function renderJson(array $data) : void
+    {
+    echo json_encode($data);
+    }
+
     protected function redirect(string $route) : void
     {
         header("Location: $route");
     }
 
+    
+    /* Fonction pour empêcher d'entrer du code dans un formulaire  */
     public function checkInput($data)
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
+        $data = trim($data); // Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+        $data = stripslashes($data); // Supprime les antislashs d'une chaîne
+        $data = htmlspecialchars($data); // Convertit les code HTML ou JavaScript en texte simple
         return $data;
+    }
+
+    /* Fonction pour vérifier si un numéro de téléphone est valide  */
+    public function isphone($var)
+    {
+        return preg_match("/^[0-9 ]*$/", $var);
+    }
+
+    /* Fonction pour vérifier si un email est valide  */
+    public function isEmail($var)
+    {
+        return filter_var($var, FILTER_VALIDATE_EMAIL);
     }
 }

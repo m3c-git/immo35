@@ -13,92 +13,143 @@ class PropertyController extends AbstractController
         //$this->render("home.html.twig", []);
     }
 
-    public function detailsProperty() : void
+    public function contactManage() : void
     {
       
-        $pm = new PropertyManager();
-        $propertyById = $pm->findOne($_GET["id"]);
 
-        $mm = new MediaManager();
-        $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
-
-        if($mediaByIdProperty !== [])
-        {
-            if($mediaByIdProperty[0]->gettype() === null)
-            {
-                $mm->updateMedia($mediaByIdProperty[0]);
-            }
-            $propertyById->setMedias($mediaByIdProperty);
-
-        }
-
-        $fm = new PropertyFeaturesManager();
-        $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
-
-        if($featureByIdProperty !== null)
-        {
-            $propertyById->setPropertyFeatures($featureByIdProperty);
-        }
-        
-        $allFeatures = $fm->findAll();
-
-        $um = new UserManager();
-        $usersProprietaire = $um->findByRole("Proprietaire");
-        $usersLocataire = $um->findByRole("Locataire");
-
-        $em = new EnergyDiagnosticsManager();
-        $allNoteEnergy = $em->findAll();
-
-        $gm = new GreenhouseGasEmissionIndicesManager();
-        $allNoteGreenhouse = $gm->findAll();
-
-        $lm = new LocationManager();
-        $allLocation = $lm->findAll();
-
-        $rm = new RentalManagementManager();
-        $allManagement = $rm->findAll();
-
-        $spm = new StatusPropertyManager();
-        $allStatus = $spm->findAll();
-
-        $sm = new StateManager();
-        $allState = $sm->findAll();
-
-        $tm = new TypeManager();
-        $allType = $tm->findAll();
        
         //dump($propertyById);
         //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
+
         unset($_SESSION["message"]);
-        
-        $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
-                                                    "allFeatures" => $allFeatures, 
-                                                    "featureByIdProperty" => $featureByIdProperty,
-                                                    "mediaByIdProperty" => $mediaByIdProperty,
-                                                    "usersProprietaire" => $usersProprietaire, 
-                                                    "allLocation" => $allLocation,
-                                                    "usersLocataire" => $usersLocataire,
-                                                    "allNoteEnergy" => $allNoteEnergy,
-                                                    "allNoteGreenhouse" => $allNoteGreenhouse,
-                                                    "allManagement" => $allManagement,
-                                                    "allStatus" => $allStatus,
-                                                    "allState" => $allState,
-                                                    "allType" => $allType
-                                                ]);
+        $this->render("contact-manage.html.twig", []);
 
         
         
-
-
         
-
-       
         
     }
 
-    /******* Liste des biens en location ou en vente  *******/
+    public function checkContactManage() : void
+    {
 
-    public function showPropertysByStatus() : void
+
+    $array = array("civilite" => "", "lastname" => "", "firstname" => "", "phone" => "", "email" => "", "district" => "", "city" => "",
+    "civiliteError" => "", "lastnameError" => "", "firstnameError" => "", "emailError" => "", "phoneError" => "", "districtError" => "", "cityError" => "", "isSuccessf" => false);
+    
+    $emailTo = "contact@mawqi3creation.com";
+    
+
+
+    if (isset($_POST))
+    {
+        $array["civilite"]  = $_POST["civilite"];
+        $array["lastname"]  = $this->checkInput($_POST["lastname"]);
+        $array["firstname"] = $this->checkInput($_POST["firstname"]);
+        $array["phone"] = $this->checkInput($_POST["phone"]);
+        $array["email"] = $this->checkInput($_POST["email"]);
+        $array["district"] = $this->checkInput($_POST["district"]);
+        $array["city"] = $this->checkInput($_POST["city"]);
+        $array["isSuccessf"] = true;
+        $emailText = "";
+
+        if(empty($array["civilite"]))
+        {
+            $array["civiliteError"] = "Merci de selectionner votre civilité !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        {
+            $emailText .= "Civilité: {$array["civilite"]}\n";
+        }
+      
+        if(empty($array["lastname"]))
+        {
+            $array["lastnameError"] = "Merci de renseigner votre nom !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        $emailText .= "Nom: {$array["lastname"]}\n";
+
+        if(empty($array["firstname"]))
+        {
+            $array["firstnameError"] = "Merci de renseigner votre prenom !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        $emailText .= "prenom: {$array["firstname"]}\n";
+
+        if(!$this->isphone($array["phone"]))
+        {
+            $array["phoneError"] = "Saisisez uniquement des chiffres et des espaces !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        $emailText .= "Téléphone: {$array["phone"]}\n";
+        
+        if(!$this->isEmail($array["email"]))
+        {
+            $array["emailError"] = "Merci de renseigner un email valide !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        $emailText .= "Email: {$array["email"]}\n";
+
+        if(empty($array["city"]))
+        {
+            $array["cityError"] = "Merci de renseigner votre ville !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        {
+            $emailText .= "Ville: {$array["city"]}\n";
+
+        }
+
+        if(empty($array["district"]))
+        {
+            $array["districtError"] = "Merci de renseigner un code postal valide !";
+            $array["isSuccessf"] = false;
+        }
+        else
+        {
+            $emailText .= "Code postal: {$array["district"]}\n";
+
+        }
+
+        if($array["isSuccessf"])
+        {
+            //ini_set("SMTP", "localhost");
+            ini_set("smtp_port","1025"); // force la config du port smtp pour maildev parce que la modification du fichier ini de php ne semble pas être prise en compte par php.
+            $headers = "From: {$array["firstname"]} {$array["lastname"]} <{$array["email"]}>\r\nReply-To: {$array["email"]}";
+            $headers .="Content-Type: text/plain; charset=utf-8"."\n";
+            mail($emailTo, "Test formulaire PHP", $emailText , $headers);
+            
+        }
+    
+
+
+    }
+    //echo json_encode($array);
+    $this->renderJson($array);
+
+
+    $array = array("civilite" => "", "lastname" => "", "firstname" => "", "phone" => "", "email" => "", "district" => "", "city" => "",
+    "civiliteError" => "", "lastnameError" => "", "firstnameError" => "", "emailError" => "", "phoneError" => "", "districtError" => "", "cityError" => "", "isSuccessf" => false);
+        
+       
+        //dump($propertyById);
+        //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
+
+        //unset($_SESSION["message"]);
+        
+
+        
+        
+}
+
+
+    public function showPropertysByStatus() : void // Liste des biens en location ou en vente  
     {
       
         $pm = new PropertyManager();
@@ -153,7 +204,9 @@ class PropertyController extends AbstractController
         
     }
     
-    public function propertyDetails() : void
+        
+
+    public function propertyDetails() : void // Afficher les détails d'un biens
     {
         $pm = new PropertyManager();
             $propertyById = $pm->findOne($_GET["id"]);
@@ -171,6 +224,7 @@ class PropertyController extends AbstractController
 
             }
 
+
             $fm = new PropertyFeaturesManager();
             $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
 
@@ -181,9 +235,10 @@ class PropertyController extends AbstractController
 
             unset($_SESSION["message"]);
             
-            $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
+            $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
                                                         "featureByIdProperty" => $featureByIdProperty,
                                                         "mediaByIdProperty" => $mediaByIdProperty,
+                                                        "noVignette" => "../assets/img/no-vignette.svg"
 
                                                     ]);
     }

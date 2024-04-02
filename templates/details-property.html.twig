@@ -2,14 +2,22 @@
 
 {% block main %}
 <main>
-    <h1> page détaillé d"un biens</h1> 
+    <h1> page détaillé d"un biens</h1>
 <section class="responsive">
-    {% for key, media in propertyById.medias  %}
-    <figure>
-        <a href='{{ "../upload/" ~ media.url }}'><img style="width: 100%; height: auto;" src='{{ "../upload/" ~ media.url }}' class="" alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+  {% if  propertyById.medias is empty %}
+
+      <figure>
+        <a href='{{ noVignette }}'><img style="width: 100%; height: auto;" src='{{ noVignette }}' class="" alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
         <figcaption>{{ propertyById.title }}</figcaption>
       </figure>
-      {% endfor %}
+      {% else %}
+      {% for key, media in propertyById.medias  %}
+      <figure>
+          <a href='{{ "../upload/" ~ media.url }}'><img style="width: 100%; height: auto;" src='{{ "../upload/" ~ media.url }}' class="" alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+          <figcaption>{{ propertyById.title }}</figcaption>
+        </figure>
+        {% endfor %}
+      {% endif %}
 </section>
 
 <section>
@@ -36,7 +44,7 @@
     {% endif %}
 
     {% if propertyById.salesPrice != 0  %}
-    <p>{{ propertyById.salesPrice }} €</p>
+    <p>{{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
     <p>*Honoraires inclus charge acquéreur </p>
     {% endif %}
   </article>
@@ -59,7 +67,7 @@
   {% endif %}
 
   {% if propertyById.salesPrice != 0  %}
-  <p>Prix honoraires inclus TTC : {{ propertyById.salesPrice }} €</p>
+  <p>Prix honoraires inclus TTC : {{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
   <p>Honoraires : {{ propertyById.agencyFeesRent }} %</p>
   {% endif %}
 </section>

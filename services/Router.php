@@ -77,7 +77,7 @@ class Router
         }
         else if(isset($get["route"]) && $get["route"] === "sell")
         {
-            $this->cc->sell();
+            $this->cc->contact();
         }
         else if(isset($get["route"]) && $get["route"] === "contact-manage")
         {
@@ -89,7 +89,11 @@ class Router
         }
         else if(isset($get["route"]) && $get["route"] === "contact")
         {
-            $this->dc->contact();
+            $this->cc->contact();
+        }
+        else if(isset($get["route"]) && $get["route"] === "check-contact")
+        {
+            $this->cc->checkContact();
         }
         else if(isset($get["route"]) && $get["route"] === "legal-information")
         {

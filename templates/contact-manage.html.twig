@@ -7,7 +7,7 @@
         Vous êtes un particulier et vous souhaitez nous confier la gestion locative de votre bien immobilier ?
         Laissez-nous vos coordonnées et profitez de l’<span>accompagnement sur-mesure</span> de nos conseillers près de chez vous !
     </p>
-    <form id="contactManage" name="contactManage" action="index.php?route=check-contact-manage" method="post">
+    <form id="contactManage" name="contactManage" action="index.php?route=check-contact-manage" method="post" accept-charset="utf-8">
 
         <fieldset class="civilite-field">
             <label for="civilite">Civilité<span class="red"> *</span</label>
@@ -33,7 +33,7 @@
         </fieldset>
         <fieldset>
             <label for="phone">Téléphone<span>*</span></label>
-            <input type="tel" id="phone" name="phone">
+            <input type="tel" id="phone" name="phone" required>
             <p class="comments"></p>
         </fieldset>
         <fieldset>
@@ -53,6 +53,7 @@
         </fieldset>
         <button type="submit" class="btn-send-msg" >Envoyer</button>
         <p id="thank-you"></p>
+        <p id="sendError"></p>
    
 </main>
     

@@ -1,3 +1,14 @@
+@charset "UTF-8";
+/* *****************************************************************
+Fonts
+***************************************************************** */
+@font-face {
+  font-family: "ProzaLibre";
+  src: url(‘/assets/styles/css/font/Proza_Libre/ProzaLibre-SemiBoldItalic.ttf’) format(‘truetype’);
+}
+/* *****************************************************************
+RESET
+***************************************************************** */
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -52,22 +63,242 @@ table {
   border-spacing: 0;
 }
 
+/* *****************************************************************
+TOOLS
+***************************************************************** */
+/* 
+Rappel:
+rem pour les police
+em pour les marges padding bordures */
 * {
-  box-sizing: border-box;
-  margin: 0;
+  box-sizing: border-box; /* On spécifie que la largeur (width) de chaque boîte comprend le padding et la bordure (par défaut, c'est seulement la largeur du contenu) */
 }
 
+html {
+  font-size: 62.5%; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
+}
+
+body {
+  font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+}
+
+/* responsive mixin sass*/
+/* *****************************************************************
+GENERAL
+***************************************************************** */
 main {
-  max-width: 1800px;
   margin: 0 auto;
+  max-width: 1200px;
 }
 
+/* *****************************************************************
+HEADER + MENU BURGER 
+***************************************************************** */
+header {
+  position: sticky;
+  box-shadow: inset 0 -0.1rem 0 #c5c5c6;
+  width: 100vw;
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 2rem 5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 header li {
   list-style: none;
+  padding-bottom: 2rem;
+  padding-left: 2em;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+header li a {
+  text-decoration: none;
+  color: #506F7E;
+  display: inline-block;
+  position: relative;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+header li a:hover {
+  color: #E2003B;
+}
+header li a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -0.6rem;
+  width: 100%;
+  height: 0.2rem;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: #E2003B;
+  transition: transform 0.3s ease-out;
+}
+header li a:hover::after {
+  transform: scaleX(1);
+}
+header p.logo {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+header p.logo a {
+  font-family: "ProzaLibre", sans-serif;
+  font-size: 6rem;
+  color: #E2003B;
 }
 header a {
   text-decoration: none;
-  color: black;
+}
+@media screen and (max-width: 900px) {
+  header header {
+    position: relative;
+  }
+  header .navlinks-container {
+    width: 90em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    position: absolute;
+    background: #fafafa;
+    top: 100%;
+    left: 0;
+    height: 100vh;
+    padding: 1.5rem 5rem 1.5rem 2rem;
+    border-right: 0.1rem solid #c5c5c6;
+    transform: translate(-100%);
+    transition: transform 0.3s ease-out;
+  }
+  header .open {
+    transform: translate(0%);
+  }
+  header li a {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+  }
+  header .burger-text {
+    color: #506F7E;
+    text-align: center;
+  }
+  header .burger {
+    width: 3rem;
+    order: 1;
+    height: 4rem;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    background: #fafafa;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+  }
+  header .burger span {
+    display: block;
+    width: 100%;
+    height: 0.3rem;
+    background: #506F7E;
+    position: absolute;
+    pointer-events: none;
+    transition: opcity 0.3s 0.15s ease-out;
+  }
+  header .burger span:nth-child(1),
+  header .burger span:nth-child(3) {
+    transition: transform 0.3s ease-out;
+  }
+  header .burger span:nth-child(1) {
+    transform: translateY(0.7rem);
+  }
+  header .burger span:nth-child(3) {
+    transform: translateY(-0.7rem);
+  }
+  header .burger span:nth-child(4) {
+    transform: translateY(1.4rem);
+    height: 0;
+  }
+  header .burger.open span:nth-child(1) {
+    transform: translate(0) rotate(135deg);
+  }
+  header .burger.open span:nth-child(2) {
+    opacity: 0;
+    transition: opcity 0s ease-out;
+  }
+  header .burger.open span:nth-child(3) {
+    transform: translate(0) rotate(-135deg);
+  }
+}
+@media screen and (min-width: 901px) {
+  header nav {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    padding: 2em 0;
+    width: 100%;
+  }
+  header nav .navlinks-container {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+  }
+  header .burger {
+    display: none;
+  }
+}
+
+/* *****************************************************************
+FOOTER
+***************************************************************** */
+footer {
+  display: block;
+}
+footer section {
+  padding: 2em;
+}
+footer section p {
+  max-width: 1200px;
+  text-align: center;
+  margin: 0 auto;
+}
+footer section:nth-child(1) {
+  background: #dce2e5;
+  font-size: 1.6rem;
+}
+footer section:nth-child(1) a {
+  color: #506F7E;
+  text-decoration: none;
+}
+footer section:nth-child(1) span {
+  padding-left: 2em;
+  color: #E2003B;
+}
+footer section:nth-child(1) a:hover {
+  color: #E2003B;
+}
+footer section:nth-child(1) a:link, footer section:nth-child(1) a:visited, footer section:nth-child(1) a:hover, footer section:nth-child(1) .a:active {
+  color: #506F7E;
+}
+footer section:nth-child(2) {
+  font-weight: bold;
+  background: black;
+  color: #fff;
+}
+
+/* *****************************************************************
+ a ranger
+***************************************************************** */
+#contact .demande-particulier {
+  display: block;
+}
+#contact .demande-professionnelle {
+  display: none;
 }
 
 .card-section {
@@ -80,14 +311,6 @@ header a {
 
 .slick-arrow::before {
   background: #2169ec;
-}
-
-.demande-particulier {
-  display: block;
-}
-
-.demande-professionnelle {
-  display: none;
 }
 
 .dropzone {

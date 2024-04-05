@@ -1,3 +1,17 @@
+
+/* *****************************************************************
+Fonts
+***************************************************************** */
+
+@font-face {
+	font-family: 'ProzaLibre';
+	src: url(‘/assets/styles/css/font/Proza_Libre/ProzaLibre-SemiBoldItalic.ttf’) format(‘truetype’)
+}
+
+
+/* *****************************************************************
+RESET
+***************************************************************** */
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -47,37 +61,388 @@ table {
 	border-spacing: 0;
 }
 
-*
-{ 
-  box-sizing: border-box; 
-  margin: 0;
+/* *****************************************************************
+TOOLS
+***************************************************************** */
+/* 
+Rappel:
+rem pour les police
+em pour les marges padding bordures */
+
+* {
+	box-sizing: border-box; /* On spécifie que la largeur (width) de chaque boîte comprend le padding et la bordure (par défaut, c'est seulement la largeur du contenu) */
+
 }
+
+html {
+	font-size: 62.5%; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
+
+}
+
+body {
+	font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+  //max-width: 1200px;
+
+}
+
+/* responsive mixin sass*/
+@mixin media-max($_max-width) {
+  @media screen and (max-width: $_max-width) {
+    &{ @content; }
+  }
+}
+
+@mixin media-min($min-width) {
+  @media screen and (min-width: $min-width) {
+    &{ @content; }
+  }
+}
+
+/* *****************************************************************
+GENERAL
+***************************************************************** */
 
 main
 {
-  max-width: 1800px;
   margin: 0 auto;
+  max-width: 1200px;
+  //width: 100vw;
+
 }
 
 
-header{
-    
-    
-    li{
-        list-style: none;
-        
+/* *****************************************************************
+HEADER + MENU BURGER 
+***************************************************************** */
+header
+{
 
 
-    }
+
+
+  position: sticky;
+  box-shadow: inset 0 -0.1rem 0 #c5c5c6;
+  width: 100vw;
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 2rem 5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  li
+  {
+    list-style: none;
+    padding-bottom: 2rem;
+    padding-left: 2em;
+
+   
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+   
 
     a
     {
-
       text-decoration: none;
-      color: black;
+      color:#506F7E;
+      display: inline-block;
+      position: relative;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      
+    }
+
+    a:hover
+    {
+      color:#E2003B;
 
     }
+    a::after
+    {
+      content:"";
+      display: block;
+      position: absolute;
+      bottom: -0.6rem;
+      width: 100%;
+      height: 0.2rem;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: #E2003B;
+      transition: transform 0.3s ease-out;
+
+    }
+
+    a:hover::after
+    {
+
+      transform: scaleX(1);
+
+    }
+
+  }
+
+  p.logo
+  {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    
+    a
+    {
+      font-family: "ProzaLibre", sans-serif;
+      font-size: 6rem;
+      color: #E2003B;
+    }    
+  }
+
+  a
+  {
+    text-decoration: none;
+  }
+
+  @include media-max(900px) {
+
+    header
+    {
+       position: relative;
+    }
+   
+ 
+
+    .navlinks-container
+    {
+      width: 90em;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: start;
+      position: absolute;
+      background: #fafafa;
+      top: 100%;
+      left: 0;
+      height: 100vh;
+      padding: 1.5rem 5rem 1.5rem 2rem;
+      border-right: 0.1rem solid #c5c5c6;
+      transform: translate(-100%);
+      transition: transform 0.3s ease-out;
+
+    }
+    
+    
+    .open
+    {
+      transform: translate(0%);
+    }
+
+    li a
+    {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      //padding: 0.5rem 0;
+    }
+    .burger-text
+    {
+      color: #506F7E;
+      text-align: center;
+    }
+
+
+    .burger
+    {
+      width: 3rem;
+      order: 1;
+      height: 4rem;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      background: #fafafa;
+      align-items: center;
+      justify-items: center;
+      position: relative;
+    }
+
+    .burger span
+    {
+      display: block;
+      width: 100%;
+      height: 0.3rem;
+      background: #506F7E;
+      position: absolute;
+      pointer-events: none;
+      transition: opcity 0.3s 0.15s ease-out;
+
+    }
+
+    .burger span:nth-child(1),
+    .burger span:nth-child(3)
+    {
+      transition: transform  0.3s ease-out;
+    }
+
+   .burger span:nth-child(1)
+    {
+      transform: translateY(0.7rem);
+    }
+
+    .burger span:nth-child(3)
+    {
+      transform: translateY(-0.7rem);
+    }
+
+    .burger span:nth-child(4)
+    {
+      transform: translateY(1.4rem);
+      height: 0;
+    }
+
+    .burger.open span:nth-child(1)
+    {
+      transform: translate(0) rotate(135deg);
+    }
+
+    .burger.open span:nth-child(2)
+    {
+      opacity: 0;
+      transition: opcity 0s ease-out;      
+    }
+
+   .burger.open span:nth-child(3)
+    {
+      transform: translate(0) rotate(-135deg);
+    }
+
+
+  }
+
+  @include media-min(901px) {
+
+
+ 
+
+  nav 
+  {
+    
+    
+ 
+
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    padding: 2em 0;
+    width: 100%;
+
+    .navlinks-container
+    {
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      align-content: center;
+
+    }
+    
+  }
+
+  .burger
+  {
+    display: none;
+  }
+
 }
+
+}
+
+/* *****************************************************************
+FOOTER
+***************************************************************** */
+
+footer
+{
+  display: block;
+
+
+  section
+  {
+    padding: 2em;
+
+    p
+    {
+      max-width: 1200px;
+      text-align:center;
+      margin: 0 auto;
+
+    }
+  }
+
+  section:nth-child(1)
+  {
+    background: #dce2e5;
+    font-size: 1.6rem;
+
+    a
+    {
+      color: #506F7E;
+      text-decoration: none;
+
+    }
+
+    span
+    {
+      padding-left: 2em;
+      color: #E2003B;
+
+    }
+
+    a:hover
+    {
+      color: #E2003B;
+
+    }
+
+    a:link, a:visited,a:hover, .a:active 
+  {
+    color: #506F7E;
+  }
+
+  }
+
+  section:nth-child(2)
+  {
+    font-weight:bold;
+
+    background: black;
+    color: #fff;
+
+  }
+
+
+
+  
+}
+
+
+/* *****************************************************************
+ a ranger
+***************************************************************** */
+
+#contact
+{
+  .demande-particulier
+  {
+    display: block;
+  }
+
+  .demande-professionnelle
+  {
+    display: none;
+  }
+}
+
 
 
 .card-section
@@ -96,16 +461,6 @@ header{
 .slick-arrow::before
 {
   background: #2169ec;
-}
-
-.demande-particulier
-{
-  display: block;
-}
-
-.demande-professionnelle
-{
-  display: none;
 }
 
 .dropzone {
@@ -151,3 +506,5 @@ header{
   left: auto !important;
   right: 5px !important;
 }
+
+

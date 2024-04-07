@@ -2,36 +2,104 @@
 
 {% block main %}
 <main>
-    <h1>Accueil</h1>
-<section>
+   
+<section class="home-main-header">
+    <figure>
+        <img src="../assets/img/background-home-page-main-header.jpeg" alt="background-home-page-main-header">
+    </figure>
+    <article>
+    <h1 class="title-home">oui pour votre chez vous !</h1>
     <form action="index.php?route=result&typeMedia=vignette" method="post">
+        
         <fieldset>
+            <label for="status">Status</label>
             <select name="status" id="status">
                 <option value="A LOUER">Louer</option>
                 <option value="A VENDRE">Acheter</option>
             </select>
-            <label for="status">Status</label>
         </fieldset>
         <fieldset>
+            <label for="type">Types de propriété</label>
             <select class="" id="type" name="type">
                 <option selected value="" disabled>Type</option>
                 {% for type in allType  %}
                 <option value="{{ type.typeName }}">{{ type.typeName }}</option>
                 {% endfor %}
             </select>
-            <label for="type">Types de propriété</label>
         </fieldset>
         <fieldset>
+            <label for="location">Ville</label>
             <select class="" id="location" name="location">
                 <option selected value="" disabled>Localisation</option>
                 {% for location in allLocation  %}
                 <option value="{{ location.city }}">{{ location.city }}</option>
                 {% endfor %}
             </select>
-            <label for="location">Ville</label>
         </fieldset>
-        <button type="submit">Rechercher</button>
+        <button type="submit">Voir les biens</button>
     </form>
+    </article>
+    
+</section>
+<section class="card-section">
+    <h2>Location à la une</h2>
+    {% for property in propertysRent %}    
+
+    <article class="card" style="width: 25rem;">
+        <div class="card-body">
+            <h3 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h3>
+            <ul class="">
+                    <li class="list-group-item">{{ property.property.location.city }}</li>
+                    <li class="list-group-item">{{ property.property.surface }} M²</li>
+                    <li class="list-group-item">{{ property.property.rooms }} pièces</li>
+                    <li class="list-group-item">{{ property.property.type.typeName }}</li>
+                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
+                    {% endif %}                    
+                    {% if property.property.charge != null or property.property.charge != 0  %}
+                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
+                    {% endif %}
+                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
+                    <li class="list-group-item">Prix de vente: {{ property.property.salesPrice | number_format(0, '', ' ') }} €</li>
+                    {% endif %}
+            </ul>
+            <figure>
+                <img style="width: 100%; height: auto;" class="" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
+            </figure>
+        </div>
+    </article>
+   
+    {% endfor %}
+</section>
+<section class="card-section">
+    <h2>Vente à la une</h2>
+    {% for property in propertysBuy %}    
+
+    <article class="card" style="width: 25rem;">
+        <div class="card-body">
+            <h3 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h3>
+            <ul class="">
+                    <li class="list-group-item">{{ property.property.location.city }}</li>
+                    <li class="list-group-item">{{ property.property.surface }} M²</li>
+                    <li class="list-group-item">{{ property.property.rooms }} pièces</li>
+                    <li class="list-group-item">{{ property.property.type.typeName }}</li>
+                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
+                    {% endif %}                    
+                    {% if property.property.charge != null or property.property.charge != 0  %}
+                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
+                    {% endif %}
+                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
+                    <li class="list-group-item">Prix de vente: {{ property.property.salesPrice | number_format(0, '', ' ') }} €</li>
+                    {% endif %}
+            </ul>
+            <figure>
+                <img style="width: 100%; height: auto;" class="" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
+            </figure>
+        </div>
+    </article>
+   
+    {% endfor %}
 </section>
    
 </main>

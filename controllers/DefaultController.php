@@ -4,6 +4,12 @@ class DefaultController extends AbstractController
 {
     public function home() : void
     { 
+        $pm = new PropertyManager();
+        $propertyRentStatus4Last = $pm->findByStatus4Last("A LOUER");
+        $propertyBuyStatus4Last = $pm->findByStatus4Last("A VENDRE");
+
+        $mm = new MediaManager();
+        $mediasByType = $mm->findByTypeMedia("vignette");
 
         $spm = new StatusPropertyManager();
         $allStatus = $spm->findAll();
@@ -14,9 +20,57 @@ class DefaultController extends AbstractController
         $tm = new TypeManager();
         $allType = $tm->findAll();
 
-        $this->render("home.html.twig", ["allStatus" => $allStatus,
-                                          "allType" => $allType,
-                                          "allLocation" => $allLocation
+        if($propertyRentStatus4Last !== null)
+        {
+            $propertysRent = [];  
+
+            foreach($propertyRentStatus4Last as $property)
+            {$val = "";
+                foreach($mediasByType as $media)
+                {
+                    
+                    if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
+                    {
+                        $val= ["property" => $property, "vignette_url" => $media->getUrl()];
+                    }
+                    
+                }                          
+                if(!$val) 
+                {
+                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                }
+                $propertysRent[] = $val;
+            }
+        }
+
+        if($propertyBuyStatus4Last !== null)
+        {
+            $propertysBuy = [];  
+
+            foreach($propertyBuyStatus4Last as $property)
+            {$val = "";
+                foreach($mediasByType as $media)
+                {
+                    
+                    if($property->getId() === $media->getPropertyId() && $media->getType() === "vignette")
+                    {
+                        $val= ["property" => $property, "vignette_url" => $media->getUrl()];
+                    }
+                    
+                }                          
+                if(!$val) 
+                {
+                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                }
+                $propertysBuy[] = $val;
+            }
+        }
+
+        $this->render("home.html.twig", ["propertysBuy" => $propertysBuy,
+                                        "propertysRent" => $propertysRent,
+                                        "allStatus" => $allStatus,
+                                        "allType" => $allType,
+                                        "allLocation" => $allLocation
 
                                     ]);
     }

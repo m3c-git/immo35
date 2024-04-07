@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /* *****************************************************************
-Fonts
+                            Fonts
 ***************************************************************** */
 @font-face {
   font-family: "ProzaLibre";
   src: url(‘/assets/styles/css/font/Proza_Libre/ProzaLibre-SemiBoldItalic.ttf’) format(‘truetype’);
 }
 /* *****************************************************************
-RESET
+                            RESET
 ***************************************************************** */
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -64,7 +64,7 @@ table {
 }
 
 /* *****************************************************************
-TOOLS
+                            TOOLS
 ***************************************************************** */
 /* 
 Rappel:
@@ -86,27 +86,23 @@ body {
 
 /* responsive mixin sass*/
 /* *****************************************************************
-GENERAL
+                            GENERAL
 ***************************************************************** */
 main {
-  margin: 0 auto;
+  height: 100%;
+}
+main .container {
   max-width: 1200px;
 }
 
-/* *****************************************************************
-HEADER + MENU BURGER 
-***************************************************************** */
-header {
-  position: sticky;
-  box-shadow: inset 0 -0.1rem 0 #c5c5c6;
-  width: 100vw;
-  font-weight: bold;
-  margin: 0 auto;
-  padding: 2rem 5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+img {
+  width: 100%;
+  height: auto;
 }
+
+/* *****************************************************************
+                        HEADER + MENU BURGER 
+***************************************************************** */
 header li {
   list-style: none;
   padding-bottom: 2rem;
@@ -157,11 +153,20 @@ header a {
   text-decoration: none;
 }
 @media screen and (max-width: 900px) {
-  header header {
-    position: relative;
+  header {
+    box-shadow: inset 0 -0.1rem 0 #c5c5c6;
+    background: #fff;
+    width: 100vw;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 2rem 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   header .navlinks-container {
-    width: 90em;
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -170,11 +175,11 @@ header a {
     background: #fafafa;
     top: 100%;
     left: 0;
-    height: 100vh;
     padding: 1.5rem 5rem 1.5rem 2rem;
     border-right: 0.1rem solid #c5c5c6;
     transform: translate(-100%);
     transition: transform 0.3s ease-out;
+    z-index: 5;
   }
   header .open {
     transform: translate(0%);
@@ -234,6 +239,19 @@ header a {
   }
 }
 @media screen and (min-width: 901px) {
+  header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 2rem 6em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   header nav {
     display: flex;
     justify-content: center;
@@ -254,7 +272,7 @@ header a {
 }
 
 /* *****************************************************************
-FOOTER
+                            FOOTER
 ***************************************************************** */
 footer {
   display: block;
@@ -292,21 +310,260 @@ footer section:nth-child(2) {
 }
 
 /* *****************************************************************
- a ranger
+                            HOME
+***************************************************************** */
+.home-main-header {
+  width: 100vw;
+  padding-bottom: 2em;
+  width: 100vw;
+  position: relative;
+  z-index: -5;
+}
+@media screen and (max-width: 900px) {
+  .home-main-header .title-home {
+    padding: 0.5em;
+    font-weight: 900;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color: #000;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+  }
+  .home-main-header article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    z-index: 1;
+    position: absolute;
+    bottom: -11em;
+    border: none;
+    width: 100%;
+  }
+  .home-main-header form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.1em #E2003B;
+    padding: 1em;
+    background: #fff;
+    box-shadow: 0px -30px 82px 0 rgb(255, 255, 255);
+    flex-direction: column;
+    width: 80%;
+  }
+  .home-main-header form fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 0 1em 1.5em 0em;
+    width: 100%;
+    color: #506f7e;
+    font-weight: 500;
+  }
+  .home-main-header form label {
+    width: 70%;
+    padding-bottom: 0.5em;
+    text-align: left;
+  }
+  .home-main-header form select {
+    width: 70%;
+    height: 3rem;
+    color: #506f7e;
+  }
+  .home-main-header form button {
+    width: 20rem;
+    height: 4.5rem;
+    font-weight: 800;
+    font-size: 1.8rem;
+    background: #E2003B;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    outline: 0;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    transition: 0.08s ease-in;
+    -o-transition: 0.08s ease-in;
+    -ms-transition: 0.08s ease-in;
+    -moz-transition: 0.08s ease-in;
+    -webkit-transition: 0.08s ease-in;
+  }
+  .home-main-header form button:before {
+    content: "";
+    position: absolute;
+    background: #506f7e;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    -webkit-transition: top 0.09s ease-in;
+  }
+  .home-main-header form button:hover:before {
+    top: 0;
+  }
+  .home-main-header form button::after {
+    position: absolute;
+    right: 2rem;
+    top: -moz-calc(50% - .6rem);
+    top: calc(55% - 0.6rem);
+    font-size: 1rem;
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: auto;
+    -moz-transition: right 0.5s;
+    transition: right 0.5s;
+  }
+  .home-main-header section.card-section {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .home-main-header section.card-section .card {
+    margin: 1rem;
+  }
+}
+@media screen and (min-width: 901px) {
+  .home-main-header .title-home {
+    padding: 0.5em;
+    font-weight: 900;
+    font-size: 4rem;
+    text-transform: uppercase;
+    color: #000;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+  }
+  .home-main-header article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    z-index: 1;
+    position: absolute;
+    bottom: -1em;
+    border: none;
+    width: 100%;
+  }
+  .home-main-header form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.1em #E2003B;
+    padding: 1em;
+    background: #fff;
+    box-shadow: 0px -30px 82px 0 rgb(255, 255, 255);
+  }
+  .home-main-header form fieldset {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em 1.5em 0em;
+    color: #506f7e;
+    font-weight: 500;
+  }
+  .home-main-header form label {
+    padding-bottom: 0.5em;
+  }
+  .home-main-header form select {
+    width: 20rem;
+    height: 3rem;
+    color: #506f7e;
+  }
+  .home-main-header form button {
+    width: 20rem;
+    height: 4.5rem;
+    font-weight: 900;
+    font-size: 1.8rem;
+    background: #E2003B;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    outline: 0;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    transition: 0.08s ease-in;
+    -o-transition: 0.08s ease-in;
+    -ms-transition: 0.08s ease-in;
+    -moz-transition: 0.08s ease-in;
+    -webkit-transition: 0.08s ease-in;
+  }
+  .home-main-header form button:before {
+    content: "";
+    position: absolute;
+    background: #506f7e;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    -webkit-transition: top 0.09s ease-in;
+  }
+  .home-main-header form button:hover:before {
+    top: 0;
+  }
+  .home-main-header form button::after {
+    position: absolute;
+    right: 2rem;
+    top: -moz-calc(50% - .6rem);
+    top: calc(55% - 0.6rem);
+    font-size: 1rem;
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: auto;
+    -moz-transition: right 0.5s;
+    transition: right 0.5s;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  section.card-section .card-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10em;
+  }
+  section.card-section .card-section .card {
+    margin: 1rem;
+  }
+}
+@media screen and (min-width: 901px) {
+  section.card-section .card-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10em;
+  }
+  section.card-section .card-section .card {
+    margin: 1rem;
+  }
+}
+
+.card-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 15em;
+}
+.card-section .card {
+  margin: 1rem;
+}
+
+/* *****************************************************************
+                            a ranger
 ***************************************************************** */
 #contact .demande-particulier {
   display: block;
 }
 #contact .demande-professionnelle {
   display: none;
-}
-
-.card-section {
-  display: flex;
-  flex-wrap: wrap;
-}
-.card-section .card {
-  margin: 1rem;
 }
 
 .slick-arrow::before {

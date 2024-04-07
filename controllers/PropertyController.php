@@ -365,44 +365,43 @@ class PropertyController extends AbstractController
 
         
     }
-    
-        
+            
 
     public function propertyDetails() : void // Afficher les détails d'un biens
     {
         $pm = new PropertyManager();
-            $propertyById = $pm->findOne($_GET["id"]);
+        $propertyById = $pm->findOne($_GET["id"]);
 
-            $mm = new MediaManager();
-            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
-            
-            if($mediaByIdProperty !== [])
+        $mm = new MediaManager();
+        $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
+        
+        if($mediaByIdProperty !== [])
+        {
+            if($mediaByIdProperty[0]->gettype() === null)
             {
-                if($mediaByIdProperty[0]->gettype() === null)
-                {
-                    $mm->updateMedia($mediaByIdProperty[0]);
-                }
-                $propertyById->setMedias($mediaByIdProperty);
-
+                $mm->updateMedia($mediaByIdProperty[0]);
             }
+            $propertyById->setMedias($mediaByIdProperty);
+
+        }
 
 
-            $fm = new PropertyFeaturesManager();
-            $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
+        $fm = new PropertyFeaturesManager();
+        $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
 
-            if($featureByIdProperty !== null)
-            {
-                $propertyById->setPropertyFeatures($featureByIdProperty);
-            }
+        if($featureByIdProperty !== null)
+        {
+            $propertyById->setPropertyFeatures($featureByIdProperty);
+        }
 
-            unset($_SESSION["message"]);
-            
-            $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
-                                                        "featureByIdProperty" => $featureByIdProperty,
-                                                        "mediaByIdProperty" => $mediaByIdProperty,
-                                                        "noVignette" => "../assets/img/no-vignette.svg"
+        unset($_SESSION["message"]);
+        
+        $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
+                                                    "featureByIdProperty" => $featureByIdProperty,
+                                                    "mediaByIdProperty" => $mediaByIdProperty,
+                                                    "noVignette" => "../assets/img/no-vignette.svg"
 
-                                                    ]);
+                                                ]);
     }
 
 }

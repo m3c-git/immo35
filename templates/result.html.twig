@@ -2,45 +2,52 @@
 
 {% block main %}
 <main>
-    <h1>Votre recherche</h1>
-<section>
-    <form action="index.php?route=result&typeMedia=vignette" method="post">
-        <fieldset>
-            <select name="status" id="status">
-                <option selected value="" disabled>Status</option>
-                <option value="A LOUER">Louer</option>
-                <option value="A VENDRE">Acheter</option>
-            </select>
-            <label for="status">Status</label>
-        </fieldset>
-        <fieldset>
-            <select class="" id="type" name="type">
-                <option selected value="" disabled>Type</option>
-                {% for type in allType  %}
-                <option value="{{ type.typeName }}">{{ type.typeName }}</option>
-                {% endfor %}
-            </select>
-            <label for="type">Types de propriété</label>
-        </fieldset>
-        <fieldset>
-            <select class="" id="location" name="location">
-                <option selected value="" disabled>Localisation</option>
-                {% for location in allLocation  %}
-                <option value="{{ location.city }}">{{ location.city }}</option>
-                {% endfor %}
-            </select>
-            <label for="location">Ville</label>
-        </fieldset>
-        <button type="submit">Rechercher</button>
-    </form>
+<section class="result-main-header">
+    <h1 class="h1-result">ANNONCES</h1>
+    <article class="article-result">
+        <form action="index.php?route=result&typeMedia=vignette" method="post">
+            <fieldset>
+                <label for="status">Status</label>
+                <select name="status" id="status">
+                    <option value="A LOUER">Louer</option>
+                    <option value="A VENDRE">Acheter</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="type">Types de propriété</label>
+                <select class="" id="type" name="type">
+                    <option selected value="" disabled>Type</option>
+                    {% for type in allType  %}
+                    <option value="{{ type.typeName }}">{{ type.typeName }}</option>
+                    {% endfor %}
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="location">Ville</label>
+                <select class="" id="location" name="location">
+                    <option selected value="" disabled>Localisation</option>
+                    {% for location in allLocation  %}
+                    <option value="{{ location.city }}">{{ location.city }}</option>
+                    {% endfor %}
+                </select>
+            </fieldset>
+            <button type="submit">Rechercher</button>
+        </form>
+    </article>
+    
 </section>
-<section class="card-section">
+<section class="container card-section result">
+    {% if status == "A LOUER" %}
+    <h2>Votre recherche de location :  {{ propertysResearch|length }} biens</h2>
+    {% elseif status == "A VENDRE" %}
+    <h2>Votre recherche d'achat :  {{ propertysResearch|length }} biens</h2>
+    {% endif %}
+    
     {% if propertysResearch != [] %}
-    {% for property in propertysResearch %}  
-
+    {% for property in propertysResearch %}
     <article class="card" style="width: 25rem;">
         <div class="card-body">
-            <h5 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h5>
+            <h3 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h3>
             <ul class="">
                     <li class="list-group-item">{{ property.property.location.city }}</li>
                     <li class="list-group-item">{{ property.property.surface }} M²</li>

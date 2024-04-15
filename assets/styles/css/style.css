@@ -81,7 +81,13 @@ html {
 body {
   font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
   font-family: "Roboto", sans-serif;
+  color: #1C282E;
   width: 100vw;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* responsive mixin sass*/
@@ -92,6 +98,7 @@ main {
   height: 100%;
 }
 main .container {
+  margin: 0 auto;
   max-width: 1200px;
 }
 
@@ -100,9 +107,21 @@ img {
   height: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
 /* *****************************************************************
                         HEADER + MENU BURGER 
 ***************************************************************** */
+header {
+  background: #fff;
+}
 header li {
   list-style: none;
   padding-bottom: 2rem;
@@ -173,7 +192,7 @@ header a {
     align-items: start;
     position: absolute;
     background: #fafafa;
-    top: 100%;
+    top: 0;
     left: 0;
     padding: 1.5rem 5rem 1.5rem 2rem;
     border-right: 0.1rem solid #c5c5c6;
@@ -203,6 +222,7 @@ header a {
     align-items: center;
     justify-items: center;
     position: relative;
+    z-index: 6;
   }
   header .burger span {
     display: block;
@@ -251,6 +271,7 @@ header a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
   }
   header nav {
     display: flex;
@@ -285,6 +306,40 @@ footer section p {
   text-align: center;
   margin: 0 auto;
 }
+footer section #backToTop {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -moz-transform: scale(0);
+  transform: scale(0);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  z-index: 999999;
+  line-height: 4rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  padding: 0;
+  text-align: center;
+  background: #e2003b;
+  color: #fff;
+  font-size: 1.8rem;
+}
+footer section #backToTop.visible {
+  transform: scale(1);
+}
+footer section #backToTop.invisible {
+  transform: scale(0);
+}
+footer section #backToTop::after {
+  left: -100%;
+  right: -100%;
+  top: -100%;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+}
 footer section:nth-child(1) {
   background: #dce2e5;
   font-size: 1.6rem;
@@ -310,17 +365,31 @@ footer section:nth-child(2) {
 }
 
 /* *****************************************************************
-                            HOME
+        HOME HEADER + RENT HEADER + BUY HEADER + FLEX PROPERTYS
 ***************************************************************** */
-.home-main-header {
+.home-main-header, .rent-header, .buy-header, .result-main-header {
+  background: #EFEBE9;
   width: 100vw;
-  padding-bottom: 2em;
+  padding-bottom: 0em;
   width: 100vw;
   position: relative;
-  z-index: -5;
+  z-index: 0;
 }
 @media screen and (max-width: 900px) {
-  .home-main-header .title-home {
+  .home-main-header .h1, .rent-header .h1, .buy-header .h1, .result-main-header .h1 {
+    max-width: 70em;
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: #1C282E;
+    padding: 5em 0 0 0;
+    text-align: center;
+  }
+  .home-main-header p, .rent-header p, .buy-header p, .result-main-header p {
+    max-width: 70em;
+    text-align: center;
+    padding: 1.8em;
+  }
+  .home-main-header h1.title-home, .rent-header h1.title-home, .buy-header h1.title-home, .result-main-header h1.title-home {
     padding: 0.5em;
     font-weight: 900;
     font-size: 2.5rem;
@@ -330,7 +399,7 @@ footer section:nth-child(2) {
     width: 100%;
     text-align: center;
   }
-  .home-main-header article {
+  .home-main-header article, .rent-header article, .buy-header article, .result-main-header article {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -342,7 +411,7 @@ footer section:nth-child(2) {
     border: none;
     width: 100%;
   }
-  .home-main-header form {
+  .home-main-header form, .rent-header form, .buy-header form, .result-main-header form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -353,7 +422,7 @@ footer section:nth-child(2) {
     flex-direction: column;
     width: 80%;
   }
-  .home-main-header form fieldset {
+  .home-main-header form fieldset, .rent-header form fieldset, .buy-header form fieldset, .result-main-header form fieldset {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -363,17 +432,17 @@ footer section:nth-child(2) {
     color: #506f7e;
     font-weight: 500;
   }
-  .home-main-header form label {
+  .home-main-header form label, .rent-header form label, .buy-header form label, .result-main-header form label {
     width: 70%;
     padding-bottom: 0.5em;
     text-align: left;
   }
-  .home-main-header form select {
+  .home-main-header form select, .rent-header form select, .buy-header form select, .result-main-header form select {
     width: 70%;
     height: 3rem;
     color: #506f7e;
   }
-  .home-main-header form button {
+  .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
     width: 20rem;
     height: 4.5rem;
     font-weight: 800;
@@ -393,7 +462,7 @@ footer section:nth-child(2) {
     -moz-transition: 0.08s ease-in;
     -webkit-transition: 0.08s ease-in;
   }
-  .home-main-header form button:before {
+  .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
     content: "";
     position: absolute;
     background: #506f7e;
@@ -404,10 +473,10 @@ footer section:nth-child(2) {
     z-index: -1;
     -webkit-transition: top 0.09s ease-in;
   }
-  .home-main-header form button:hover:before {
+  .home-main-header form button:hover:before, .rent-header form button:hover:before, .buy-header form button:hover:before, .result-main-header form button:hover:before {
     top: 0;
   }
-  .home-main-header form button::after {
+  .home-main-header form button::after, .rent-header form button::after, .buy-header form button::after, .result-main-header form button::after {
     position: absolute;
     right: 2rem;
     top: -moz-calc(50% - .6rem);
@@ -420,16 +489,30 @@ footer section:nth-child(2) {
     -moz-transition: right 0.5s;
     transition: right 0.5s;
   }
-  .home-main-header section.card-section {
+  .home-main-header section.card-section, .rent-header section.card-section, .buy-header section.card-section, .result-main-header section.card-section {
     display: flex;
     flex-wrap: wrap;
   }
-  .home-main-header section.card-section .card {
+  .home-main-header section.card-section .card, .rent-header section.card-section .card, .buy-header section.card-section .card, .result-main-header section.card-section .card {
     margin: 1rem;
   }
 }
 @media screen and (min-width: 901px) {
-  .home-main-header .title-home {
+  .home-main-header .h1, .rent-header .h1, .buy-header .h1, .result-main-header .h1 {
+    max-width: 70em;
+    font-size: 3.4rem;
+    font-weight: 900;
+    color: #1C282E;
+    padding: 5em 0 0 0;
+    text-align: center;
+  }
+  .home-main-header p, .rent-header p, .buy-header p, .result-main-header p {
+    max-width: 70em;
+    text-align: center;
+    padding: 1.8em;
+    margin: 0 auto;
+  }
+  .home-main-header h1.title-home, .rent-header h1.title-home, .buy-header h1.title-home, .result-main-header h1.title-home {
     padding: 0.5em;
     font-weight: 900;
     font-size: 4rem;
@@ -439,7 +522,7 @@ footer section:nth-child(2) {
     width: 100%;
     text-align: center;
   }
-  .home-main-header article {
+  .home-main-header article, .rent-header article, .buy-header article, .result-main-header article {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -451,7 +534,7 @@ footer section:nth-child(2) {
     border: none;
     width: 100%;
   }
-  .home-main-header form {
+  .home-main-header form, .rent-header form, .buy-header form, .result-main-header form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -460,22 +543,22 @@ footer section:nth-child(2) {
     background: #fff;
     box-shadow: 0px -30px 82px 0 rgb(255, 255, 255);
   }
-  .home-main-header form fieldset {
+  .home-main-header form fieldset, .rent-header form fieldset, .buy-header form fieldset, .result-main-header form fieldset {
     display: flex;
     flex-direction: column;
     padding: 0 1em 1.5em 0em;
     color: #506f7e;
     font-weight: 500;
   }
-  .home-main-header form label {
+  .home-main-header form label, .rent-header form label, .buy-header form label, .result-main-header form label {
     padding-bottom: 0.5em;
   }
-  .home-main-header form select {
+  .home-main-header form select, .rent-header form select, .buy-header form select, .result-main-header form select {
     width: 20rem;
     height: 3rem;
     color: #506f7e;
   }
-  .home-main-header form button {
+  .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
     width: 20rem;
     height: 4.5rem;
     font-weight: 900;
@@ -495,7 +578,7 @@ footer section:nth-child(2) {
     -moz-transition: 0.08s ease-in;
     -webkit-transition: 0.08s ease-in;
   }
-  .home-main-header form button:before {
+  .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
     content: "";
     position: absolute;
     background: #506f7e;
@@ -506,10 +589,10 @@ footer section:nth-child(2) {
     z-index: -1;
     -webkit-transition: top 0.09s ease-in;
   }
-  .home-main-header form button:hover:before {
+  .home-main-header form button:hover:before, .rent-header form button:hover:before, .buy-header form button:hover:before, .result-main-header form button:hover:before {
     top: 0;
   }
-  .home-main-header form button::after {
+  .home-main-header form button::after, .rent-header form button::after, .buy-header form button::after, .result-main-header form button::after {
     position: absolute;
     right: 2rem;
     top: -moz-calc(50% - .6rem);
@@ -524,38 +607,204 @@ footer section:nth-child(2) {
   }
 }
 
+/* *****************************************************************
+                          RESULT
+***************************************************************** */
+.result-main-header {
+  background: #fff;
+}
+@media screen and (max-width: 700px) {
+  .result-main-header form {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .result-main-header h1.h1-result {
+    max-width: 70em;
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: #E2003B;
+    padding: 2em 0 1em 0;
+    text-align: center;
+  }
+  .result-main-header article.article-result {
+    position: static;
+  }
+  .result-main-header form {
+    box-shadow: initial;
+    width: 100%;
+    border: initial;
+    border-bottom: #e2003b solid 1px;
+    padding-bottom: 2em;
+  }
+  .result-main-header form fieldset {
+    width: 90%;
+  }
+  .result-main-header form label {
+    width: 80%;
+    /*  padding-bottom: 0.5em;
+     text-align: left; */
+  }
+  .result-main-header form select {
+    width: 80%;
+    /*  height: 3rem;
+     color: #506f7e; */
+  }
+}
+@media screen and (min-width: 701px) {
+  .result-main-header h1.h1-result {
+    max-width: 70em;
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: #E2003B;
+    padding: 2em 0 1em 0;
+    text-align: center;
+  }
+  .result-main-header article.article-result {
+    position: static;
+  }
+  .result-main-header form {
+    box-shadow: initial;
+    width: 100%;
+    border: initial;
+    border-bottom: #e2003b solid 2px;
+    padding-bottom: 2em;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .result-main-header form fieldset {
+    width: 33%;
+    justify-content: center;
+    align-items: center;
+  }
+  .result-main-header form label {
+    width: 60%;
+    /*  padding-bottom: 0.5em;
+     text-align: left; */
+  }
+  .result-main-header form select {
+    width: 60%;
+    /*  height: 3rem;
+     color: #506f7e; */
+  }
+}
+@media screen and (min-width: 901px) {
+  .result-main-header label {
+    width: 70%;
+    /*  padding-bottom: 0.5em;
+     text-align: left; */
+  }
+  .result-main-header select {
+    width: 70%;
+    /*  height: 3rem;
+     color: #506f7e; */
+  }
+}
+
+section.card-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 13em 1em 0 1em;
+  gap: 1em;
+  width: 100%;
+}
+section.card-section h2 {
+  width: 100%;
+  padding: 1em 0em;
+  text-align: left;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #000;
+}
+section.card-section .card {
+  position: relative;
+}
+section.card-section article {
+  width: 15em;
+}
+section.card-section a {
+  color: #1C282E;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+section.card-section a::before {
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+section.card-section span {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+section.card-section ul {
+  padding-bottom: 1em;
+}
+section.card-section strong {
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+section.card-section li:nth-child(2) strong {
+  font-size: 2rem;
+}
+section.card-section li:nth-child(4) strong {
+  font-size: 2.2rem;
+  color: #506F7E;
+}
+section.card-section li:nth-child(3) {
+  width: 50%;
+  display: inline;
+}
+section.card-section li:nth-child(4) {
+  text-align: right;
+  width: 50%;
+  display: inline-flex;
+  justify-content: right;
+}
+section.card-section img {
+  object-fit: cover;
+  transition: 0.5s;
+}
+section.card-section .card:hover {
+  cursor: pointer;
+}
+section.card-section .card:hover a, section.card-section .card:hover span {
+  text-decoration: underline;
+  color: #E2003B;
+}
+section.card-section .card:hover img {
+  transform: scale(1.1);
+}
 @media screen and (max-width: 900px) {
   section.card-section .card-section {
     display: flex;
     flex-wrap: wrap;
-    padding-top: 10em;
+    padding: 1em 5em;
   }
   section.card-section .card-section .card {
     margin: 1rem;
   }
 }
 @media screen and (min-width: 901px) {
-  section.card-section .card-section {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 10em;
-  }
-  section.card-section .card-section .card {
-    margin: 1rem;
+  section.card-section {
+    padding: 4em 1em 0 1em;
+    justify-content: center;
   }
 }
 
-.card-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-top: 15em;
-}
-.card-section .card {
-  margin: 1rem;
+.result {
+  padding: 2em 1em 0 1em !important;
 }
 
+/* *****************************************************************
+                        BUY HEADER
+***************************************************************** */
 /* *****************************************************************
                             a ranger
 ***************************************************************** */
@@ -601,7 +850,7 @@ footer section:nth-child(2) {
 
 .dz-image img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 }
 

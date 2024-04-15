@@ -174,8 +174,10 @@ class DefaultController extends AbstractController
             
             if($propertysResearch ==! [])
             {
+                $status = $_POST["status"];
                 unset($_SESSION["message"]);
                 $this->render("result.html.twig", ["allStatus" => $allStatus,
+                                                "status" => $status,
                                                 "allType" => $allType,
                                                 "allLocation" => $allLocation,
                                                 "propertysResearch" => $propertysResearch

@@ -320,6 +320,13 @@ class PropertyController extends AbstractController
         $mm = new MediaManager();
         $mediasByType = $mm->findByTypeMedia($_GET["typeMedia"]);
 
+        $tm = new TypeManager();
+        $allType = $tm->findAll();
+
+        $lm = new LocationManager();
+        $allLocation = $lm->findAll();
+
+
         if($propertyStatus !== null)
         {
             $propertys = [];  
@@ -345,13 +352,19 @@ class PropertyController extends AbstractController
             
             if($_GET["status"] === "A LOUER")
             {   unset($_SESSION["message"]);
-                $this->render("rent.html.twig", ["propertys" => $propertys]);
+                $this->render("rent.html.twig", ["propertys" => $propertys,
+                                                "allType" => $allType,
+                                                "allLocation" => $allLocation                                    
+                                            ]);
 
             }
             elseif($_GET["status"] === "A VENDRE")
             {
                 unset($_SESSION["message"]);
-                $this->render("buy.html.twig", ["propertys" => $propertys]);
+                $this->render("buy.html.twig", ["propertys" => $propertys,
+                                                "allType" => $allType,
+                                                "allLocation" => $allLocation 
+                                            ]);
 
             }
         

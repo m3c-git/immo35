@@ -1,111 +1,115 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
-<main>
-    <h1> page détaillé d"un biens</h1>
-<section class="responsive">
-  {% if  propertyById.medias is empty %}
+<main class="property-details">
+  <section class="responsive slide">
+    {% if propertyById.medias is empty %}
 
-      <figure>
-        <a href='{{ noVignette }}'><img style="width: 100%; height: auto;" src='{{ noVignette }}' class="" alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
-        <figcaption>{{ propertyById.title }}</figcaption>
-      </figure>
-      {% else %}
-      {% for key, media in propertyById.medias  %}
-      <figure>
-          <a href='{{ "../upload/" ~ media.url }}'><img style="width: 100%; height: auto;" src='{{ "../upload/" ~ media.url }}' class="" alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
-          <figcaption>{{ propertyById.title }}</figcaption>
-        </figure>
-        {% endfor %}
+    <figure>
+      <a href='{{ noVignette }}'><img style="width: 100%; height: auto;" src='{{ noVignette }}' class=""
+          alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+    </figure>
+    {% else %}
+    {% for key, media in propertyById.medias %}
+    <figure>
+      <a href='{{ "../upload/" ~ media.url }}'><img
+          src='{{ "../upload/" ~ media.url }}' class=""
+          alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+    </figure>
+    {% endfor %}
+    {% endif %}
+  </section>
+
+  <section class="property-sec1"> 
+    <h1>
+      {{ propertyById.type.typeName ~ " " ~ propertyById.statusProperty.statusName }} <br>
+      {{propertyById.rooms ~ " " ~ "pièces"~" " ~ propertyById.surface ~ " " ~ "M²" }}
+    </h1>
+
+    <article>
+      {% if propertyById.availabilityDate is defined %}
+      <p class="availabilityDate">disponibilité {{ propertyById.availabilityDate }}</p>
       {% endif %}
-</section>
 
-<section>
-  <h1>{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²" }}</h1>
+      <p class="city">
+        {{ propertyById.location.city }} <br>
 
-  <article>
-    {% if  propertyById.availabilityDate is defined %}
-    <p>disponibilité {{ propertyById.availabilityDate }}</p>
+        {% if propertyById.location.district is defined %}
+        {{ propertyById.location.district }}
+        {% endif %}
+      </p>
+
+      
+
+      {% if propertyById.rent != 0 %}
+      <p class="price">
+        {{ propertyById.rentCharge }}€ <br>
+        
+      </p>
+      <p class="price-legend">
+        Par mois charges comprises,<br> dont {{ propertyById.charge }} € de charges par mois <br> Soumises à régularisation
+        annuelle</p>
+      {% endif %}
+
+      {% if propertyById.salesPrice != 0 %}
+      <p>{{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
+      <p>*Honoraires inclus charge acquéreur </p>
+      {% endif %}
+    </article>
+  </section>
+
+  <section class="property-sec2">
+    <h2>Détails de l'annonce</h2>
+    <p>{{ propertyById.description }}</p>
+  </section>
+
+  <section class="property-sec3">
+    <h2>À propos de cette annonce</h2>
+    {% if propertyById.rent != 0 %}
+    <p>Loyer seul : {{ propertyById.rent }} €</p>
+    <p>Charges : {{ propertyById.charge }} €</p>
+    <p>Dépôt de garantie : {{ propertyById.securityDeposit }} €</p>
+    <p>Honoraires : {{ propertyById.agencyFeesRent }} €</p>
     {% endif %}
-  </article>
 
-  <article>
-    <p>{{ propertyById.location.city }}</p>
-
-    {% if propertyById.location.district is defined  %}
-    <p>{{ propertyById.location.district }}</p>
+    {% if propertyById.salesPrice != 0 %}
+    <p>Prix honoraires inclus TTC : {{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
+    <p>Honoraires : {{ propertyById.agencyFeesRent }} %</p>
     {% endif %}
-  </article>
+  </section>
 
-  <article>
-    {% if propertyById.rent != 0   %}
-    <p>{{ propertyById.rentCharge }}€</p>
-    <p>Par mois charges comprises, dont {{ propertyById.charge }} € de charges par mois  Soumises à régularisation annuelle</p>
+  <section class="property-sec4">
+    <h2>Caractéristiques du bien</h2>
+    {% if propertyById.propertyFeatures is defined %}
+    <ul>
+      {% for feature in propertyById.propertyFeatures %}
+      <li>{{ feature.propertyFeaturesName }}</li>
+      {% endfor %}
+    </ul>
     {% endif %}
+  </section>
 
-    {% if propertyById.salesPrice != 0  %}
-    <p>{{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
-    <p>*Honoraires inclus charge acquéreur </p>
-    {% endif %}
-  </article>
- 
-
-</section>
-
-<section>
-  <h2>détails de l'annonce</h2>
-  <p>{{ propertyById.description }}</p>
-</section>
-
-<section>
-  <h2>à propos de cette annonce</h2>
-  {% if propertyById.rent != 0  %}
-  <p>Loyer seul : {{ propertyById.rent }} €</p>
-  <p>Charges :  {{ propertyById.charge }} €</p>
-  <p>Dépôt de garantie : {{ propertyById.securityDeposit }} €</p>
-  <p>Honoraires : {{ propertyById.agencyFeesRent }} €</p>
+  {% if propertyById.energyDiagnostics != null %}
+  <section class="property-sec5">
+    <h2>Bilan énergetique</h2>
+    <article>
+      <h3>Diagnostic énergétique</h3>
+      <p>{{ propertyById.energyDiagnostics.note }}</p>
+    </article>
+    <article>
+      <h3>Indices d'émissions de gaz à effet de serre</h3>
+      <p>{{ propertyById.greenhouseGasEmissionIndices.note }}</p>
+    </article>
+  </section>
   {% endif %}
 
-  {% if propertyById.salesPrice != 0  %}
-  <p>Prix honoraires inclus TTC : {{ propertyById.salesPrice | number_format(0, '', ' ') }} €</p>
-  <p>Honoraires : {{ propertyById.agencyFeesRent }} %</p>
-  {% endif %}
-</section>
-
-<section>
-  <h2>Caractéristiques  du bien</h2>
-  {% if propertyById.propertyFeatures is defined  %}
-  <ul>
-    {% for feature in propertyById.propertyFeatures %}
-  <li>{{ feature.propertyFeaturesName }}</li>
-  {% endfor %}
-  </ul>
-  {% endif %}
-</section>
-
-{% if propertyById.energyDiagnostics != null  %}
-<section>
-  <h2>Bilan énergetique</h2>
-  <article>
-    <h3>Diagnostic énergétique</h3>
-    <p>{{ propertyById.energyDiagnostics.note }}</p>
-  </article>
-  <article>
-    <h3>Indices d'émissions de gaz à effet de serre</h3>
-    <p>{{ propertyById.greenhouseGasEmissionIndices.note }}</p>
-  </article>
-</section>
-{% endif %}
-   
 </main>
-    
+
 {% endblock %}
 {% block script %}
-<script type="text/javascript"
-  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-  crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script  type = "text/javascript"  src = "slick-lightbox/slick-lightbox.min.js" ></script>
-<script type = "text/javascript" src="../assets/js/slick.js"></script>
-        {% endblock %}
+<script type="text/javascript" src="slick-lightbox/slick-lightbox.min.js"></script>
+<script type="text/javascript" src="../assets/js/slick.js"></script>
+{% endblock %}

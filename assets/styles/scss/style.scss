@@ -1151,10 +1151,113 @@ section.card-section
   padding: 2em 1em 0 1em !important;
 }
 
-
 /* *****************************************************************
-                        BUY HEADER
+                            DETAILS 
 ***************************************************************** */
+
+/* @include media-max(900px) 
+{
+ 
+} */
+
+.property-details
+{ 
+  section
+  {
+    padding: 4rem 0;
+  }
+  
+  section + section
+  {
+    padding-left: 0.5em;
+    max-width: 1341px;
+    margin: 0 auto;
+  }
+
+  h2
+  {
+    font-size: 2rem;
+    font-weight: 900;
+    padding-bottom: 2.5rem;
+  }
+
+  h3
+  {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+}
+
+.slide
+{
+  
+}
+
+.property-sec1
+{
+  padding: 3em 0;
+
+  h1
+  {
+    font-size: 2.4rem;
+    font-weight: 900;
+    text-transform: capitalize;
+
+  }
+
+  .availabilityDate
+  {
+    
+    font-size: 1.9rem;
+
+  }
+
+  .city
+  {
+    font-size: 3.2rem;
+  }
+
+  p
+  {
+    padding: 0.5em 0;
+    font-weight: 700;
+  }
+
+  .price
+  {
+    padding-top: 0.2em;
+    color: #E2003B;
+    font-size: 2.7rem;
+  
+    
+  }
+
+  p.price-legend
+  {
+    font-size: 1.1rem;
+    color: #4D4D4D;
+    line-height: 1.2rem;
+    font-weight: normal;
+  }
+
+
+}
+
+.property-sec4
+{
+  li
+  {
+    list-style: square inside;
+  }
+  
+  li::marker
+  {
+    height: 2rem;
+    color: #E2003B;
+  }
+
+}
 
 
 
@@ -1177,12 +1280,36 @@ section.card-section
 
 
 
-
-
-.slick-arrow::before
+.slick-prev
 {
-  background: #2169ec;
+  left: 5rem !important;
+  z-index: 10;
+
+
 }
+
+.slick-next
+{
+  right: 5rem !important;
+  
+}
+
+.slick-prev:before
+{
+ 
+  font-size: 4rem !important;
+  color: #E2003B !important;
+}
+
+.slick-next:before
+{
+  font-size: 4rem !important;
+  color: #E2003B !important;
+}
+
+
+
+
 
 .dropzone {
   display: inline-block;

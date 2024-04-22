@@ -803,8 +803,68 @@ section.card-section .card:hover img {
 }
 
 /* *****************************************************************
-                        BUY HEADER
+                            DETAILS 
 ***************************************************************** */
+/* @include media-max(900px) 
+{
+
+} */
+.property-details section {
+  padding: 4rem 0;
+}
+.property-details section + section {
+  padding-left: 0.5em;
+  max-width: 1341px;
+  margin: 0 auto;
+}
+.property-details h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  padding-bottom: 2.5rem;
+}
+.property-details h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.property-sec1 {
+  padding: 3em 0;
+}
+.property-sec1 h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+.property-sec1 .availabilityDate {
+  font-size: 1.9rem;
+}
+.property-sec1 .city {
+  font-size: 3.2rem;
+}
+.property-sec1 p {
+  padding: 0.5em 0;
+  font-weight: 700;
+}
+.property-sec1 .price {
+  padding-top: 0.2em;
+  color: #E2003B;
+  font-size: 2.7rem;
+}
+.property-sec1 p.price-legend {
+  font-size: 1.1rem;
+  color: #4D4D4D;
+  line-height: 1.2rem;
+  font-weight: normal;
+}
+
+.property-sec4 li {
+  list-style: square inside;
+}
+.property-sec4 li::marker {
+  height: 2rem;
+  color: #E2003B;
+}
+
 /* *****************************************************************
                             a ranger
 ***************************************************************** */
@@ -815,8 +875,23 @@ section.card-section .card:hover img {
   display: none;
 }
 
-.slick-arrow::before {
-  background: #2169ec;
+.slick-prev {
+  left: 5rem !important;
+  z-index: 10;
+}
+
+.slick-next {
+  right: 5rem !important;
+}
+
+.slick-prev:before {
+  font-size: 4rem !important;
+  color: #E2003B !important;
+}
+
+.slick-next:before {
+  font-size: 4rem !important;
+  color: #E2003B !important;
 }
 
 .dropzone {

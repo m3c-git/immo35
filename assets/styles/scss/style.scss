@@ -112,6 +112,27 @@ body::-webkit-scrollbar {
 /* *****************************************************************
                             GENERAL
 ***************************************************************** */
+/* sass variable */
+
+$base-rouge: #E2003B;
+
+$energy-a: #379932;
+$energy-b: #3acc31;
+$energy-c: #cdfd33;
+$energy-d: #fbea49;
+$energy-e: #fccc2f;
+$energy-f: #fb9c34;
+$energy-g: #fa1c1f;
+
+$ges-a: #f6edfe;
+$ges-b: #e4c7fb;
+$ges-c: #d2adf1;
+$ges-d: #c99aef;
+$ges-e: #b77ae9;
+$ges-f: #a659e9;
+$ges-g: #8835d9;
+
+/* fin sass variable */
 
 main
 {
@@ -1162,15 +1183,19 @@ section.card-section
 
 .property-details
 { 
+  
+  margin: 0 auto;
+
   section
   {
+    
     padding: 4rem 0;
   }
   
   section + section
   {
-    padding-left: 0.5em;
-    max-width: 1341px;
+    padding: 3rem 1.5rem;
+    max-width: 970px;
     margin: 0 auto;
   }
 
@@ -1244,11 +1269,36 @@ section.card-section
 
 }
 
+.property-sec3
+{
+  font-weight: 700;
+
+  p
+  {
+    padding: 1.6rem 0;
+  }
+  
+}
+
+
 .property-sec4
 {
+  font-weight: 700;  
+  max-width: 90em;
+  width: 100%;
+
+  ul
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   li
   {
     list-style: square inside;
+    padding: 0 1.5rem 2.5rem 2.5rem;
+    max-width: 50%;
+    flex: 0 0 50%;
   }
   
   li::marker
@@ -1257,6 +1307,152 @@ section.card-section
     color: #E2003B;
   }
 
+}
+
+.property-sec5
+{
+  div
+  {
+    display: flex;
+    flex-wrap: wrap;
+
+    article
+    {
+      max-width: 50%;
+      flex: 0 0 50%;
+    }
+  
+  }
+  
+
+  article
+  {
+    padding: 0 1.5rem;
+
+    h3
+    {
+      padding: 1.8rem 0;
+    
+    }
+  }
+
+  .notes-energie, .notes-ges
+  {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #1C282E;
+    padding: 1.6rem 0;
+
+
+  }
+
+
+  .notes-energie
+  {
+
+    
+    li
+    {
+      padding: 0 0.5rem;
+
+    }
+
+    li:nth-child(1),li:nth-child(2),li:nth-child(6),li:nth-child(7)
+    {
+      color: #fff;
+    }
+
+    li.active
+    {
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+    }
+
+    .A
+    {
+      background: $energy-a;
+    }   
+    
+    .B
+    {
+      background: $energy-b;
+    }
+    .C
+    {
+      background: $energy-c;
+    }
+    .D
+    {
+      background: $energy-d;
+    }
+    .E
+    {
+      background: $energy-e;
+    }
+    .F
+    {
+      background: $energy-f;
+    }
+    .G
+    {
+      background: $energy-g;
+    }
+
+  }
+
+  .notes-ges
+  {
+
+    li:nth-child(5),li:nth-child(6),li:nth-child(7)
+    {
+      color: #fff;
+    }
+
+    li
+    {
+      padding: 0 0.5rem;
+
+    }
+
+    .active
+    {
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+    }
+
+    .A
+    {
+      background: $ges-a;
+    }   
+    
+    .B
+    {
+      background: $ges-b;
+    }
+    .C
+    {
+      background: $ges-c;
+    }
+    .D
+    {
+      background: $ges-d;
+    }
+    .E
+    {
+      background: $ges-e;
+    }
+    .F
+    {
+      background: $ges-f;
+    }
+    .G
+    {
+      background: $ges-g;
+    }
+
+  }
+  
 }
 
 

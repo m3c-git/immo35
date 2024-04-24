@@ -402,6 +402,12 @@ class PropertyController extends AbstractController
         $fm = new PropertyFeaturesManager();
         $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
 
+        $em = new EnergyDiagnosticsManager();
+        $allNoteEnergy = $em->findAll();
+
+        $gm = new GreenhouseGasEmissionIndicesManager();
+        $allNoteGreenhouse = $gm->findAll();
+
         if($featureByIdProperty !== null)
         {
             $propertyById->setPropertyFeatures($featureByIdProperty);
@@ -412,7 +418,9 @@ class PropertyController extends AbstractController
         $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
                                                     "featureByIdProperty" => $featureByIdProperty,
                                                     "mediaByIdProperty" => $mediaByIdProperty,
-                                                    "noVignette" => "../assets/img/no-vignette.svg"
+                                                    "noVignette" => "../assets/img/no-vignette.svg",
+                                                    "allNoteEnergy" => $allNoteEnergy,
+                                                    "allNoteGreenhouse" => $allNoteGreenhouse,
 
                                                 ]);
     }

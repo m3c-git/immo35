@@ -92,14 +92,35 @@
   {% if propertyById.energyDiagnostics != null %}
   <section class="property-sec5">
     <h2>Bilan énergetique</h2>
-    <article>
-      <h3>Diagnostic énergétique</h3>
-      <p>{{ propertyById.energyDiagnostics.note }}</p>
-    </article>
-    <article>
-      <h3>Indices d'émissions de gaz à effet de serre</h3>
-      <p>{{ propertyById.greenhouseGasEmissionIndices.note }}</p>
-    </article>
+    <div>
+      <article>
+        <h3>Diagnostic énergétique</h3>
+
+        <ul class="notes-energie">
+          {% for noteEnergy in allNoteEnergy %}
+          {% if propertyById.energyDiagnostics.note == noteEnergy.note %}
+          <li class="active {{ noteEnergy.note }}">{{ noteEnergy.note }}</li>
+          {% else %}
+          <li class="{{ noteEnergy.note }}">{{ noteEnergy.note }}</li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+       
+      </article>
+      <article>
+        <h3>Indices d'émissions de gaz à effet de serre</h3>
+        <ul class="notes-ges">
+          {% for noteGreenhouse in allNoteGreenhouse %}
+          {% if propertyById.greenhouseGasEmissionIndices.note == noteGreenhouse.note %}
+          <li class=" active {{ noteGreenhouse.note }} ">{{ noteGreenhouse.note }}</li>
+          {% else %}
+          <li class="{{ noteGreenhouse.note }}">{{ noteGreenhouse.note }}</li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </article>
+    </div>
+    
   </section>
   {% endif %}
 

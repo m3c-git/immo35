@@ -109,6 +109,12 @@ body::-webkit-scrollbar {
   }
 }
 
+@mixin media-min-max($_min-width, $_max-width) {
+  @media screen and (min-width: $_min-width) and (max-width: $_max-width) {
+    &{ @content; }
+  }
+}
+
 /* *****************************************************************
                             GENERAL
 ***************************************************************** */
@@ -1176,11 +1182,6 @@ section.card-section
                             DETAILS 
 ***************************************************************** */
 
-/* @include media-max(900px) 
-{
- 
-} */
-
 .property-details
 { 
   
@@ -1201,7 +1202,7 @@ section.card-section
 
   h2
   {
-    font-size: 2rem;
+    font-size: 2.08rem;
     font-weight: 900;
     padding-bottom: 2.5rem;
   }
@@ -1211,36 +1212,270 @@ section.card-section
     font-size: 1.5rem;
     font-weight: bold;
   }
+
+  @include media-max(991px) 
+  {
+    h1
+    {
+      font-size: 2.7rem;
+    }
+
+    .availabilityDate
+    {
+      
+      font-size: 2.16rem;
+  
+    }
+  
+    .city
+    {
+      font-size: 3.6rem;
+     
+    }
+  
+  
+  
+    .price
+    {
+
+      font-size: 3.06rem;
+      
+    }
+  
+    p.price-legend
+    {
+      font-size: 1.26rem;
+    
+    }
+
+    h2
+    {
+      font-size: 2.7rem;
+
+    }
+  
+    h3
+    {
+      font-size: 1.68rem;
+    }
+
+    .property-sec4
+    {
+      li
+      {
+        flex: 0 0 33%;
+        width: 33%;
+      }
+    }
+
+    p, li
+    {
+      font-size: 1.8rem;
+    }
+
+    .property-sec2 p
+    {
+      font-size: 1.8rem;
+
+    }
+
+    .notes-energie, .notes-ges
+    {
+      font-size: 1.44rem;
+    }
+
+  }
+
+  @include media-max(575px) 
+  {
+    .property-sec1 article >*
+    {
+      flex-basis: 100%;
+    }
+  }
+
+  article
+  {
+  }
+
+  @include media-max(767px) 
+  {
+    h1
+    {
+      font-size: 2.4rem;
+    }
+
+    .availabilityDate
+    {
+      
+      font-size: 1.9rem;
+  
+    }
+  
+    .city
+    {
+      font-size: 3.2rem;
+    }
+  
+  
+    .price
+    {
+
+      font-size: 2.7rem;
+      
+    }
+  
+    p.price-legend
+    {
+      font-size: 1.12rem;
+
+    }
+
+    h2
+    {
+      font-size: 2.08rem;
+
+    }
+  
+    h3
+    {
+      font-size: 1.28rem;
+    }
+
+    .property-sec4
+    {
+      li
+      {
+        flex: 0 0 50%;
+        width: 50%;
+      }
+    }
+
+    p, li
+    {
+      font-size: 1.6rem;
+    }
+
+    .property-sec2 p
+    {
+      font-size: 1.6rem;
+
+    }
+
+    .notes-energie, .notes-ges
+    {
+      font-size: 1.49rem;
+    }
+
+  }
+
+
+  @include media-min(992px) 
+  {
+    h1
+    {
+      font-size: 3rem;
+    }
+
+    .availabilityDate
+    {
+      
+      font-size: 2.4rem;
+  
+    }
+  
+    .city
+    {
+      font-size: 4rem;
+     
+    }
+  
+  
+    .price
+    {
+
+      font-size: 3.4rem;
+      
+    }
+  
+    p.price-legend
+    {
+      font-size: 1.4rem;
+    
+    }
+
+    h2
+    {
+      font-size: 3.4rem;
+
+    }
+  
+    h3
+    {
+      font-size: 1.87rem;
+    }
+
+    .property-sec4
+    {
+      li
+      {
+        flex: 0 0 33%;
+        width: 33%;
+      }
+      
+    }
+
+    p, li
+    {
+      font-size: 2rem;
+    }
+
+    .property-sec2 p
+    {
+      font-size: 2rem;
+
+    }
+
+    .notes-energie, .notes-ges
+    {
+      font-size: 1.6rem;
+    }
+
+  }
   
 }
 
-.slide
-{
-  
-}
 
 .property-sec1
 {
   padding: 3em 0;
 
+  article
+  {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 50%;
+    
+  }
+
   h1
   {
-    font-size: 2.4rem;
     font-weight: 900;
     text-transform: capitalize;
+    width: 51%;
 
   }
 
   .availabilityDate
   {
     
-    font-size: 1.9rem;
+    width: 49%;
 
   }
 
   .city
   {
-    font-size: 3.2rem;
+    width: 50%;
   }
 
   p
@@ -1249,18 +1484,21 @@ section.card-section
     font-weight: 700;
   }
 
+  .price-container
+  {
+    width: 50%;
+
+  }
+
   .price
   {
     padding-top: 0.2em;
     color: #E2003B;
-    font-size: 2.7rem;
-  
     
   }
 
   p.price-legend
   {
-    font-size: 1.1rem;
     color: #4D4D4D;
     line-height: 1.2rem;
     font-weight: normal;
@@ -1479,7 +1717,7 @@ section.card-section
 .slick-prev
 {
   left: 5rem !important;
-  z-index: 10;
+  z-index: 4;
 
 
 }

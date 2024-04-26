@@ -807,10 +807,6 @@ section.card-section .card:hover img {
 /* *****************************************************************
                             DETAILS 
 ***************************************************************** */
-/* @include media-max(900px) 
-{
-
-} */
 .property-details {
   margin: 0 auto;
 }
@@ -823,7 +819,7 @@ section.card-section .card:hover img {
   margin: 0 auto;
 }
 .property-details h2 {
-  font-size: 2rem;
+  font-size: 2.08rem;
   font-weight: 900;
   padding-bottom: 2.5rem;
 }
@@ -831,32 +827,151 @@ section.card-section .card:hover img {
   font-size: 1.5rem;
   font-weight: bold;
 }
+@media screen and (max-width: 991px) {
+  .property-details h1 {
+    font-size: 2.7rem;
+  }
+  .property-details .availabilityDate {
+    font-size: 2.16rem;
+  }
+  .property-details .city {
+    font-size: 3.6rem;
+  }
+  .property-details .price {
+    font-size: 3.06rem;
+  }
+  .property-details p.price-legend {
+    font-size: 1.26rem;
+  }
+  .property-details h2 {
+    font-size: 2.7rem;
+  }
+  .property-details h3 {
+    font-size: 1.68rem;
+  }
+  .property-details .property-sec4 li {
+    flex: 0 0 33%;
+    width: 33%;
+  }
+  .property-details p, .property-details li {
+    font-size: 1.8rem;
+  }
+  .property-details .property-sec2 p {
+    font-size: 1.8rem;
+  }
+  .property-details .notes-energie, .property-details .notes-ges {
+    font-size: 1.44rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .property-details .property-sec1 article > * {
+    flex-basis: 100%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .property-details h1 {
+    font-size: 2.4rem;
+  }
+  .property-details .availabilityDate {
+    font-size: 1.9rem;
+  }
+  .property-details .city {
+    font-size: 3.2rem;
+  }
+  .property-details .price {
+    font-size: 2.7rem;
+  }
+  .property-details p.price-legend {
+    font-size: 1.12rem;
+  }
+  .property-details h2 {
+    font-size: 2.08rem;
+  }
+  .property-details h3 {
+    font-size: 1.28rem;
+  }
+  .property-details .property-sec4 li {
+    flex: 0 0 50%;
+    width: 50%;
+  }
+  .property-details p, .property-details li {
+    font-size: 1.6rem;
+  }
+  .property-details .property-sec2 p {
+    font-size: 1.6rem;
+  }
+  .property-details .notes-energie, .property-details .notes-ges {
+    font-size: 1.49rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  .property-details h1 {
+    font-size: 3rem;
+  }
+  .property-details .availabilityDate {
+    font-size: 2.4rem;
+  }
+  .property-details .city {
+    font-size: 4rem;
+  }
+  .property-details .price {
+    font-size: 3.4rem;
+  }
+  .property-details p.price-legend {
+    font-size: 1.4rem;
+  }
+  .property-details h2 {
+    font-size: 3.4rem;
+  }
+  .property-details h3 {
+    font-size: 1.87rem;
+  }
+  .property-details .property-sec4 li {
+    flex: 0 0 33%;
+    width: 33%;
+  }
+  .property-details p, .property-details li {
+    font-size: 2rem;
+  }
+  .property-details .property-sec2 p {
+    font-size: 2rem;
+  }
+  .property-details .notes-energie, .property-details .notes-ges {
+    font-size: 1.6rem;
+  }
+}
 
 .property-sec1 {
   padding: 3em 0;
 }
+.property-sec1 article {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 50%;
+}
 .property-sec1 h1 {
-  font-size: 2.4rem;
   font-weight: 900;
   text-transform: capitalize;
+  width: 51%;
 }
 .property-sec1 .availabilityDate {
-  font-size: 1.9rem;
+  width: 49%;
 }
 .property-sec1 .city {
-  font-size: 3.2rem;
+  width: 50%;
 }
 .property-sec1 p {
   padding: 0.5em 0;
   font-weight: 700;
 }
+.property-sec1 .price-container {
+  width: 50%;
+}
 .property-sec1 .price {
   padding-top: 0.2em;
   color: #E2003B;
-  font-size: 2.7rem;
 }
 .property-sec1 p.price-legend {
-  font-size: 1.1rem;
   color: #4D4D4D;
   line-height: 1.2rem;
   font-weight: normal;
@@ -985,7 +1100,7 @@ section.card-section .card:hover img {
 
 .slick-prev {
   left: 5rem !important;
-  z-index: 10;
+  z-index: 4;
 }
 
 .slick-next {

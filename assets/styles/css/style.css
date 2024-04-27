@@ -7,6 +7,9 @@
   src: url(‘/assets/styles/css/font/Proza_Libre/ProzaLibre-SemiBoldItalic.ttf’) format(‘truetype’);
 }
 /* *****************************************************************
+                            SASS variable
+***************************************************************** */
+/* *****************************************************************
                             RESET
 ***************************************************************** */
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -94,8 +97,6 @@ body::-webkit-scrollbar {
 /* *****************************************************************
                             GENERAL
 ***************************************************************** */
-/* sass variable */
-/* fin sass variable */
 main {
   height: 100%;
 }
@@ -324,7 +325,7 @@ footer section #backToTop {
   border-radius: 50%;
   padding: 0;
   text-align: center;
-  background: #e2003b;
+  background: #E2003B;
   color: #fff;
   font-size: 1.8rem;
 }
@@ -431,7 +432,7 @@ footer section:nth-child(2) {
     align-items: center;
     padding: 0 1em 1.5em 0em;
     width: 100%;
-    color: #506f7e;
+    color: #506F7E;
     font-weight: 500;
   }
   .home-main-header form label, .rent-header form label, .buy-header form label, .result-main-header form label {
@@ -442,7 +443,7 @@ footer section:nth-child(2) {
   .home-main-header form select, .rent-header form select, .buy-header form select, .result-main-header form select {
     width: 70%;
     height: 3rem;
-    color: #506f7e;
+    color: #506F7E;
   }
   .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
     width: 20rem;
@@ -467,7 +468,7 @@ footer section:nth-child(2) {
   .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
     content: "";
     position: absolute;
-    background: #506f7e;
+    background: #506F7E;
     bottom: 0;
     left: 0;
     right: 0;
@@ -549,7 +550,7 @@ footer section:nth-child(2) {
     display: flex;
     flex-direction: column;
     padding: 0 1em 1.5em 0em;
-    color: #506f7e;
+    color: #506F7E;
     font-weight: 500;
   }
   .home-main-header form label, .rent-header form label, .buy-header form label, .result-main-header form label {
@@ -558,7 +559,7 @@ footer section:nth-child(2) {
   .home-main-header form select, .rent-header form select, .buy-header form select, .result-main-header form select {
     width: 20rem;
     height: 3rem;
-    color: #506f7e;
+    color: #506F7E;
   }
   .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
     width: 20rem;
@@ -583,7 +584,7 @@ footer section:nth-child(2) {
   .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
     content: "";
     position: absolute;
-    background: #506f7e;
+    background: #506F7E;
     bottom: 0;
     left: 0;
     right: 0;
@@ -635,7 +636,7 @@ footer section:nth-child(2) {
     box-shadow: initial;
     width: 100%;
     border: initial;
-    border-bottom: #e2003b solid 1px;
+    border-bottom: #E2003B solid 1px;
     padding-bottom: 2em;
   }
   .result-main-header form fieldset {
@@ -649,7 +650,7 @@ footer section:nth-child(2) {
   .result-main-header form select {
     width: 80%;
     /*  height: 3rem;
-     color: #506f7e; */
+     color: $base-gris; */
   }
 }
 @media screen and (min-width: 701px) {
@@ -668,7 +669,7 @@ footer section:nth-child(2) {
     box-shadow: initial;
     width: 100%;
     border: initial;
-    border-bottom: #e2003b solid 2px;
+    border-bottom: #E2003B solid 2px;
     padding-bottom: 2em;
     flex-direction: row;
     flex-wrap: wrap;
@@ -686,7 +687,7 @@ footer section:nth-child(2) {
   .result-main-header form select {
     width: 60%;
     /*  height: 3rem;
-     color: #506f7e; */
+     color: $base-gris; */
   }
 }
 @media screen and (min-width: 901px) {
@@ -698,7 +699,7 @@ footer section:nth-child(2) {
   .result-main-header select {
     width: 70%;
     /*  height: 3rem;
-     color: #506f7e; */
+     color: $base-gris; */
   }
 }
 
@@ -807,6 +808,27 @@ section.card-section .card:hover img {
 /* *****************************************************************
                             DETAILS 
 ***************************************************************** */
+/* Partie pour slider */
+.slick-prev {
+  left: 5rem !important;
+  z-index: 4;
+}
+
+.slick-next {
+  right: 5rem !important;
+}
+
+.slick-prev:before {
+  font-size: 4rem !important;
+  color: #E2003B !important;
+}
+
+.slick-next:before {
+  font-size: 4rem !important;
+  color: #E2003B !important;
+}
+
+/* fin partie pour slider */
 .property-details {
   margin: 0 auto;
 }
@@ -1089,34 +1111,192 @@ section.card-section .card:hover img {
 }
 
 /* *****************************************************************
-                            a ranger
+                            CONTACT
 ***************************************************************** */
-#contact .demande-particulier {
+.contact {
+  margin: 0 auto;
+  max-width: 80rem;
+}
+.contact h1 {
+  font-size: 2.24rem;
+  color: #E2003B;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-align: center;
+  padding-top: 1.6rem;
+}
+.contact #contact-form {
+  display: flex;
+  flex-direction: column;
+  padding: 3.2rem 1.2rem 3rem 1.2rem;
+}
+.contact #contact-form .red {
+  color: #F02C2C;
+}
+.contact #contact-form fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.5rem;
+  width: 100%;
+}
+.contact #contact-form .profil-field, .contact #contact-form .demande-field {
+  color: #1C282E;
+  border: solid 0.3rem #506F7E;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1.6rem 3.2rem;
+  font-weight: 600;
+}
+.contact #contact-form .profil-field {
+  border-bottom: #fff;
+}
+.contact #contact-form .profil-field select {
+  color: #506F7E;
+  padding: 0.8rem 1.2rem;
+}
+.contact #contact-form .demande-field {
+  border-top: #fff;
+}
+.contact #contact-form .demande-field select {
+  color: #506F7E;
+  padding: 0.8rem 1.2rem;
+}
+.contact #contact-form .civilite-field {
+  display: flex;
+  /* flex-direction: row; */
+  width: 100%;
+}
+.contact #contact-form .civilite-field .civilite {
+  width: 100%;
+  display: flex;
+}
+.contact #contact-form .civilite-field .civilite-1, .contact #contact-form .civilite-field .civilite-2 {
+  display: flex;
+  align-items: baseline;
+}
+.contact #contact-form .civilite-field input[type=radio] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #506F7E;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+.contact #contact-form .civilite-field input[type=radio]:checked {
+  background: #e2003b;
+  border-color: #fff;
+  color: #fff;
+  -moz-animation: biggerBounce 0.5s;
+  animation: biggerBounce 0.5s;
+}
+.contact #contact-form .civilite-field label {
+  width: 5rem;
+}
+.contact #contact-form .demande-particulier {
   display: block;
 }
-#contact .demande-professionnelle {
+.contact #contact-form .demande-professionnelle {
   display: none;
+  color: #506F7E;
+}
+.contact #contact-form label {
+  padding: 1.6rem 0.4rem;
+  width: 100%;
+}
+.contact #contact-form input, .contact #contact-form select, .contact #contact-form textarea {
+  background: #EFEBE9;
+  width: 100%;
+}
+.contact #contact-form input {
+  border: none;
+  padding: 0.8rem 1.2rem;
+}
+.contact #contact-form .btn-send-msg {
+  width: 20rem;
+  height: 4.5rem;
+  margin: 0 auto;
+  font-weight: 900;
+  font-size: 1.8rem;
+  background: #E2003B;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  outline: 0;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.08s ease-in;
+  -o-transition: 0.08s ease-in;
+  -ms-transition: 0.08s ease-in;
+  -moz-transition: 0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+}
+.contact #contact-form .btn-send-msg:before {
+  content: "";
+  position: absolute;
+  background: #506F7E;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in;
+}
+.contact #contact-form button:hover:before {
+  top: 0;
+}
+.contact #contact-form .btn-send-msg:after {
+  position: absolute;
+  right: 2rem;
+  top: -moz-calc(50% - .6rem);
+  top: calc(55% - 0.6rem);
+  font-size: 1rem;
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: auto;
+  -moz-transition: right 0.5s;
+  transition: right 0.5s;
+}
+@media screen and (min-width: 451px) {
+  .contact #contact-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .contact #contact-form .field {
+    padding: 0 1.5rem;
+    width: 50%;
+  }
 }
 
-.slick-prev {
-  left: 5rem !important;
-  z-index: 4;
+@keyframes biggerBounce {
+  0%, to {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
+  33% {
+    -moz-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  66% {
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
-
-.slick-next {
-  right: 5rem !important;
-}
-
-.slick-prev:before {
-  font-size: 4rem !important;
-  color: #E2003B !important;
-}
-
-.slick-next:before {
-  font-size: 4rem !important;
-  color: #E2003B !important;
-}
-
+/* *****************************************************************
+                            a ranger
+***************************************************************** */
 .dropzone {
   display: inline-block;
   width: 600px;

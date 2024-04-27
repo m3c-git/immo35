@@ -24,7 +24,7 @@ async function formManage(form) {
                     document.getElementById("thank-you").innerHTML = "Merci pour votre message il a bien été envoyé.<br>Je reviens vers vous rapidement.<br>Pensez à vérifier vos spams";
                     document.getElementById("thank-you").style.display="block";
                     document.getElementById("sendError").style.display="none";
-                    document.getElementById("contactManage").reset();
+                    document.getElementById("contact-maanage-form").reset();
                     document.getElementsByClassName("comments")[0].innerHTML = "";
                     document.getElementsByClassName("comments")[1].innerHTML = "";
                     document.getElementsByClassName("comments")[2].innerHTML = "";
@@ -85,7 +85,7 @@ async function formContact(form) {
                     document.getElementById("thank-you").innerHTML = "Merci pour votre message il a bien été envoyé.<br>Je reviens vers vous rapidement.<br>Pensez à vérifier vos spams";
                     document.getElementById("thank-you").style.display="block";
                     document.getElementById("sendError").style.display="none";
-                    document.getElementById("contact").reset();
+                    document.getElementById("contact-form").reset();
                     document.getElementsByClassName("comments")[0].innerHTML = "";
                     document.getElementsByClassName("comments")[1].innerHTML = "";
                     document.getElementsByClassName("comments")[2].innerHTML = "";
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     console.log(route);
 
     if(route === 'contact-manage') {
-        let form = document.querySelector('#contactManage');
+        let form = document.querySelector('#contact-manage-form');
 
         form.addEventListener('submit', (event) => {
 
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     }
     else if(route === 'sell' || route === 'contact') {
 
-        let form = document.querySelector('#contact');
+        let form = document.querySelector('#contact-form');
         let profil = document.querySelector("select.profil");
 
         profil.addEventListener('click', () => {

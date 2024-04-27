@@ -1,20 +1,20 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
-<main>
-    <h1>CONTACT</h1>
+<main class="contact">
+    <h1>contact</h1>
    
-    <form id="contact" name="contact" action="index.php?route=check-contact" method="post" accept-charset="utf-8">
+    <form id="contact-form" name="contact" action="index.php?route=check-contact" method="post" accept-charset="utf-8">
 
-        <fieldset>
-            <label for="profil">Vous êtes ?<span class="red">*</span></label>
+        <fieldset class="profil-field">
+            <label for="profil">Vous êtes ?<span class="red"> *</span></label>
             <select class="profil" id="profil" name="profil">
                 <option value="Un particulier">Un particulier</option>
                 <option value="Un professionnel une entreprise">Un professionnel/ une entreprise</option>
             </select>
          </fieldset>
-        <fieldset >
-            <label for="demande-particulier">Votre demande concerne ?<span class="red">*</span></label>
+        <fieldset class="demande-field">
+            <label for="demande-particulier">Votre demande concerne ?<span class="red"> *</span></label>
             <select class="demande-particulier" id="demande-particulier" name="demande-particulier">
                 <option value="Un projet d’achat d'un logement neuf">Un projet d’achat d'un logement neuf</option>
                 <option value="Un projet d’achat d'un logement ancien">Un projet d’achat d'un logement ancien</option>
@@ -40,59 +40,63 @@
         </select>
     </fieldset>
         <fieldset class="civilite-field">
-            <label for="civilite">Civilité<span class="red"> *</span</label>
-            <div class="civilite-1">
-                <label for="mme">Mme</label>
-                <input type="radio" value="Mme" name="civilite" id="civilite" required>
+            <!-- <label class="civilite" for="civilite">Civilité<span class="red"> *</span></label> -->
+            <p>Civilité<span class="red"> *</span></p>
+            <div class="civilite">
+                <div class="civilite-1">
+                    <label for="mme">Mme</label>
+                    <input type="radio" value="Mme" name="civilite" id="civilite" required>
+                </div>
+                <div class="civilite-2">
+                    <label for="m">M.</label>
+                    <input type="radio" value="M" name="civilite" id="civilite" required>
+                </div>
             </div>
-            <div class="civilite-2">
-                <label for="m">M.</label>
-                <input type="radio" value="M" name="civilite" id="civilite" required>
-            </div>
+
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="lastname">Nom<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="lastname">Nom<span class="red"> *</span></label>
             <input type="text" id="lastname" name="lastname">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="firstname">Prenom<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="firstname">Prenom<span class="red"> *</span></label>
             <input type="text" id="firstname" name="firstname">
             <p class="comments"></p>
         </fieldset>
-        <fieldset class="demande-professionnelle">
-            <label for="company">Société<span class="red">*</span></label>
+        <fieldset class="demande-professionnelle field">
+            <label for="company">Société<span class="red"> *</span></label>
             <input type="text" id="company" name="company" disabled>
             <p class="comments"></p>
         </fieldset>
-        <fieldset class="demande-professionnelle">
-            <label for="function">Fonction<span>*</span></label>
+        <fieldset class="demande-professionnelle field">
+            <label for="function">Fonction<span class="red"> *</span></label>
             <input type="text" id="function" name="function" disabled>
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="phone">Téléphone<span>*</span></label>
+        <fieldset class="field"> 
+            <label for="phone">Téléphone<span class="red"> *</span></label>
             <input type="tel" id="phone" name="phone" required>
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="email">E-mail<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="email">E-mail<span class="red"> *</span></label>
             <input type="email" id="email" name="email">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="district">Code postal<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="district">Code postal<span class="red"> *</span></label>
             <input type="text" id="district" name="district">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="city">Ville<span>*</span></label>
+        <fieldset class="field">
+            <label for="city">Ville<span class="red"> *</span></label>
             <input type="text" id="city" name="city">
             <p class="comments"></p>
         </fieldset>
         <fieldset>
-            <label for="message">Message<span>*</span></label>
+            <label for="message">Message<span class="red"> *</span></label>
             <textarea name="message" id="message" cols="30" rows="10"></textarea>
             <p class="comments"></p>
         </fieldset>

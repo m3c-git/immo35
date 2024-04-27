@@ -1,13 +1,13 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
-<main>
+<main class="contact-manage">
     <h1>CONTACT POUR UN MANDAT DE GESTION</h1>
     <p>
         Vous êtes un particulier et vous souhaitez nous confier la gestion locative de votre bien immobilier ?
         Laissez-nous vos coordonnées et profitez de l’<span>accompagnement sur-mesure</span> de nos conseillers près de chez vous !
     </p>
-    <form id="contactManage" name="contactManage" action="index.php?route=check-contact-manage" method="post" accept-charset="utf-8">
+    <form id="contact-manage-form" name="contactManage" action="index.php?route=check-contact-manage" method="post" accept-charset="utf-8">
 
         <fieldset class="civilite-field">
             <label for="civilite">Civilité<span class="red"> *</span</label>

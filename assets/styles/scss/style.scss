@@ -1814,7 +1814,17 @@ section.card-section
     font-weight: 900;
     text-align: center;
     padding-top: 2.35rem;
+  }
 
+  .text-manage
+  {
+    padding: 4rem 1.5rem;
+    font-size: 1.6rem;
+
+    strong
+    {
+      font-weight: 600;
+    }
   }
 
   #contact-form, #contact-manage-form
@@ -2004,6 +2014,12 @@ section.card-section
       {
         font-size: 2.52rem;
       }
+
+      .text-manage
+      {
+        font-size: 1.8rem;
+      }
+    
     }
 
     @include media-min(992px) 
@@ -2012,6 +2028,12 @@ section.card-section
       {
         font-size: 2.8rem;
       }
+
+      .text-manage
+      {
+        font-size: 2rem;
+      }
+    
     }
   
 }

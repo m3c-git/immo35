@@ -1202,6 +1202,13 @@ section.card-section .card:hover img {
   text-align: center;
   padding-top: 2.35rem;
 }
+.contact .text-manage {
+  padding: 4rem 1.5rem;
+  font-size: 1.6rem;
+}
+.contact .text-manage strong {
+  font-weight: 600;
+}
 .contact #contact-form, .contact #contact-manage-form {
   display: flex;
   flex-direction: column;
@@ -1328,10 +1335,16 @@ section.card-section .card:hover img {
   .contact h1 {
     font-size: 2.52rem;
   }
+  .contact .text-manage {
+    font-size: 1.8rem;
+  }
 }
 @media screen and (min-width: 992px) {
   .contact h1 {
     font-size: 2.8rem;
+  }
+  .contact .text-manage {
+    font-size: 2rem;
   }
 }
 

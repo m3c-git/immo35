@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
-<main class="contact-manage">
+<main class="contact">
     <h1>CONTACT POUR UN MANDAT DE GESTION</h1>
     <p>
         Vous êtes un particulier et vous souhaitez nous confier la gestion locative de votre bien immobilier ?
@@ -10,48 +10,52 @@
     <form id="contact-manage-form" name="contactManage" action="index.php?route=check-contact-manage" method="post" accept-charset="utf-8">
 
         <fieldset class="civilite-field">
-            <label for="civilite">Civilité<span class="red"> *</span</label>
-            <div class="civilite-1">
-                <label for="mme">Mme</label>
-                <input type="radio" value="Mme" name="civilite" id="civilite" required>
+            <!-- <label for="civilite">Civilité<span class="red"> *</span</label> -->
+            <p>Civilité<span class="red"> *</span></p>
+            <div class="civilite">
+               <div class="civilite-1">
+                    <label for="mme">Mme</label>
+                    <input type="radio" value="Mme" name="civilite" id="civilite" required>
+                </div>
+                <div class="civilite-2">
+                    <label for="m">M.</label>
+                    <input type="radio" value="M" name="civilite" id="civilite" required>
+                </div> 
             </div>
-            <div class="civilite-2">
-                <label for="m">M.</label>
-                <input type="radio" value="M" name="civilite" id="civilite" required>
-            </div>
+            
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="lastname">Nom<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="lastname">Nom<span class="red"> *</span></label>
             <input type="text" id="lastname" name="lastname">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="firstname">Prenom<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="firstname">Prenom<span class="red"> *</span></label>
             <input type="text" id="firstname" name="firstname">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="phone">Téléphone<span>*</span></label>
+        <fieldset class="field">
+            <label for="phone">Téléphone<span> *</span></label>
             <input type="tel" id="phone" name="phone" required>
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="email">E-mail<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="email">E-mail<span class="red"> *</span></label>
             <input type="email" id="email" name="email">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="telephone">Code postal du bien à gérer<span class="red">*</span></label>
+        <fieldset class="field">
+            <label for="telephone">Code postal du bien à gérer<span class="red"> *</span></label>
             <input type="text" id="district" name="district">
             <p class="comments"></p>
         </fieldset>
-        <fieldset>
-            <label for="city">Ville du bien à gérer<span>*</span></label>
+        <fieldset class="field">
+            <label for="city">Ville du bien à gérer<span class="red"> *</span></label>
             <input type="text" id="city" name="city">
             <p class="comments"></p>
         </fieldset>
-        <button type="submit" class="btn-send-msg" >Envoyer</button>
+        <button type="submit" class="btn btn-send-msg" >Envoyer</button>
         <p id="thank-you"></p>
         <p id="sendError"></p>
    

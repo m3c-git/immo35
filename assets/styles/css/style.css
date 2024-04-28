@@ -86,6 +86,10 @@ body {
   font-family: "Roboto", sans-serif;
   color: #1C282E;
   width: 100vw;
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -97,9 +101,6 @@ body::-webkit-scrollbar {
 /* *****************************************************************
                             GENERAL
 ***************************************************************** */
-main {
-  height: 100%;
-}
 main .container {
   margin: 0 auto;
   max-width: 1200px;
@@ -117,6 +118,63 @@ a {
 button {
   cursor: pointer;
   border: none;
+}
+
+.btn {
+  width: 20rem;
+  height: 4.5rem;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: #E2003B;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  outline: 0;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.08s ease-in;
+  -o-transition: 0.08s ease-in;
+  -ms-transition: 0.08s ease-in;
+  -moz-transition: 0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+}
+@media screen and (min-width: 992px) {
+  .btn {
+    font-size: 1.8rem;
+  }
+}
+
+.btn:before {
+  content: "";
+  position: absolute;
+  background: #506F7E;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in;
+}
+
+button:hover:before {
+  top: 0;
+}
+
+.btn:after {
+  position: absolute;
+  right: 2rem;
+  top: -moz-calc(50% - .6rem);
+  top: calc(55% - 0.6rem);
+  font-size: 1rem;
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: auto;
+  -moz-transition: right 0.5s;
+  transition: right 0.5s;
 }
 
 /* *****************************************************************
@@ -215,14 +273,14 @@ header a {
     text-align: center;
   }
   header .burger {
-    width: 3rem;
+    width: 4rem;
     order: 1;
     height: 4rem;
     cursor: pointer;
     border: none;
     display: flex;
     background: #fafafa;
-    align-items: center;
+    align-items: flex-start;
     justify-items: center;
     position: relative;
     z-index: 6;
@@ -230,7 +288,8 @@ header a {
   header .burger span {
     display: block;
     width: 100%;
-    height: 0.3rem;
+    height: 0.4rem;
+    border-radius: 0.6rem;
     background: #506F7E;
     position: absolute;
     pointer-events: none;
@@ -241,13 +300,13 @@ header a {
     transition: transform 0.3s ease-out;
   }
   header .burger span:nth-child(1) {
-    transform: translateY(0.7rem);
+    transform: translateY(0.8rem);
   }
   header .burger span:nth-child(3) {
-    transform: translateY(-0.7rem);
+    transform: translateY(-0.8rem);
   }
   header .burger span:nth-child(4) {
-    transform: translateY(1.4rem);
+    transform: translateY(1.65rem);
     height: 0;
   }
   header .burger.open span:nth-child(1) {
@@ -308,6 +367,7 @@ footer section p {
   max-width: 1200px;
   text-align: center;
   margin: 0 auto;
+  font-size: 1.6rem;
 }
 footer section #backToTop {
   position: fixed;
@@ -424,6 +484,61 @@ footer section:nth-child(2) {
     box-shadow: 0px -30px 82px 0 rgb(255, 255, 255);
     flex-direction: column;
     width: 80%;
+    /*      button
+         {
+           width: 20rem;
+           height: 4.5rem;
+           font-weight:800;
+
+           background: $base-rouge;
+
+
+           color: #fff;
+           cursor: pointer;
+           border: none;
+
+           position: relative;
+           outline: 0;
+           overflow:hidden;
+           z-index: 1;
+           cursor: pointer;
+           transition:         0.08s ease-in;
+           -o-transition:      0.08s ease-in;
+           -ms-transition:     0.08s ease-in;
+           -moz-transition:    0.08s ease-in;
+           -webkit-transition: 0.08s ease-in;
+         }
+
+         button:before {
+           content: "";
+           position: absolute;
+           background: $base-gris;
+           bottom: 0;
+           left: 0;
+           right: 0;
+           top: 100%;
+           z-index: -1;
+           -webkit-transition: top 0.09s ease-in;
+         }
+
+         button:hover:before {
+           top: 0;
+         }
+
+         button::after {
+
+         position: absolute;
+         right: 2rem;
+         top: -moz-calc(50% - .6rem);
+         top: calc(55% - .6rem);
+         font-size: 1rem;
+         content: "\f054";
+         font-family: "Font Awesome\ 5 Free";
+         font-weight: 900;
+         margin-left: auto;
+         -moz-transition: right .5s;
+         transition: right .5s;
+         } */
   }
   .home-main-header form fieldset, .rent-header form fieldset, .buy-header form fieldset, .result-main-header form fieldset {
     display: flex;
@@ -444,53 +559,6 @@ footer section:nth-child(2) {
     width: 70%;
     height: 3rem;
     color: #506F7E;
-  }
-  .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
-    width: 20rem;
-    height: 4.5rem;
-    font-weight: 800;
-    font-size: 1.8rem;
-    background: #E2003B;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    position: relative;
-    outline: 0;
-    overflow: hidden;
-    z-index: 1;
-    cursor: pointer;
-    transition: 0.08s ease-in;
-    -o-transition: 0.08s ease-in;
-    -ms-transition: 0.08s ease-in;
-    -moz-transition: 0.08s ease-in;
-    -webkit-transition: 0.08s ease-in;
-  }
-  .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
-    content: "";
-    position: absolute;
-    background: #506F7E;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 100%;
-    z-index: -1;
-    -webkit-transition: top 0.09s ease-in;
-  }
-  .home-main-header form button:hover:before, .rent-header form button:hover:before, .buy-header form button:hover:before, .result-main-header form button:hover:before {
-    top: 0;
-  }
-  .home-main-header form button::after, .rent-header form button::after, .buy-header form button::after, .result-main-header form button::after {
-    position: absolute;
-    right: 2rem;
-    top: -moz-calc(50% - .6rem);
-    top: calc(55% - 0.6rem);
-    font-size: 1rem;
-    content: "\f054";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-left: auto;
-    -moz-transition: right 0.5s;
-    transition: right 0.5s;
   }
   .home-main-header section.card-section, .rent-header section.card-section, .buy-header section.card-section, .result-main-header section.card-section {
     display: flex;
@@ -545,6 +613,61 @@ footer section:nth-child(2) {
     padding: 1em;
     background: #fff;
     box-shadow: 0px -30px 82px 0 rgb(255, 255, 255);
+    /* button
+    {
+      width: 20rem;
+      height: 4.5rem;
+      font-weight:900;
+      font-size: 1.8rem;
+      background: $base-rouge;
+
+
+      color: #fff;
+      cursor: pointer;
+      border: none;
+
+      position: relative;
+      outline: 0;
+      overflow:hidden;
+      z-index: 1;
+      cursor: pointer;
+      transition:         0.08s ease-in;
+      -o-transition:      0.08s ease-in;
+      -ms-transition:     0.08s ease-in;
+      -moz-transition:    0.08s ease-in;
+      -webkit-transition: 0.08s ease-in;
+    }
+
+    button:before {
+      content: "";
+      position: absolute;
+      background: $base-gris;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 100%;
+      z-index: -1;
+      -webkit-transition: top 0.09s ease-in;
+    }
+
+    button:hover:before {
+      top: 0;
+    }
+
+    button::after {
+
+    position: absolute;
+    right: 2rem;
+    top: -moz-calc(50% - .6rem);
+    top: calc(55% - .6rem);
+    font-size: 1rem;
+    content: "\f054";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    margin-left: auto;
+    -moz-transition: right .5s;
+    transition: right .5s;
+    } */
   }
   .home-main-header form fieldset, .rent-header form fieldset, .buy-header form fieldset, .result-main-header form fieldset {
     display: flex;
@@ -560,53 +683,6 @@ footer section:nth-child(2) {
     width: 20rem;
     height: 3rem;
     color: #506F7E;
-  }
-  .home-main-header form button, .rent-header form button, .buy-header form button, .result-main-header form button {
-    width: 20rem;
-    height: 4.5rem;
-    font-weight: 900;
-    font-size: 1.8rem;
-    background: #E2003B;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    position: relative;
-    outline: 0;
-    overflow: hidden;
-    z-index: 1;
-    cursor: pointer;
-    transition: 0.08s ease-in;
-    -o-transition: 0.08s ease-in;
-    -ms-transition: 0.08s ease-in;
-    -moz-transition: 0.08s ease-in;
-    -webkit-transition: 0.08s ease-in;
-  }
-  .home-main-header form button:before, .rent-header form button:before, .buy-header form button:before, .result-main-header form button:before {
-    content: "";
-    position: absolute;
-    background: #506F7E;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 100%;
-    z-index: -1;
-    -webkit-transition: top 0.09s ease-in;
-  }
-  .home-main-header form button:hover:before, .rent-header form button:hover:before, .buy-header form button:hover:before, .result-main-header form button:hover:before {
-    top: 0;
-  }
-  .home-main-header form button::after, .rent-header form button::after, .buy-header form button::after, .result-main-header form button::after {
-    position: absolute;
-    right: 2rem;
-    top: -moz-calc(50% - .6rem);
-    top: calc(55% - 0.6rem);
-    font-size: 1rem;
-    content: "\f054";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    margin-left: auto;
-    -moz-transition: right 0.5s;
-    transition: right 0.5s;
   }
 }
 
@@ -1115,6 +1191,7 @@ section.card-section .card:hover img {
 ***************************************************************** */
 .contact {
   margin: 0 auto;
+  padding-top: 3rem;
   max-width: 80rem;
 }
 .contact h1 {
@@ -1123,23 +1200,23 @@ section.card-section .card:hover img {
   text-transform: uppercase;
   font-weight: 900;
   text-align: center;
-  padding-top: 1.6rem;
+  padding-top: 2.35rem;
 }
-.contact #contact-form {
+.contact #contact-form, .contact #contact-manage-form {
   display: flex;
   flex-direction: column;
   padding: 3.2rem 1.2rem 3rem 1.2rem;
 }
-.contact #contact-form .red {
+.contact #contact-form .red, .contact #contact-manage-form .red {
   color: #F02C2C;
 }
-.contact #contact-form fieldset {
+.contact #contact-form fieldset, .contact #contact-manage-form fieldset {
   display: flex;
   flex-direction: column;
   padding: 1.6rem 1.5rem;
   width: 100%;
 }
-.contact #contact-form .profil-field, .contact #contact-form .demande-field {
+.contact #contact-form .profil-field, .contact #contact-form .demande-field, .contact #contact-manage-form .profil-field, .contact #contact-manage-form .demande-field {
   color: #1C282E;
   border: solid 0.3rem #506F7E;
   display: flex;
@@ -1151,34 +1228,34 @@ section.card-section .card:hover img {
   padding: 1.6rem 3.2rem;
   font-weight: 600;
 }
-.contact #contact-form .profil-field {
+.contact #contact-form .profil-field, .contact #contact-manage-form .profil-field {
   border-bottom: #fff;
 }
-.contact #contact-form .profil-field select {
+.contact #contact-form .profil-field select, .contact #contact-manage-form .profil-field select {
   color: #506F7E;
   padding: 0.8rem 1.2rem;
 }
-.contact #contact-form .demande-field {
+.contact #contact-form .demande-field, .contact #contact-manage-form .demande-field {
   border-top: #fff;
 }
-.contact #contact-form .demande-field select {
+.contact #contact-form .demande-field select, .contact #contact-manage-form .demande-field select {
   color: #506F7E;
   padding: 0.8rem 1.2rem;
 }
-.contact #contact-form .civilite-field {
+.contact #contact-form .civilite-field, .contact #contact-manage-form .civilite-field {
   display: flex;
   /* flex-direction: row; */
   width: 100%;
 }
-.contact #contact-form .civilite-field .civilite {
+.contact #contact-form .civilite-field .civilite, .contact #contact-manage-form .civilite-field .civilite {
   width: 100%;
   display: flex;
 }
-.contact #contact-form .civilite-field .civilite-1, .contact #contact-form .civilite-field .civilite-2 {
+.contact #contact-form .civilite-field .civilite-1, .contact #contact-form .civilite-field .civilite-2, .contact #contact-manage-form .civilite-field .civilite-1, .contact #contact-manage-form .civilite-field .civilite-2 {
   display: flex;
   align-items: baseline;
 }
-.contact #contact-form .civilite-field input[type=radio] {
+.contact #contact-form .civilite-field input[type=radio], .contact #contact-manage-form .civilite-field input[type=radio] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -1192,91 +1269,69 @@ section.card-section .card:hover img {
   position: relative;
   top: 4px;
 }
-.contact #contact-form .civilite-field input[type=radio]:checked {
+.contact #contact-form .civilite-field input[type=radio]:checked, .contact #contact-manage-form .civilite-field input[type=radio]:checked {
   background: #e2003b;
   border-color: #fff;
   color: #fff;
   -moz-animation: biggerBounce 0.5s;
   animation: biggerBounce 0.5s;
 }
-.contact #contact-form .civilite-field label {
+.contact #contact-form .civilite-field label, .contact #contact-manage-form .civilite-field label {
   width: 5rem;
 }
-.contact #contact-form .demande-particulier {
+.contact #contact-form .demande-particulier, .contact #contact-manage-form .demande-particulier {
   display: block;
 }
-.contact #contact-form .demande-professionnelle {
+.contact #contact-form .demande-professionnelle, .contact #contact-manage-form .demande-professionnelle {
   display: none;
   color: #506F7E;
 }
-.contact #contact-form label {
+.contact #contact-form label, .contact #contact-manage-form label {
   padding: 1.6rem 0.4rem;
   width: 100%;
 }
-.contact #contact-form input, .contact #contact-form select, .contact #contact-form textarea {
+.contact #contact-form input, .contact #contact-form select, .contact #contact-form textarea, .contact #contact-manage-form input, .contact #contact-manage-form select, .contact #contact-manage-form textarea {
   background: #EFEBE9;
   width: 100%;
 }
-.contact #contact-form input {
+.contact #contact-form input, .contact #contact-manage-form input {
   border: none;
   padding: 0.8rem 1.2rem;
 }
-.contact #contact-form .btn-send-msg {
-  width: 20rem;
-  height: 4.5rem;
-  margin: 0 auto;
-  font-weight: 900;
-  font-size: 1.8rem;
-  background: #E2003B;
-  color: #fff;
-  cursor: pointer;
-  border: none;
-  position: relative;
-  outline: 0;
-  overflow: hidden;
-  z-index: 1;
-  cursor: pointer;
-  transition: 0.08s ease-in;
-  -o-transition: 0.08s ease-in;
-  -ms-transition: 0.08s ease-in;
-  -moz-transition: 0.08s ease-in;
-  -webkit-transition: 0.08s ease-in;
+@media screen and (min-width: 768px) {
+  .contact #contact-form, .contact #contact-manage-form {
+    padding: 3.6rem 1.35rem 3rem 1.35rem;
+  }
+  .contact #contact-form label, .contact #contact-manage-form label {
+    font-size: 1.8rem;
+  }
 }
-.contact #contact-form .btn-send-msg:before {
-  content: "";
-  position: absolute;
-  background: #506F7E;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 100%;
-  z-index: -1;
-  -webkit-transition: top 0.09s ease-in;
-}
-.contact #contact-form button:hover:before {
-  top: 0;
-}
-.contact #contact-form .btn-send-msg:after {
-  position: absolute;
-  right: 2rem;
-  top: -moz-calc(50% - .6rem);
-  top: calc(55% - 0.6rem);
-  font-size: 1rem;
-  content: "\f054";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  margin-left: auto;
-  -moz-transition: right 0.5s;
-  transition: right 0.5s;
+@media screen and (min-width: 992px) {
+  .contact #contact-form, .contact #contact-manage-form {
+    padding: 4rem 1.5rem 3rem 1.5rem;
+  }
+  .contact #contact-form label, .contact #contact-manage-form label {
+    font-size: 2rem;
+  }
 }
 @media screen and (min-width: 451px) {
-  .contact #contact-form {
+  .contact #contact-form, .contact #contact-manage-form {
     flex-direction: row;
     flex-wrap: wrap;
   }
-  .contact #contact-form .field {
-    padding: 0 1.5rem;
+  .contact #contact-form .field, .contact #contact-manage-form .field {
+    padding: 1.6rem 1.5rem;
     width: 50%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .contact h1 {
+    font-size: 2.52rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  .contact h1 {
+    font-size: 2.8rem;
   }
 }
 
@@ -1294,6 +1349,86 @@ section.card-section .card:hover img {
     transform: scale(0.8);
   }
 }
+/* *****************************************************************
+                            LOGIN
+***************************************************************** */
+#login {
+  font-family: "Roboto", sans-serif;
+  margin: auto;
+  padding-top: 3rem;
+  max-width: 80rem;
+  color: #1C282E;
+}
+#login h1 {
+  font-size: 2.24rem;
+  color: #E2003B;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-align: center;
+  padding-top: 2.35rem;
+}
+#login #login-form {
+  display: flex;
+  flex-direction: column;
+  padding: 3.2rem 1.2rem 3rem 1.2rem;
+}
+#login #login-form h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+#login #login-form fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.5rem;
+  width: 100%;
+}
+#login #login-form label {
+  padding: 1.6rem 0.4rem;
+  width: 100%;
+}
+#login #login-form input {
+  border: none;
+  padding: 0.8rem 1.2rem;
+  background: #EFEBE9;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  #login #login-form {
+    padding: 3.6rem 1.35rem 3rem 1.35rem;
+  }
+  #login #login-form label {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  #login #login-form {
+    padding: 4rem 1.5rem 3rem 1.5rem;
+  }
+  #login #login-form label {
+    font-size: 2rem;
+  }
+}
+@media screen and (min-width: 451px) {
+  #login #login-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #login #login-form .field {
+    padding: 1.6rem 1.5rem;
+    width: 50%;
+  }
+}
+@media screen and (min-width: 768px) {
+  #login h1 {
+    font-size: 2.52rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  #login h1 {
+    font-size: 2.8rem;
+  }
+}
+
 /* *****************************************************************
                             a ranger
 ***************************************************************** */

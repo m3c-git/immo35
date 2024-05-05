@@ -1,8 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
+
+
+
 <main>
-   
+    {{ parent() }}
 <section class="home-main-header">
     <figure>
         <img src="../assets/img/background-home-page-main-header.jpeg" alt="background-home-page-main-header">
@@ -36,7 +39,7 @@
                 {% endfor %}
             </select>
         </fieldset>
-        <button class="btn btn-home" type="submit">Voir les biens</button>
+        <button class="btn-front btn-home" type="submit">Voir les biens</button>
     </form>
     </article>
     

@@ -1,29 +1,36 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
 {% block main %}
-<main>
-    <section>
-        <h2 class="mt-5">Gestion de utilisateurs <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a></h2>
+<main class="admin container">
+
+    <section class="row justify-content-center align-items-center">
+        <h1 class="mt-5">Gestion de utilisateurs <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a><a class="btn btn-success" href="index.php?route=register" role="button">+ Ajouter un administrateur</a></h1>
         
-        <article class="card mb-sm-5" style="width: 18rem;">
+        <article class="card mb-sm-5">
             <img class="card-img-top" src="../assets/img/proprietaire-img.svg" alt="Card image cap">
             <div class="card-body">
-            <h5 class="card-title">Propriétaires</h5>
+            <h2 class="card-title">Propriétaires</h2>
             <p class="card-text">Ici pour gérer les propriétaires.</p>
             <a href="index.php?route=users-proprietaire&role=proprietaire" class="btn btn-primary">Gérer les Propriétaires</a>
             </div>
         </article>
     
-        <article class="card mb-sm-5" style="width: 18rem;">
+        <article class="card mb-sm-5">
             <img class="card-img-top" src="../assets/img/locataire-img.svg" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">Locataires</h5>
+                <h2 class="card-title">Locataires</h2>
                 <p class="card-text">Ici pour gérer les locataires.</p>
                 <a href="index.php?route=users-locataire&role=locataire" class="btn btn-primary">Gérer les locataires</a>
+            </div>
+        </article>
+
+            
+        <article class="card mb-sm-5">
+            <img class="card-img-top" src="../assets/img/admin-svgrepo-com.svg" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title">Administrateur </h2>
+                <p class="card-text">Ici pour gérer les administrateur du site.</p>
+                <a href="index.php?route=users-locataire&role=admin" class="btn btn-primary">Gérer les locataires</a>
             </div>
         </article>
     </section>
@@ -33,11 +40,4 @@
 
 
 
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
 {% endblock %}

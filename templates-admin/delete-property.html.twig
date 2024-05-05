@@ -1,12 +1,9 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
-
 {% block main %}
 <main>
+    {{ parent() }}
+
     {% if errormessage is defined %}
       
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -22,9 +19,3 @@
     
 {% endblock %}
 
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
-{% endblock %}

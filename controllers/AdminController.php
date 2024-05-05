@@ -50,7 +50,7 @@ class AdminController extends AbstractController
 
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
         {
-            $tokenManager = new CSRFTokenManager();
+        
 
 
                 $um = new UserManager();
@@ -60,7 +60,7 @@ class AdminController extends AbstractController
                 {
 
                     unset($_SESSION["message"]);
-                    $this->render("admin-users-by-role.html.twig", ["usersByRolerole" =>$usersByRolerole]);
+                    $this->render("admin-users-by-role.html.twig", ["usersByRolerole" =>$usersByRolerole, "usersRole" => $_GET["role"]]);
                     
                 }
                 else
@@ -306,7 +306,7 @@ class AdminController extends AbstractController
                 }
 
                 unset($_SESSION["message"]);
-                $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys]);
+                $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys, "type" => $_GET["type"]]);
                 
             }
             else

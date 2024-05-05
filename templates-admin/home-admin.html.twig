@@ -1,63 +1,35 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
 
 {% block main %}
-<main>
-    <h2 class="mt-5">Espace d'administration</h2>
-    <ul class="nav nav-tabs">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Biens</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Biens à louer</a></li>
-              <li><a class="dropdown-item" href="#">Biens à vendre</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="index.php?route=users" role="button" aria-expanded="false">Utilisateurs</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="index.php?route=users-proprietaire&role=proprietaire">Propriétaires</a></li>
-              <li><a class="dropdown-item" href="index.php?route=users-locataire&role=locataire">Locataires</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="index.php?route=users-admin&role=admin">Admins du site</a></li>
-            </ul>
-        </li>
-    </ul>
-    <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien</a>
- 
-    <article class="card  mb-sm-5" style="width: 25rem;">
-        <img class="card-img-top" src="../assets/img/house-svgrepo-com.svg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Gestion des biens</h5>
-            <ul class="list-group list-group-flush">
-                  Ici pour la gestion des biens.
-            </ul>
-            <a href="index.php?route=admin-property-type" class="btn btn-primary">Gérer</a>
+<main class="admin container">
+    <h1 class="mt-5">Espace d'administration</h1>
+    <section class="">
+        <div class= "row justify-content-around align-items-center gx-5 gy-5 ">
+            <article class="card  mb-sm-5" style="width: 25rem;">
+                <img class="card-img-top" src="../assets/img/house-svgrepo-com.svg" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title">Gestion des biens</h2>
+                    <ul class="list-group list-group-flush">
+                        Ici pour la gestion des biens.
+                    </ul>
+                    <a href="index.php?route=admin-property-type" class="btn btn-primary">Gérer</a>
+                </div>
+            </article>
+            <article class="card  mb-sm-5">
+                <img class="card-img-top" src="../assets/img/gestion-users-img.svg" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title">Gestion des utilisateurs</h2>
+                    <ul class="list-group list-group-flush">
+                        Ici pour la gestion des utilisateurs.
+                    </ul>
+                    <a href="index.php?route=admin-users-role" class="btn btn-primary">Gérer</a>
+                </div>
+            </article>
         </div>
-    </article>
-    <article class="card  mb-sm-5" style="width: 25rem;">
-        <img class="card-img-top" src="../assets/img/gestion-users-img.svg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Gestion des utilisateurs</h5>
-            <ul class="list-group list-group-flush">
-                  Ici pour la gestion des utilisateurs.
-            </ul>
-            <a href="index.php?route=admin-users-role" class="btn btn-primary">Gérer</a>
-        </div>
-    </article>
-
-    <article class="card  mb-sm-5" style="width: 25rem;">
-        <img class="card-img-top" src="../assets/img/admin-svgrepo-com.svg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Administration</h5>
-            <ul class="list-group list-group-flush">
-                  Ici pour la gestion de l'Administration.
-            </ul>
-            <a href="index.php?route=users-admin&role=admin" class="btn btn-primary">Gérer</a>
-        </div>
-    </article>
+        
+    </section>
+    
 
    
         
@@ -70,9 +42,3 @@
 
 {% endblock %}
 
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
-{% endblock %}

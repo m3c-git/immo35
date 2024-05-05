@@ -103,12 +103,12 @@ em pour les marges padding bordures */
 }
 
 html {
-	font-size: 62.5%; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
+	font-size: 62.5% !important; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
 }
 
 body {
 	font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
   color: $base-noir;
   width: 100vw;
   margin: 0;
@@ -152,15 +152,21 @@ body::-webkit-scrollbar {
 
 main
 {
-  
-  //max-width: 1200px;
-  
+    
   .container
   { 
     margin: 0 auto;
     max-width: 1200px;
   }
 }
+
+    
+  .admin-container
+  { 
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
 
 img
 {
@@ -180,7 +186,7 @@ button
   border: none;
 }
 
-.btn
+.btn-front
 {
   width: 20rem;
   height: 4.5rem;
@@ -209,7 +215,7 @@ button
   }
 }
 
-.btn:before
+.btn-front:before
 {
   content: "";
   position: absolute;
@@ -227,7 +233,7 @@ button:hover:before {
   top: 0;
 }
 
-.btn:after
+.btn-front:after
 {
   position: absolute;
   right: 2rem;
@@ -247,7 +253,37 @@ button:hover:before {
 /* *****************************************************************
                         HEADER + MENU BURGER 
 ***************************************************************** */
-header
+
+#header-admin
+{
+  background: $base-noir;
+
+  
+  ul
+  {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.5rem;
+
+
+    li
+    {
+      list-style: none;
+    }
+
+    a
+    {
+      text-decoration: none;
+      color: $gris-bg;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+  
+
+}
+
+#header
 {
   background: #fff;
  
@@ -2172,8 +2208,101 @@ section.card-section
 }
 
   
+/* *****************************************************************
+                          HOME ADMIN
+***************************************************************** */
   
+.admin
+{
+  font-family: "Roboto", sans-serif;
+  color: $base-noir;
+  font-size: 1.6rem;
+
+  h1
+  {
+    font-size: 2.4rem;
+    font-weight: 700;
+    padding: 4rem 1rem;
+    text-align: center;
+    color: $base-rouge;
+  }
+
+  section
+  {
+    gap: 0 5rem;
+  }
+
+  .card
+  {
+    width: 30rem;
+  }
+
+  form
+  {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  fieldset
+  {
+    padding: 1rem 0;
+    
+
+    legend
+    {
+      font-size: 1.8rem;
+      font-weight: 700;
+      width: 100%;
+      
+    }
+
+    .legend-features
+    {
+
+      padding: 2rem 0 0 0;
+      
+    }
+
+    .form-check
+    {
+      width: 45%;
+    }
+
+    
+  }
+
+  fieldset > label
+  {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
   
+  .form-select
+  {
+    height: auto !important;
+  }
+
+  select, input
+  {
+    font-size: 1.6rem;
+  }
+
+  .image-field
+  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+
+    .image
+    {
+      width: 30%;
+     
+    }
+  }
+
+  
+}
+
 
 
 

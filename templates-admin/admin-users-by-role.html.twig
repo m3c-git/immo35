@@ -1,37 +1,32 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
 {% block main %}
-<main>
-    {% for user in usersByRolerole %}
-    <article class="card  mb-sm-5" style="width: 25rem;">
-        <img class="card-img-top" src="../assets/img/avatar-users-img.svg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{ user.firstName ~ " " ~ user.lastName }}</h5>
-            <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ user.address }}</li>
-                    <li class="list-group-item">{{ user.phone }}</li>
-                    <li class="list-group-item">{{ user.email }}</li>
-                    <li class="list-group-item">{{ user.role }}</li>
-            </ul>
-            <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
-        </div>
-    </article>
-    {% endfor %}
+<main class="admin container">
+    <section class="row justify-content-center align-items-center">
+        <h1>Liste des {{ usersRole }}s </h1>
+
+        {% for user in usersByRolerole %}
+        <article class="card  mb-sm-5" >
+            <img class="card-img-top" src="../assets/img/avatar-users-img.svg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.firstName ~ " " ~ user.lastName }}</h5>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ user.address }}</li>
+                        <li class="list-group-item">{{ user.phone }}</li>
+                        <li class="list-group-item">{{ user.email }}</li>
+                        <li class="list-group-item">{{ user.role }}</li>
+                </ul>
+                <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
+                <a class="btn btn-danger" href="index.php?route=delete-user&id={{ user.id }}" role="button">Supprimer l'utilisateur</a>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+    
 
  
 </main>
 
 
 
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
 {% endblock %}

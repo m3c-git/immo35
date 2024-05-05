@@ -2,6 +2,7 @@
 
 {% block main %}
 <main class="contact">
+    {{ parent() }}
     <h1>CONTACT POUR UN MANDAT DE GESTION</h1>
     <p class="text-manage">
         Vous êtes un particulier et vous souhaitez nous confier la gestion locative de votre bien immobilier ?
@@ -55,7 +56,7 @@
             <input type="text" id="city" name="city">
             <p class="comments"></p>
         </fieldset>
-        <button type="submit" class="btn btn-send-msg" >Envoyer</button>
+        <button type="submit" class="btn-front btn-send-msg" >Envoyer</button>
         <p id="thank-you"></p>
         <p id="sendError"></p>
    

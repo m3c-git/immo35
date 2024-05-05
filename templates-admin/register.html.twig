@@ -1,12 +1,10 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
 {% block main %}
-<main id="register" class="container py-5 px-3">
+<main id="register" class="container admin py-5">
     
+    {{ parent() }}
+
     {% if _SESSION["error-message"] is defined %}
     
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -14,9 +12,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endif %}
-    <h1 class="mb-5">Immo35</h1>
-
-    <h2 class="mt-5">Ajouter un Administrateur pour le site Immo35</h2>
+    <h1 class="mb-5">Ajouter un Administrateur pour le site Immo35</h1>
 
     <form action="index.php?route=check-register" method="post">
         <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
@@ -76,9 +72,6 @@
         </fieldset>
     </form>
 </main>
-{% endblock %}
-
-{% block footer %}
 {% endblock %}
 
 

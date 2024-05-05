@@ -1,12 +1,8 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
 
 {% block main %}
-<main id="register" class="container py-5 px-3">
-    
+<main id="register" class="container admin py-5">
     {% if errormessage is defined %}
       
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -14,9 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
     {% endif %}
-    <h1 class="mb-5">Immo35</h1>
-
-    <h2 class="mt-5">Ajouter un utilisateur</h2>
+    <h1 class="mb-5">Ajouter un utilisateur</h1>
 
     <form action="index.php?route=checkAddUser" method="post">
         <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
@@ -50,13 +44,13 @@
             </label>
             <input type="email" name="email" id="email" class="form-control"/>
         </fieldset>
-        <fieldset class="my-1 form-floating">
+        <fieldset class="my-1 ">
+            <label for="floatingSelect">Listes des Rôles utilisateurs</label>
             <select class="form-select" id="role" name="role" aria-label="Floating label select example">
                 <option selected>Choisir le type d'utilisateur</option>
                 <option value="Proprietaire">Propriétaire</option>
                 <option value="Locataire">Locataire</option>
             </select>
-            <label for="floatingSelect">Listes des Rôles utilisateurs</label>
         </fieldset>
         <fieldset>
             <button type="submit" class="btn btn-primary">Créer un utilisateur</button>
@@ -65,11 +59,5 @@
 </main>
 {% endblock %}
 
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
-{% endblock %}
 
 

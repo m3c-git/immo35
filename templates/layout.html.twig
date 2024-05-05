@@ -13,42 +13,60 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.1/slick-theme.css"/>
 <!--     <link  rel = "stylesheet"  type = "text/css"  href = "slick-lightbox/slick-lightbox.css"/>
  -->
+    {% block contentHeadAdmin %}{% endblock %}
     {% block bootstrap %}{% endblock %}
     <title> {% block title %}{% endblock %}| Immo35</title> 
 </head>
 <body>            
         {% block header %}
         <header>
-            <p class="logo"><a href="index.php">Immo35</a></p>
+            <section id="header">
+                <p class="logo"><a href="index.php">Immo35</a></p>
             
-            <nav class="h-nav">
+                <nav class="h-nav">
 
-               
                 
-                <ul class="navlinks-container">
-                    <li><a href="index.php?route=rent&status=A+LOUER&typeMedia=vignette">louer</a></li>
-                    <li><a href="index.php?route=buy&status=A+VENDRE&typeMedia=vignette">acheter</a></li>
-                    <li><a  href="index.php?route=sell">vendre</a></li>
-                    <li><a href="index.php?route=contact-manage">gérer</a></li>
-                    <li><a href="index.php?route=contact">contact</a></li>
-                    <li><a href="index.php?route=login">connexion</a></li>
-                    <li><a href="index.php?route=logout">déconnexion</a></li>
-                </ul>
-                
+                    
+                    <ul class="navlinks-container">
+                        <li><a href="index.php?route=rent&status=A+LOUER&typeMedia=vignette">louer</a></li>
+                        <li><a href="index.php?route=buy&status=A+VENDRE&typeMedia=vignette">acheter</a></li>
+                        <li><a  href="index.php?route=sell">vendre</a></li>
+                        <li><a href="index.php?route=contact-manage">gérer</a></li>
+                        <li><a href="index.php?route=contact">contact</a></li>
+                        <li><a href="index.php?route=login">connexion</a></li>
+                        <li><a href="index.php?route=logout">déconnexion</a></li>
+                    </ul>
+                    
 
-            </nav>
-            <button class="burger" type="button" aria-label="Toggle Navaigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span class="burger-text">Menu</span>
-                
-            </button>
+                </nav>
+                <button class="burger" type="button" aria-label="Toggle Navaigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span class="burger-text">Menu</span>
+                    
+                </button>
+            </section>
+            {% if role is defined and role == "ADMIN" %}
+            {% block contentHeaderAdmin %}
+           <section id="header-admin">
+                <nav>
+                    <ul>
+                        <li><a href="index.php?route=admin" >Administration</a></li>
+                        <li><a href="index.php?route=admin-property-type" >Biens</a></li>
+                        <li><a href="index.php?route=admin-users-role" >Utilisateurs</a></li>
+                    </ul>
+                </nav>
+            </section>
+            {% endblock %}
+            {% endif %}
+            
             
         </header>
         {% endblock %}
 
         {% block main %}
+        
         {% endblock %}
 
         {% block footer %}

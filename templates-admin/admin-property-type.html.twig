@@ -1,18 +1,15 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
 {% block main %}
-<main>
-    <section>
-    <h2 class="mt-5">Gestion des biens <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien </a></h2>
+<main class="admin container">
+    {{ parent() }}
+    <section class="row justify-content-center align-items-center">
+    <h1 class="mt-5">Gestion des biens <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien </a></h1>
     {% for type in propertyType  %}
-    <article class="card mb-sm-5" style="width: 18rem;">
+    <article class="card mb-sm-5">
         <img class="card-img-top" src="{{ type.media }}" alt="Card image cap">
         <div class="card-body">
-        <h5 class="card-title">{{type.typeName}}</h5>
+        <h2 class="card-title">{{type.typeName}}</h2>
         <p class="card-text">Ici pour gérer les {{type.typeName}}.</p>
         <a href="index.php?route=admin-property-by-type&type={{type.typeName}}&typeMedia=vignette" class="btn btn-primary">Voir les {{type.typeName}}</a>
         </div>
@@ -25,11 +22,4 @@
 
 
 
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
 {% endblock %}

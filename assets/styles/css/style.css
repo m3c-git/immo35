@@ -78,12 +78,12 @@ em pour les marges padding bordures */
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
+  font-size: 62.5% !important; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
 }
 
 body {
   font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
   color: #1C282E;
   width: 100vw;
   margin: 0;
@@ -106,6 +106,11 @@ main .container {
   max-width: 1200px;
 }
 
+.admin-container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
 img {
   width: 100%;
   height: auto;
@@ -120,7 +125,7 @@ button {
   border: none;
 }
 
-.btn {
+.btn-front {
   width: 20rem;
   height: 4.5rem;
   margin: 0 auto;
@@ -142,12 +147,12 @@ button {
   -webkit-transition: 0.08s ease-in;
 }
 @media screen and (min-width: 992px) {
-  .btn {
+  .btn-front {
     font-size: 1.8rem;
   }
 }
 
-.btn:before {
+.btn-front:before {
   content: "";
   position: absolute;
   background: #506F7E;
@@ -163,7 +168,7 @@ button:hover:before {
   top: 0;
 }
 
-.btn:after {
+.btn-front:after {
   position: absolute;
   right: 2rem;
   top: -moz-calc(50% - .6rem);
@@ -180,10 +185,28 @@ button:hover:before {
 /* *****************************************************************
                         HEADER + MENU BURGER 
 ***************************************************************** */
-header {
+#header-admin {
+  background: #1C282E;
+}
+#header-admin ul {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+}
+#header-admin ul li {
+  list-style: none;
+}
+#header-admin ul a {
+  text-decoration: none;
+  color: #EFEBE9;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+#header {
   background: #fff;
 }
-header li {
+#header li {
   list-style: none;
   padding-bottom: 2rem;
   padding-left: 2em;
@@ -192,7 +215,7 @@ header li {
   justify-items: center;
   align-items: center;
 }
-header li a {
+#header li a {
   text-decoration: none;
   color: #506F7E;
   display: inline-block;
@@ -200,10 +223,10 @@ header li a {
   font-size: 1.6rem;
   text-transform: uppercase;
 }
-header li a:hover {
+#header li a:hover {
   color: #E2003B;
 }
-header li a::after {
+#header li a::after {
   content: "";
   display: block;
   position: absolute;
@@ -215,25 +238,25 @@ header li a::after {
   background: #E2003B;
   transition: transform 0.3s ease-out;
 }
-header li a:hover::after {
+#header li a:hover::after {
   transform: scaleX(1);
 }
-header p.logo {
+#header p.logo {
   display: flex;
   justify-content: center;
   justify-items: center;
   align-items: center;
 }
-header p.logo a {
+#header p.logo a {
   font-family: "ProzaLibre", sans-serif;
   font-size: 6rem;
   color: #E2003B;
 }
-header a {
+#header a {
   text-decoration: none;
 }
 @media screen and (max-width: 900px) {
-  header {
+  #header {
     box-shadow: inset 0 -0.1rem 0 #c5c5c6;
     background: #fff;
     width: 100vw;
@@ -244,7 +267,7 @@ header a {
     justify-content: space-between;
     align-items: center;
   }
-  header .navlinks-container {
+  #header .navlinks-container {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -261,18 +284,18 @@ header a {
     transition: transform 0.3s ease-out;
     z-index: 5;
   }
-  header .open {
+  #header .open {
     transform: translate(0%);
   }
-  header li a {
+  #header li a {
     font-size: 1.6rem;
     text-transform: uppercase;
   }
-  header .burger-text {
+  #header .burger-text {
     color: #506F7E;
     text-align: center;
   }
-  header .burger {
+  #header .burger {
     width: 4rem;
     order: 1;
     height: 4rem;
@@ -285,7 +308,7 @@ header a {
     position: relative;
     z-index: 6;
   }
-  header .burger span {
+  #header .burger span {
     display: block;
     width: 100%;
     height: 0.4rem;
@@ -295,33 +318,33 @@ header a {
     pointer-events: none;
     transition: opcity 0.3s 0.15s ease-out;
   }
-  header .burger span:nth-child(1),
-  header .burger span:nth-child(3) {
+  #header .burger span:nth-child(1),
+  #header .burger span:nth-child(3) {
     transition: transform 0.3s ease-out;
   }
-  header .burger span:nth-child(1) {
+  #header .burger span:nth-child(1) {
     transform: translateY(0.8rem);
   }
-  header .burger span:nth-child(3) {
+  #header .burger span:nth-child(3) {
     transform: translateY(-0.8rem);
   }
-  header .burger span:nth-child(4) {
+  #header .burger span:nth-child(4) {
     transform: translateY(1.65rem);
     height: 0;
   }
-  header .burger.open span:nth-child(1) {
+  #header .burger.open span:nth-child(1) {
     transform: translate(0) rotate(135deg);
   }
-  header .burger.open span:nth-child(2) {
+  #header .burger.open span:nth-child(2) {
     opacity: 0;
     transition: opcity 0s ease-out;
   }
-  header .burger.open span:nth-child(3) {
+  #header .burger.open span:nth-child(3) {
     transform: translate(0) rotate(-135deg);
   }
 }
 @media screen and (min-width: 901px) {
-  header {
+  #header {
     position: sticky;
     top: 0;
     background: #fff;
@@ -335,21 +358,21 @@ header a {
     align-items: center;
     z-index: 10;
   }
-  header nav {
+  #header nav {
     display: flex;
     justify-content: center;
     justify-items: center;
     padding: 2em 0;
     width: 100%;
   }
-  header nav .navlinks-container {
+  #header nav .navlinks-container {
     display: flex;
     justify-content: center;
     justify-items: center;
     align-items: center;
     align-content: center;
   }
-  header .burger {
+  #header .burger {
     display: none;
   }
 }
@@ -1440,6 +1463,65 @@ section.card-section .card:hover img {
   #login h1 {
     font-size: 2.8rem;
   }
+}
+
+/* *****************************************************************
+                          HOME ADMIN
+***************************************************************** */
+.admin {
+  font-family: "Roboto", sans-serif;
+  color: #1C282E;
+  font-size: 1.6rem;
+}
+.admin h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  padding: 4rem 1rem;
+  text-align: center;
+  color: #E2003B;
+}
+.admin section {
+  gap: 0 5rem;
+}
+.admin .card {
+  width: 30rem;
+}
+.admin form {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.admin fieldset {
+  padding: 1rem 0;
+}
+.admin fieldset legend {
+  font-size: 1.8rem;
+  font-weight: 700;
+  width: 100%;
+}
+.admin fieldset .legend-features {
+  padding: 2rem 0 0 0;
+}
+.admin fieldset .form-check {
+  width: 45%;
+}
+.admin fieldset > label {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.admin .form-select {
+  height: auto !important;
+}
+.admin select, .admin input {
+  font-size: 1.6rem;
+}
+.admin .image-field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.admin .image-field .image {
+  width: 30%;
 }
 
 /* *****************************************************************

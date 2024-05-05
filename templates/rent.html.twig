@@ -2,6 +2,7 @@
 
 {% block main %}
 <main>
+    {{ parent() }}
     {% if info is defined %}
       
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -43,7 +44,7 @@
                                 {% endfor %}
                             </select>
                         </fieldset>
-                        <button class="btn btn-rent" type="submit">Rechercher</button>
+                        <button class="btn-front btn-rent" type="submit">Rechercher</button>
                     </form>
                 </article>
                 

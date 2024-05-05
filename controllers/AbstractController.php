@@ -18,6 +18,10 @@ abstract class AbstractController
         {
             $twig->addGlobal('message', $_SESSION["message"]);
         }
+        elseif(isset($_SESSION["role"]))
+        {
+            $twig->addGlobal('role', $_SESSION["role"]);
+        }
         
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 

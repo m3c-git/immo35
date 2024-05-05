@@ -1,50 +1,43 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block header %}
-{{ parent() }}
-{% endblock %}
-
 {% block main %}
-<main>
-    {% for property in propertys %}    
-
-    <article class="card  mb-sm-5" style="width: 25rem;">
+<main class="admin container">
+    <section class="row justify-content-center align-items-center">
+        <h1 class="mt-5">Listes des {{ type }} <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien </a></h1>
+        {% for property in propertys %}
         
-        <img class="card-img-top" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
-        
-        <div class="card-body">
-            <h5 class="card-title">{{ property.property.title }}</h5>
-            <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ property.property.location.city }}</li>
-                    <li class="list-group-item">{{ property.property.surface }} M²</li>
-                    <li class="list-group-item">{{ property.property.rooms }} pièces</li>
-                    <li class="list-group-item">{{ property.property.type.typeName }}</li>
-                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
-                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
-                    {% endif %}                    
-                    {% if property.property.charge != null or property.property.charge != 0  %}
-                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
-                    {% endif %}
-                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
-                    <li class="list-group-item">Prix de vente: {{ property.property.salesPrice }} €</li>
-                    {% endif %}
-            </ul>
-            <a href="index.php?route=update-property&id={{ property.property.id }}" class="btn btn-primary">Modifier les informations</a>
-            <a class="btn btn-danger" href='index.php?route=delete-property&id={{ property.property.id }}&type={{ property.property.type.typeName }}&typeMedia=vignette' role="button">Supprimer le bien</a>
-        </div>
-    </article>
-   
-    {% endfor %}
+        <article class="card  mb-sm-5">
+            
+            <img class="card-img-top" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.vignette_url }}">
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ property.property.title }}</h5>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ property.property.location.city }}</li>
+                        <li class="list-group-item">{{ property.property.surface }} M²</li>
+                        <li class="list-group-item">{{ property.property.rooms }} pièces</li>
+                        <li class="list-group-item">{{ property.property.type.typeName }}</li>
+                        {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                        <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
+                        {% endif %}                    
+                        {% if property.property.charge != null or property.property.charge != 0  %}
+                        <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
+                        {% endif %}
+                        {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
+                        <li class="list-group-item">Prix de vente: {{ property.property.salesPrice }} €</li>
+                        {% endif %}
+                </ul>
+                <a href="index.php?route=update-property&id={{ property.property.id }}" class="btn btn-primary">Modifier les informations</a>
+                <a class="btn btn-danger" href='index.php?route=delete-property&id={{ property.property.id }}&type={{ property.property.type.typeName }}&typeMedia=vignette' role="button">Supprimer le bien</a>
+            </div>
+        </article>
+    
+        {% endfor %}
+    </section>
+      
+    
+    
  
 </main>
 {% endblock %}
 
-
-
-
-{% block footer %}
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
-{% endblock %}

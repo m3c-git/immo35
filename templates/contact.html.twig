@@ -2,6 +2,7 @@
 
 {% block main %}
 <main class="contact">
+    {{ parent() }}
     <h1>contact</h1>
    
     <form id="contact-form" name="contact" action="index.php?route=check-contact" method="post" accept-charset="utf-8">
@@ -100,7 +101,7 @@
             <textarea name="message" id="message" cols="30" rows="10"></textarea>
             <p class="comments"></p>
         </fieldset>
-        <button type="submit" class="btn btn-send-msg" >Envoyer</button>
+        <button type="submit" class="btn-front btn-send-msg" >Envoyer</button>
         <p id="thank-you"></p>
         <p id="sendError"></p>
    

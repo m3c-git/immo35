@@ -2,6 +2,7 @@
 
 {% block main %}
 <main>
+    {{ parent() }}
 <section class="result-main-header">
     <h1 class="h1-result">ANNONCES</h1>
     <article class="article-result">
@@ -31,7 +32,7 @@
                     {% endfor %}
                 </select>
             </fieldset>
-            <button class="btn btn-result" type="submit">Rechercher</button>
+            <button class="btn-front btn-result" type="submit">Rechercher</button>
         </form>
     </article>
     

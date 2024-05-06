@@ -15,8 +15,8 @@
         <h1>
             Mettre à jour les informations de la propriété
         </h1>
-        <p>Propriétaire du bien: {{ propertyById.owner.firstName ~ " " ~ propertyById.owner.lastName }}</p>
-        <p>Locataire du bien: {{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</p>
+        <p class="prop-info">Propriétaire du bien: {{ propertyById.owner.firstName ~ " " ~ propertyById.owner.lastName }}</p>
+        <p class="prop-info">Locataire du bien: {{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</p>
 
         <form action='index.php?route=check-update-property' method="POST" enctype="multipart/form-data" class="mt-5">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
@@ -62,11 +62,14 @@
             <fieldset class="my-1 image-field">
                 <legend>Photos du bien</legend>
                 {% if propertyById.medias is empty %}
-                <figure>
-                    <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="...">
-                  </figure>
-                  <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
-                  <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>
+                <div class="image">
+                    <figure>
+                        <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="...">
+                    </figure>
+                    <label for="formFile_{{ key }}" class="form-label">Ajouter des photos</label>
+                    <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>
+                </div>
+                
                   {% else %}
                   {% for key, media in propertyById.medias  %}
                   <div class="image">
@@ -74,14 +77,14 @@
                         <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="...">
                         <figcaption>{{ media.url }}</figcaption>
                     </figure>
-                    <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
+                    <label for="formFile_{{ key }}" class="form-label">Modifier la photo</label>
                     <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" >
                   </div>
                   
                  
                 {% endfor %} 
                 {% endif %}
-                <div>
+                <div class="img-sup">
                     <label for="formFile_{{ key }}" class="form-label">Ajouter des photos supplementaire</label>
                     <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>      
                 </div>
@@ -209,7 +212,7 @@
                 </select>
             </fieldset>
             <fieldset class="my-1 ">
-                <label for="district">Quartier</label>
+                <label for="district">Code postal</label>
                 <select class="form-select" id="district" name="district" aria-label="Floating label select example">
                     <option selected value="">Selectionner un code postal</option>
                     {% for location in allLocation  %}

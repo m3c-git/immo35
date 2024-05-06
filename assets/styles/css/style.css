@@ -1480,6 +1480,9 @@ section.card-section .card:hover img {
   text-align: center;
   color: #E2003B;
 }
+.admin .prop-info {
+  font-weight: 700;
+}
 .admin section {
   gap: 0 5rem;
 }
@@ -1522,6 +1525,13 @@ section.card-section .card:hover img {
 }
 .admin .image-field .image {
   width: 30%;
+}
+.admin .image-field .image img {
+  width: 30rem;
+  height: 30rem;
+}
+.admin .image-field .img-sup {
+  width: 100%;
 }
 
 /* *****************************************************************

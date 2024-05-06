@@ -3,8 +3,11 @@
 {% block main %}
 <main class="admin container">
     <section class="row justify-content-center align-items-center">
-        <h1>Liste des {{ usersRole }}s </h1>
-
+        {% if usersRole is defined and usersRole == "admin" %}{{dump(usersRole)}}
+        <h1>Liste des {{ usersRole }}s <a class="btn btn-success" href="index.php?route=register" role="button">+ Ajouter un administrateur</a></h1>
+        {% else %}
+        <h1>Liste des {{ usersRole }}s <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a></h1>
+        {% endif %}
         {% for user in usersByRolerole %}
         <article class="card  mb-sm-5" >
             <img class="card-img-top" src="../assets/img/avatar-users-img.svg" alt="Card image cap">

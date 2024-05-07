@@ -154,29 +154,23 @@ class UserManager extends AbstractManager
 
     }
 
-    public function updateUser(int $userId) : void
+    public function updateUser(User $user) : void
     {
-        if(isset($_POST))
-        {
-       
-           $userId = intval($_POST['userId']) ;
-           $firstName = $this->CheckInput($_POST['firstName']);
-           $lastName = $this->CheckInput($_POST['lastName']);
-           $address = $this->CheckInput($_POST['address']);
-           $phone = $this->CheckInput($_POST['phone']);
-           $email = $this->checkInput($_POST['email']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
-           $role = $this->CheckInput($_POST['role']);       
-       
-           
-          /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
-           N pas mettre les valeurs du VALUE entre backquote*/
-           $query = $this->db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name, address = :address, phone = :phone, email = :email,  role = :role WHERE id = :id");
-           $parameters = [
-               'id' => $userId, 'first_name' => $firstName, 'last_name' => $lastName, 'address' => $address, 'phone' => $phone, 'email' => $email, 'role' => $role,
-               ];
-           $query->execute($parameters);
-       
-        }
+
+        /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
+        N pas mettre les valeurs du VALUE entre backquote*/
+        $query = $this->db->prepare("UPDATE users SET first_name = :firstName, last_name = :lastName, address = :address, phone = :phone, email = :email,  role = :role WHERE id = :id");
+        $parameters = [
+            'id' => $user->getId(),
+            "firstName" => $user->getFirstName(),
+            "lastName" => $user->getLastName(),
+            "address" => $user->getAddress(),
+            "phone" => $user->getPhone(),
+            "email" => $user->getEmail(),
+            "role" => $user->getRole(),
+            ];
+        $query->execute($parameters);
+        
     }
 
     public function deleteUser( int $userId) : void

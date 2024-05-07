@@ -136,10 +136,6 @@ class AdminController extends AbstractController
                         $_SESSION["error-message"] = "A user already exists with this email";
                         $this->redirect("index.php?route=add-user");
                     }
-                    
-
-                    
-
 
                 }
                 else
@@ -192,13 +188,25 @@ class AdminController extends AbstractController
             {
 
                 $um = new UserManager();
-                $userById = $um->updateUser($_POST['userId']);
+                
 
-                if($userById !== null)
+                if(isset($_POST))
                 {
-                unset($_SESSION["message"]);
-                $this->redirect("index.php?route=admin");
-                //dump($_SESSION);
+                    $userId = intval($_POST['userId']) ;
+                    $firstName = $this->CheckInput($_POST['firstName']);
+                    $lastName = $this->CheckInput($_POST['lastName']);
+                    $address = $this->CheckInput($_POST['address']);
+                    $phone = $this->CheckInput($_POST['phone']);
+                    $email = $this->checkInput($_POST['email']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
+                    $password = NULL;
+                    $role = $this->CheckInput($_POST['role']); 
+                    $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
+                    $user->setId($userId);
+                    $um->updateUser($user);
+
+                    unset($_SESSION["message"]);
+                    $this->redirect("index.php?route=update-user&id=" . $userId);
+                    //dump($_SESSION);
                 }
                 else
                 {

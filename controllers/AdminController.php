@@ -166,6 +166,8 @@ class AdminController extends AbstractController
             $um = new UserManager();
             $userById = $um->findOne($_GET["id"]);
 
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
             $this->render("update-user.html.twig", ["userById" =>$userById]);
 
         }
@@ -186,32 +188,67 @@ class AdminController extends AbstractController
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
-
-                $um = new UserManager();
                 
-
                 if(isset($_POST))
                 {
-                    $userId = intval($_POST['userId']) ;
-                    $firstName = $this->CheckInput($_POST['firstName']);
-                    $lastName = $this->CheckInput($_POST['lastName']);
-                    $address = $this->CheckInput($_POST['address']);
-                    $phone = $this->CheckInput($_POST['phone']);
-                    $email = $this->checkInput($_POST['email']); // Il faut prendre le nom de l'attribut "id" dans lesfomulaires
-                    $password = NULL;
-                    $role = $this->CheckInput($_POST['role']); 
-                    $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
-                    $user->setId($userId);
-                    $um->updateUser($user);
 
-                    unset($_SESSION["message"]);
-                    $this->redirect("index.php?route=update-user&id=" . $userId);
-                    //dump($_SESSION);
+                    if(!empty($_POST["firstName"]) && !empty($_POST["lastName"]) && !empty($_POST["email"]))
+                    {
+                        $um = new UserManager();
+                        $userId = intval($_POST['userId']);
+                        $user = $um->findOne($userId);
+                        $userUpdate = $um->findByEmail($_POST["email"]);
+                        
+                        if($_POST["email"] !== $user->getEmail())
+                        {
+                            
+                            if( $userUpdate === null)   
+                            { 
+                                $newEmail = htmlspecialchars($_POST["email"]);
+                            }
+                            else
+                            {
+                                $_SESSION["error-message"] = "Cette email est déjà utilé par un autre utilisateur";
+                                $this->redirect("index.php?route=update-user&id=" . $userId);
+                                //dump($_SESSION);
+                            } 
+                        }
+                        else
+                        {
+                            $newEmail = htmlspecialchars($_POST["email"]);
+                        }
+
+                        $userId = intval($_POST['userId']) ;
+                        $firstName = $this->CheckInput($_POST['firstName']);
+                        $lastName = $this->CheckInput($_POST['lastName']);
+                        $address = $this->CheckInput($_POST['address']);
+                        $phone = $this->CheckInput($_POST['phone']);
+                        $password = NULL;
+                        $role = $this->CheckInput($_POST['role']); 
+                        $user = new User($firstName, $lastName,  $address, $phone, $newEmail, $password, $role);
+                        $user->setId($userId);
+                        $um->updateUser($user);
+
+                        $_SESSION["role"] = "ADMIN";
+
+                        
+                        $_SESSION["message"] = "Mise à jour de l'utilisateur effectuée avec succès";
+                        unset($_SESSION["error-message"]);
+                        $this->redirect("index.php?route=update-user&id=" . $userId);
+                        //dump($_SESSION);
+                    }
+                    else
+                    {   
+                        $_SESSION["error-message"] = "Les champs Prénom, Nom et Email doivent être renseigné";
+                        $this->redirect("index.php?route=update-user&id=" . $_POST['userId']);
+                        //dump($_SESSION);
+                    }
+
                 }
                 else
                 {
-                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    $this->redirect("index.php?route=admin");
+                    $_SESSION["error-message"] = "Une erreur est survenue";
+                    $this->redirect("index.php?route=users-user&role=admin");
                     //dump($_SESSION);
 
                 }

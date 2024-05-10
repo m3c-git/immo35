@@ -113,7 +113,7 @@ class UserManager extends AbstractManager
         $currentDateTime = date('Y-m-d H:i:s');
 
 
-        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, address, phone, email, password, role, created_at) VALUES (NULL, :firstName, :lastName, :address, :phone, :email, :password, :role, :createdAt)');
+        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, address, phone, email, password, role, created_at) VALUES (NULL, :firstName, :lastName, NULL, :phone, :email, :password, :role, :createdAt)');
         $parameters = [
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
@@ -129,6 +129,25 @@ class UserManager extends AbstractManager
 
         $user->setId($this->db->lastInsertId());
 
+    }
+
+    public function updateAdmin(User $user) : void
+    {
+
+        /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
+        N pas mettre les valeurs du VALUE entre backquote*/
+        $query = $this->db->prepare("UPDATE users SET first_name = :firstName, last_name = :lastName, phone = :phone, email = :email, password = :password, role = :role WHERE id = :id");
+        $parameters = [
+            'id' => $user->getId(),
+            "firstName" => $user->getFirstName(),
+            "lastName" => $user->getLastName(),
+            "phone" => $user->getPhone(),
+            "email" => $user->getEmail(),
+            "password" =>  $user->getPassword(),
+            "role" => $user->getRole(),
+            ];
+        $query->execute($parameters);
+        
     }
 
     public function createUser(User $user) : void

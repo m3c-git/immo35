@@ -2,6 +2,20 @@
 
 {% block main %}
 <main class="admin container">
+    {% if errormessage is defined %}
+      
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ errormessage }} 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% elseif message is defined %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }} 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endif %}
 
     <section class="row justify-content-center align-items-center">
         <h1 class="mt-5">Gestion de utilisateurs <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a> <a class="btn btn-success" href="index.php?route=register" role="button">+ Ajouter un administrateur</a></h1>
@@ -28,9 +42,9 @@
         <article class="card mb-sm-5">
             <img class="card-img-top" src="../assets/img/admin-svgrepo-com.svg" alt="Card image cap">
             <div class="card-body">
-                <h2 class="card-title">Administrateur </h2>
-                <p class="card-text">Ici pour gérer les administrateur du site.</p>
-                <a href="index.php?route=users-admin&role=admin" class="btn btn-primary">Gérer les locataires</a>
+                <h2 class="card-title">Administrateurs </h2>
+                <p class="card-text">Ici pour gérer les administrateurs du site.</p>
+                <a href="index.php?route=users-admin&role=admin" class="btn btn-primary">Gérer les administrateurs</a>
             </div>
         </article>
     </section>

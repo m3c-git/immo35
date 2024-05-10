@@ -19,7 +19,12 @@
                         <li class="list-group-item">{{ user.email }}</li>
                         <li class="list-group-item">{{ user.role }}</li>
                 </ul>
+                {% if user.role == "ADMIN" %}
+
+                <a href="index.php?route=update-admin&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
+                {% else %}
                 <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
+                {% endif %}
                 <a class="btn btn-danger" href="index.php?route=delete-user&id={{ user.id }}" role="button">Supprimer l'utilisateur</a>
             </div>
         </article>

@@ -33,6 +33,14 @@ class Router
         {
             $this->ac->checkRegister();
         }
+        else if(isset($get["route"]) && $get["route"] === 'update-admin')
+        {
+            $this->ac->updateAdmin();
+        }
+        else if(isset($get["route"]) && $get["route"] === 'check-update-admin')
+        {
+            $this->ac->checkUpdateAdmin();
+        }
         else if(isset($get["route"]) && $get["route"] === "login")
         {
             $this->ac->login();

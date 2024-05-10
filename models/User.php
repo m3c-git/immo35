@@ -6,7 +6,7 @@ class User
 
     
 
-    public function __construct(private string $firstName, private string $lastName, private string $address, private string $phone, private string $email, private ? string $password, private string $role = "USER")
+    public function __construct(private string $firstName, private string $lastName, private ? string $address, private string $phone, private string $email, private ? string $password, private string $role = "USER")
     {
 
         $this->role = $role;

@@ -439,7 +439,7 @@ class AdminController extends AbstractController
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
-                /*gestion des caracterisque du bien*/
+                //gestion des caracterisque du bien
 
                 $pm = new PropertyManager();
 
@@ -642,7 +642,7 @@ class AdminController extends AbstractController
                         }
 
 
-                    /*traitement des medias après création du bien*/
+                    //traitement des medias après création du bien
                     $upload = new Uploader();
                     $file_ary = $upload->reArrayFiles($_FILES['formFile']);
                     //dump($file_ary);
@@ -710,72 +710,84 @@ class AdminController extends AbstractController
             $pm = new PropertyManager();
             $propertyById = $pm->findOne($_GET["id"]);
 
-            $mm = new MediaManager();
-            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
-            
-            if($mediaByIdProperty !== [])
+            if($propertyById !== null)
             {
-                if($mediaByIdProperty[0]->gettype() === null)
+              
+            
+
+                $mm = new MediaManager();
+                $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
+                
+                if($mediaByIdProperty !== [])
                 {
-                    $mm->updateMedia($mediaByIdProperty[0]);
+                    if($mediaByIdProperty[0]->gettype() === null)
+                    {
+                        $mm->updateMedia($mediaByIdProperty[0]);
+                    }
+                    $propertyById->setMedias($mediaByIdProperty);
+
                 }
-                $propertyById->setMedias($mediaByIdProperty);
 
+                $fm = new PropertyFeaturesManager();
+                $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
+
+                if($featureByIdProperty !== null)
+                {
+                    $propertyById->setPropertyFeatures($featureByIdProperty);
+                }
+                
+                $allFeatures = $fm->findAll();
+
+                $um = new UserManager();
+                $usersProprietaire = $um->findByRole("Proprietaire");
+                $usersLocataire = $um->findByRole("Locataire");
+
+                $em = new EnergyDiagnosticsManager();
+                $allNoteEnergy = $em->findAll();
+
+                $gm = new GreenhouseGasEmissionIndicesManager();
+                $allNoteGreenhouse = $gm->findAll();
+
+                $lm = new LocationManager();
+                $allLocation = $lm->findAll();
+
+                $rm = new RentalManagementManager();
+                $allManagement = $rm->findAll();
+
+                $spm = new StatusPropertyManager();
+                $allStatus = $spm->findAll();
+
+                $sm = new StateManager();
+                $allState = $sm->findAll();
+
+                $tm = new TypeManager();
+                $allType = $tm->findAll();
+            
+                //dump($propertyById);
+                //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
+                unset($_SESSION["message"]);
+                
+                $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
+                                                            "allFeatures" => $allFeatures, 
+                                                            "featureByIdProperty" => $featureByIdProperty,
+                                                            "mediaByIdProperty" => $mediaByIdProperty,
+                                                            "usersProprietaire" => $usersProprietaire, 
+                                                            "allLocation" => $allLocation,
+                                                            "usersLocataire" => $usersLocataire,
+                                                            "allNoteEnergy" => $allNoteEnergy,
+                                                            "allNoteGreenhouse" => $allNoteGreenhouse,
+                                                            "allManagement" => $allManagement,
+                                                            "allStatus" => $allStatus,
+                                                            "allState" => $allState,
+                                                            "allType" => $allType
+                                                        ]);
             }
-
-            $fm = new PropertyFeaturesManager();
-            $featureByIdProperty = $fm->findFeatureByIdProperty($_GET["id"]);
-
-            if($featureByIdProperty !== null)
+            else
             {
-                $propertyById->setPropertyFeatures($featureByIdProperty);
+                //dump($_SESSION);
+                $_SESSION["message"] = "Aucun biens correspondant";
+                $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
             }
-            
-            $allFeatures = $fm->findAll();
-
-            $um = new UserManager();
-            $usersProprietaire = $um->findByRole("Proprietaire");
-            $usersLocataire = $um->findByRole("Locataire");
-
-            $em = new EnergyDiagnosticsManager();
-            $allNoteEnergy = $em->findAll();
-
-            $gm = new GreenhouseGasEmissionIndicesManager();
-            $allNoteGreenhouse = $gm->findAll();
-
-            $lm = new LocationManager();
-            $allLocation = $lm->findAll();
-
-            $rm = new RentalManagementManager();
-            $allManagement = $rm->findAll();
-
-            $spm = new StatusPropertyManager();
-            $allStatus = $spm->findAll();
-
-            $sm = new StateManager();
-            $allState = $sm->findAll();
-
-            $tm = new TypeManager();
-            $allType = $tm->findAll();
-           
-            //dump($propertyById);
-            //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
-            unset($_SESSION["message"]);
-            
-            $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
-                                                        "allFeatures" => $allFeatures, 
-                                                        "featureByIdProperty" => $featureByIdProperty,
-                                                        "mediaByIdProperty" => $mediaByIdProperty,
-                                                        "usersProprietaire" => $usersProprietaire, 
-                                                        "allLocation" => $allLocation,
-                                                        "usersLocataire" => $usersLocataire,
-                                                        "allNoteEnergy" => $allNoteEnergy,
-                                                        "allNoteGreenhouse" => $allNoteGreenhouse,
-                                                        "allManagement" => $allManagement,
-                                                        "allStatus" => $allStatus,
-                                                        "allState" => $allState,
-                                                        "allType" => $allType
-                                                    ]);
             
         }
         else
@@ -797,17 +809,267 @@ class AdminController extends AbstractController
             {
                 /*gestion des caracterisque du bien*/
 
-                $um = new PropertyManager();
-                $property = $um->updateProperty($_POST['propertyId']);
+                $pm = new PropertyManager();
 
                 $pfm = new PropertyFeaturesManager();
                 $featureByIdProperty = $pfm->findFeatureByIdProperty($_POST['propertyId']);
                 
                 $mm = new MediaManager();
 
+                $um = new UserManager();
+                $usersProprietaire = $um->findByRole("Proprietaire");
+                $usersLocataire = $um->findByRole("Locataire");
+    
+                $em = new EnergyDiagnosticsManager();
+                $allNoteEnergy = $em->findAll();
+    
+                $gm = new GreenhouseGasEmissionIndicesManager();
+                $allNoteGreenhouse = $gm->findAll();
+    
+                $lm = new LocationManager();
+                $allLocation = $lm->findAll();
+    
+                $rm = new RentalManagementManager();
+                $allManagement = $rm->findAll();
+    
+                $spm = new StatusPropertyManager();
+                $allStatus = $spm->findAll();
+    
+                $sm = new StateManager();
+                $allState = $sm->findAll();
+    
+                $tm = new TypeManager();
+                $allType = $tm->findAll();
+
+                if(isset($_POST))
+                {
+                    $propertyId = intval($_POST['propertyId']) ;
+                    $ownerId = (int) $this->checkInput($_POST["ownerId"]);
+                    $featuresId = [];
+                    //$salesPrice = (int) $this->checkInput($_POST["salesPrice"]);
+                    //$rent = (int) $this->checkInput($_POST["rent"]);
+                    //$charge = (int) $this->checkInput($_POST["charge"]);
+                    //$securityDeposit = (int) $this->checkInput($_POST["securityDeposit"]);
+                    //$rentCharge = (int)$this->checkInput($_POST["rentCharge"]);
+                    //$agencyFeesRent = (int) $this->checkInput($_POST["agencyFeesRent"]);
+                    $energyDiagnosticsId = (int) $this->checkInput($_POST["energyDiagnosticsId"]);
+                    $greenhouseGasEmissionIndicesId = (int) $this->checkInput($_POST["greenhouseGasEmissionIndicesId"]);
+                    $statusId = (int) $this->checkInput($_POST["statusId"]);
+                    $stateId = (int) $this->checkInput($_POST["stateId"]);
+                    $typeId = (int) $this->checkInput($_POST["typeId"]);
+                    //$availabilityDate = $this->checkInput($_POST["availabilityDate"]);
+                    $title = $this->checkInput($_POST["title"]);
+                    $rooms = (int) $this->checkInput($_POST["rooms"]);
+                    $surface = (int) $this->checkInput($_POST["surface"]);
+                    $description = $this->checkInput($_POST["description"]);
+                    $locationId = (int) $this->checkInput($_POST["city"]);
+                    $rentalManagementId = (int) $this->checkInput($_POST["rentalManagementId"]);
+            
+                    if($this->CheckInput($_POST['availabilityDate']) === '')
+                   {
+                        $availabilityDate = NULL;
+                   }
+                   else
+                   {
+                        $availabilityDate = $this->CheckInput($_POST['availabilityDate']);
+                   }
+        
+                   if($this->CheckInput($_POST['salesPrice']) === '')
+                   {
+                        $salesPrice = NULL;
+                   }
+                   else
+                   {
+                        $salesPrice = $this->CheckInput($_POST['salesPrice']);
+        
+                   }
+        
+                   if($this->CheckInput($_POST['rent']) === '')
+                   {
+                        $rent = NULL;
+                   }
+                   else
+                   {
+                        $rent = $this->CheckInput($_POST['rent']);
+        
+                   }
+        
+                   if($this->CheckInput($_POST['rentCharge']) === '')
+                   {
+                        $rentCharge = NULL;
+                   }
+                   else
+                   {
+                        $rentCharge = $this->CheckInput($_POST['rentCharge']);
+                   }
+        
+                   if($this->CheckInput($_POST['charge']) === '')
+                   {
+                        $charge = NULL;
+                   }
+                   else
+                   {
+                        $charge = $this->CheckInput($_POST['charge']);
+                   }
+        
+                   if($this->CheckInput($_POST['securityDeposit']) === '')
+                   {
+                        $securityDeposit = NULL;
+                   }
+                   else
+                   {
+                        $securityDeposit = $this->CheckInput($_POST['securityDeposit']);
+                   }
+        
+                   if($this->CheckInput($_POST['agencyFeesRent']) === '')
+                   {
+                        $agencyFeesRent = NULL;
+                   }
+                   else
+                   {
+                        $agencyFeesRent = $this->CheckInput($_POST['agencyFeesRent']);
+                   }
+
+
+                    foreach($usersProprietaire as $proprietaire)
+                    {
+                        if($proprietaire->getId() === $ownerId)
+                        { 
+                            $ownerId = new User($proprietaire->getFirstName(), $proprietaire->getLastName(), $proprietaire->getAddress(),  $proprietaire->getPhone(), $proprietaire->getEmail(), null, $proprietaire->getRole());
+                            $ownerId->setId($proprietaire->getId());
+                        }
+                    }
+
+                    if($this->CheckInput($_POST['tenantId']) === "")
+                    {
+                     $tenantId = NULL;
+                    }
+                    else
+                    {
+                        $tenantId = (int) $this->CheckInput($_POST['tenantId']);   
+                        
+                        foreach($usersLocataire as $locataire)
+                        {
+                            if($locataire->getId() === $tenantId)
+                            {
+                            
+
+                                $tenantId = new User($locataire->getFirstName(), $locataire->getLastName(), $locataire->getAddress(),  $locataire->getPhone(), $locataire->getEmail(), null, $locataire->getRole());
+                                $tenantId->setId($locataire->getId());
+
+                            }
+                        }
+                    
+                    }
+
+                    if($this->CheckInput($_POST['energyDiagnosticsId']) === '')
+                    {
+                        $energyDiagnosticsId = NULL;
+                    }
+                    else
+                    {
+                        foreach($allNoteEnergy as $energy)
+                        {
+                            if($energy->getId() === $energyDiagnosticsId)
+                            {
+                                $energyDiagnosticsId = new EnergyDiagnostics($energy->getNote());
+                                $energyDiagnosticsId->setId($energy->getId());
+                            }
+                        }
+                    }
+
+                    
+
+                    foreach($allNoteGreenhouse as $greenhouse)
+                    {
+                        if($greenhouse->getId() === $greenhouseGasEmissionIndicesId)
+                        {
+                            $greenhouseGasEmissionIndicesId = new GreenhouseGasEmissionIndices($greenhouse->getNote());
+                            $greenhouseGasEmissionIndicesId->setId($greenhouse->getId());
+                        }
+                    }
+
+                    foreach($allStatus as $status)
+                    {
+                        if($status->getId() === $statusId)
+                        {
+                            $statusId = new StatusProperty($status->getStatusName());
+                            $statusId->setId($status->getId());
+                        }
+                    }
+
+                    foreach($allState as $state)
+                    {
+                        if($state->getId() === $stateId)
+                        {
+                            $stateId = new State($state->getStateName());
+                            $stateId->setId($state->getId());
+                        }
+                    }
+
+                    foreach($allType as $type)
+                    {
+                        if($type->getId() === $typeId)
+                        {
+                            $typeId = new Type($type->getTypeName());
+                            $typeId->setId($type->getId());
+                        }
+                    }
+
+                    foreach($allManagement as $management)
+                    {
+                        if($management->getId() === $rentalManagementId)
+                        {
+                            $rentalManagementId = new RentalManagement($management->getManagement());
+                            $rentalManagementId->setId($management->getId());
+                        }
+                    }
+
+                    if($this->checkInput($_POST["district"] !== ""))
+                    {
+                        $district = (int) $this->checkInput($_POST["district"]);
+                    }
+                    else
+                    {
+                        $district = $this->checkInput($_POST["district"]);
+
+                    }
+
+                    foreach($allLocation as $location)
+                    {
+                        if($location->getId() === $locationId)
+                        {
+                            $locationId = new Location($location->getCity());
+                            $locationId->setId($location->getId());
+                                
+                            if($district !== "")
+                            {
+                               $locationId->setDistrict($location->getDistrict());
+                                
+                            }
+                        }
+                            
+                    }   
+                    $property = new Property($statusId, $stateId,  $typeId, $availabilityDate, $title, $rooms, $surface, $description, $locationId, $ownerId, $tenantId, $rentalManagementId);
+                    $property->setId($propertyId);
+                    $property->setSalesPrice($salesPrice);
+                    $property->setRent($rent);
+                    $property->setRentCharge($rentCharge);
+                    $property->setCharge($charge);
+                    $property->setSecurityDeposit($securityDeposit);
+                    $property->setAgencyFeesRent($agencyFeesRent);
+                    $property->setEnergyDiagnostics($energyDiagnosticsId);
+                    $property->setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndicesId);
+
+                    $pm->updateProperty($property);
+                    $_SESSION["new-property-id"] = $property->getId();
+        
+                }
+
+                //traitement des features après update du bien
                 if(isset($_POST["features"]))
                 {
-                    
+                    //dump($_POST);
                     $allFeatureProperty = [];
                     $newfeatures = [];
                     foreach($_POST["features"] as $newfeature)
@@ -849,13 +1111,32 @@ class AdminController extends AbstractController
                         
                     }
                 }
+                else
+                {
+                    if($featureByIdProperty !== null)
+                    {
+                        foreach($featureByIdProperty as $feature)
+                        {
+                            $allFeatureProperty[] = (int) $feature->getId();
+                        }
+                    }
+                    
+    
+                    foreach($allFeatureProperty as $feature)
+                    {
+                        
+
+                        $pfm->deleteFeatureProperty($_POST["propertyId"], $feature);
+                        
+                    }
+                }
 
                 if(isset($_FILES))
                 {
 
                 
 
-                    /*gestion des medias du bien*/
+                    //gestion des medias après update du bien
                     $upload = new Uploader();
                     $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
                     $file_ary = $upload->reArrayFiles($_FILES['formFile']);

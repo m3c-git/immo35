@@ -91,7 +91,7 @@ class PropertyManager extends AbstractManager
         JOIN rental_management ON propertys.rental_management_id = rental_management.id
         JOIN energy_diagnostics ON propertys.energy_diagnostics_id = energy_diagnostics.id
         JOIN greenhouse_gas_emission_indices ON propertys.greenhouse_gas_emission_indices_id = greenhouse_gas_emission_indices.id 
-        WHERE propertys.id = :id');;
+        WHERE propertys.id = :id');
 
         $parameters = [
             "id" => $id
@@ -100,9 +100,8 @@ class PropertyManager extends AbstractManager
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_NAMED);
 
-         
         //dump($result);
-        if($result !== null)
+        if($result !== false)
         {
 
             $statusProperty = new StatusProperty($result["status_name"]);
@@ -143,7 +142,6 @@ class PropertyManager extends AbstractManager
 
             return $property;
         }
-
         return null;
     }
         
@@ -783,7 +781,8 @@ class PropertyManager extends AbstractManager
         {
             $tenant = null;
         }
-        else{
+        else
+        {
             $tenant = $property->getTenant()->getId();
         }
         
@@ -818,9 +817,9 @@ class PropertyManager extends AbstractManager
 
     }
 
-    public function updateProperty(int $propertyId) : void
+    public function updateProperty(Property $property) : void
     {
-        if(isset($_POST))
+        /* if(isset($_POST))
         {
        
            $propertyId = intval($_POST['propertyId']) ;
@@ -926,52 +925,61 @@ class PropertyManager extends AbstractManager
            }
                         
     
-                 
+                  */
            
-/*            $rent = $this->CheckInput($_POST['rent']);
+/*         $rent = $this->CheckInput($_POST['rent']);
            $rent_charge = $this->CheckInput($_POST['rentCharge']);
            $charge = $this->CheckInput($_POST['charge']);
            $security_deposit = $this->CheckInput($_POST['securityDeposit']);
            $agency_fees_rent = $this->CheckInput($_POST['agencyFeesRent']);
            $energy_diagnostics_id = $this->CheckInput($_POST['energyDiagnosticsId']);
            $greenhouse_gas_emission_indices_id = $this->CheckInput($_POST['greenhouseGasEmissionIndicesId']); */
-           $owner_id = $this->CheckInput($_POST['ownerId']);
+           /* $owner_id = $this->CheckInput($_POST['ownerId']);
            //$tenant_id = $this->CheckInput($_POST['tenantId']);
            $rental_management_id = $this->CheckInput($_POST['rentalManagementId']);
            //$medias = $this->CheckInput($_FILES);
            //$propertyFeatures = $this->CheckInput($_POST['features']);
 
+        }
+         */
+        if($property->getTenant() === null)
+        {
+            $tenant = null;
+        }
+        else
+        {
+            $tenant = $property->getTenant()->getId();
+        }
 
-           
           /* Lors du INSERT à ne pas mettre les colonne entre double quote ou quote simple.
            N pas mettre les valeurs du VALUE entre backquote*/
            $query = $this->db->prepare("UPDATE propertys SET status_property_id = :status_property_id, state_id = :state_id, types_id = :types_id, availability_date = :availability_date, title = :title,  rooms = :rooms, surface = :surface, description = :description, location_id = :location_id, sales_price = :sales_price, rent = :rent, rent_charge = :rent_charge, charge = :charge, security_deposit = :security_deposit, agency_fees_rent = :agency_fees_rent, energy_diagnostics_id = :energy_diagnostics_id, greenhouse_gas_emission_indices_id = :greenhouse_gas_emission_indices_id, owner_id = :owner_id, tenant_id = :tenant_id, rental_management_id = :rental_management_id WHERE id = :id");
            $parameters = [
-               'id' => $propertyId,
-               'status_property_id' => $status_property_id,
-               'state_id' => $state_id,
-               'types_id' => $types_id,
-               'availability_date' => $availability_date,
-               'title' => $title,
-               'rooms' => $rooms,
-               'surface' => $surface,
-               'description' => $description,
-               'location_id'  => $location_id,
-               'sales_price' => $sales_price,     
-               'rent' => $rent,
-               'rent_charge' => $rent_charge,
-               'charge' => $charge,
-               'security_deposit' => $security_deposit,
-               'agency_fees_rent' => $agency_fees_rent,
-               'energy_diagnostics_id' => $energy_diagnostics_id,
-               'greenhouse_gas_emission_indices_id' => $greenhouse_gas_emission_indices_id,
-               'owner_id' => $owner_id,
-               'tenant_id' => $tenant_id,
-               'rental_management_id' => $rental_management_id,
+            "id" => $property->getId(),
+            "status_property_id" => $property->getStatusProperty()->getId(),
+            "state_id" => $property->getState()->getId(),
+            "types_id" => $property->getType()->getId(),
+            "availability_date" => $property->getAvailabilityDate(),
+            "title" => $property->getTitle(),
+            "rooms" => $property->getRooms(),
+            "surface" => $property->getSurface(),
+            "description" => $property->getDescription(),
+            "location_id" => $property->getLocation()->getId(),
+            "sales_price" => $property->getSalesPrice(),
+            "rent" => $property->getRent(),
+            "rent_charge" => $property->getRentCharge(),
+            "charge" => $property->getCharge(),
+            "security_deposit" => $property->getSecurityDeposit(),
+            "agency_fees_rent" => $property->getAgencyFeesRent(),
+            "energy_diagnostics_id" => $property->getEnergyDiagnostics()->getId(),
+            "greenhouse_gas_emission_indices_id" => $property->getGreenhouseGasEmissionIndices()->getId(),
+            "owner_id" => $property->getOwner()->getId(),
+            "tenant_id" => $tenant,
+            "rental_management_id" => $property->getRentalManagement()->getId(),
                ];
            $query->execute($parameters);
        
-        }
+        
     }
 
     public function deleteProperty( int $propertyId) : void

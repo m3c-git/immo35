@@ -24,10 +24,10 @@
                         <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
                         {% endif %}
                         {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
-                        <li class="list-group-item">Prix de vente: {{ property.property.salesPrice }} €</li>
+                        <li class="list-group-item">Prix de vente: {{ property.property.salesPrice | number_format(0, '', ' ') }} €</li>
                         {% endif %}
                 </ul>
-                <a href="index.php?route=update-property&id={{ property.property.id }}" class="btn btn-primary">Modifier les informations</a>
+                <a href="index.php?route=update-property&id={{ property.property.id }}&type={{ property.property.type.typeName }}" class="btn btn-primary">Modifier les informations</a>
                 <a class="btn btn-danger" href='index.php?route=delete-property&id={{ property.property.id }}&type={{ property.property.type.typeName }}&typeMedia=vignette' role="button">Supprimer le bien</a>
             </div>
         </article>

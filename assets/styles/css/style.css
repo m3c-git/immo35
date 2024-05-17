@@ -1514,7 +1514,7 @@ section.card-section .card:hover img {
 .admin .form-select {
   height: auto !important;
 }
-.admin select, .admin input {
+.admin select, .admin input, .admin textarea {
   font-size: 1.6rem;
 }
 .admin .image-field {

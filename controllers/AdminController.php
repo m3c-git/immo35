@@ -644,12 +644,12 @@ class AdminController extends AbstractController
 
                     //traitement des medias après création du bien
                     $upload = new Uploader();
-                    $file_ary = $upload->reArrayFiles($_FILES['formFile']);
-                    //dump($file_ary);
+                    $file_aray = $upload->reArrayFiles($_FILES['formFile']);
+                    //dump($file_aray);
 
                 
 
-                    foreach($file_ary as $key => $file)
+                    foreach($file_aray as $key => $file)
                     {
                         if($file['error'] === 1)
                         {
@@ -1067,135 +1067,123 @@ class AdminController extends AbstractController
                 }
 
                 //traitement des features après update du bien
+
+                $featureProperty = [];
+
+                if($featureByIdProperty !== null)
+                {
+                    foreach($featureByIdProperty as $feature)
+                    {
+                        $featureProperty[] = (int) $feature->getId();
+                    }
+                }
+                
+                // Features existantes
                 if(isset($_POST["features"]))
                 {
-                    //dump($_POST);
-                    $allFeatureProperty = [];
-                    $newfeatures = [];
-                    foreach($_POST["features"] as $newfeature)
+                    foreach($_POST["features"] as $postFeature)
                     {
-                        $newfeatures[] = (int) $newfeature;
-                    }
-
-                    if($featureByIdProperty !== null)
-                    {
-                        foreach($featureByIdProperty as $feature)
-                        {
-                            $allFeatureProperty[] = (int) $feature->getId();
-                        }
+                        $postFeatureProperty[] = (int) $postFeature;
                     }
                     
-    
-                    foreach($allFeatureProperty as $feature)
+
+                    foreach($featureProperty as $feature)
                     {
-                        if (!in_array($feature, $newfeatures, true)) 
+                        if (!in_array($feature, $postFeatureProperty, true)) 
                         {
-        
                             $pfm->deleteFeatureProperty($_POST["propertyId"], $feature);
                         }    
-                        
-                    }
-                    
-                    foreach($newfeatures as $newfeature)
-                    {   
-                        
-                        
-                        if (!in_array($newfeature, $allFeatureProperty, true))
-                        {
-                            $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
-                        }
-                        elseif($allFeatureProperty === [])
-                        {
-                            $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
-                        }
                         
                     }
                 }
                 else
                 {
-                    if($featureByIdProperty !== null)
+                    foreach($featureProperty as $feature)
                     {
-                        foreach($featureByIdProperty as $feature)
-                        {
-                            $allFeatureProperty[] = (int) $feature->getId();
-                        }
-                    }
-                    
-    
-                    foreach($allFeatureProperty as $feature)
-                    {
-                        
-
                         $pfm->deleteFeatureProperty($_POST["propertyId"], $feature);
-                        
                     }
                 }
 
+                // Nouvelles features
+                if(isset($_POST["newFeatures"]))
+                {
+                    $newfeatures = [];
+
+                    foreach($_POST["newFeatures"] as $newfeature)
+                    {
+                        $newfeatures[] = (int) $newfeature;
+                    }
+                    
+                    foreach($newfeatures as $newfeature)
+                    {   
+                        if (!in_array($newfeature, $featureProperty, true))
+                        {
+                            $pfm->updateFeatureProperty($_POST["propertyId"], $newfeature);
+                        }
+                    }
+                }
+                
+                //gestion des medias après update du bien
                 if(isset($_FILES))
                 {
-
-                
-
-                    //gestion des medias après update du bien
                     $upload = new Uploader();
                     $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
-                    $file_ary = $upload->reArrayFiles($_FILES['formFile']);
+                    $file_aray = $upload->reArrayFiles($_FILES['formFile']);
 
-                    
-                        foreach($file_ary as $key => $file)
-                        {//dump($file);
+                    foreach($file_aray as $key => $file)
+                    {//dump($file);
+                        
+                            $newMedias = $upload->upload($file, $key);
                             
-                                $newMedias = $upload->upload($file, $key);
+                            if($file['error'] === 1)
+                            {
+                                echo "Le fichier ne doit pas dépasser 2 Mo";
+
+                            }
+                            elseif(empty($file['name']))
+                            {
+                                echo "pas de fichier choisi<br>";
+
+                            }
+                            elseif($oldMedias === [])
+                            {
+                                $mm->addMedia($newMedias);
+                            }
+                            elseif($oldMedias !== null)
+                            {//dump($oldMedias[$i++]);
+
+                                foreach($oldMedias as $media)
+                                {//dump($file);
+                        
                                 
-                                if($file['error'] === 1)
-                                {
-                                    echo "Le fichier ne doit pas dépasser 2 Mo";
-
-                                }
-                                elseif(empty($file['name']))
-                                {
-                                    echo "pas de fichier choisi<br>";
-
-                                }
-                                elseif($oldMedias === [])
-                                {
-                                    $mm->addMedia($newMedias);
-                                }
-                                elseif($oldMedias !== null)
-                                {//dump($oldMedias[$i++]);
-
-                                    foreach($oldMedias as $media)
-                                    {//dump($file);
-                            
-                                    
-                                        if($file['name'] === $media->getUrl())
-                                        {
-                                            echo "déja utilisé<br>";  
-                                        }
-                                        else
-                                        {
-                                            //dump($upload->rearrange($_FILES));
-                                            
-                                            $mm->deleteMedia($media);
-                                        }                                        
+                                    if($file['name'] === $media->getUrl())
+                                    {
+                                        echo "déja utilisé<br>";  
                                     }
-                                    $mm->addMedia($newMedias);
+                                    else
+                                    {
+                                        //dump($upload->rearrange($_FILES));
+                                        
+                                        $mm->deleteMedia($media);
+                                    }                                        
                                 }
+                                $mm->addMedia($newMedias);
+                            }
+                            
+                            /*  else
+                            {
+                                //dump($upload->rearrange($_FILES));
                                 
-                                /*  else
-                                {
-                                    //dump($upload->rearrange($_FILES));
-                                    
-                                    $mm->addMedia($newMedias);
-                                    
-                                    echo "a garder<br>";
+                                $mm->addMedia($newMedias);
+                                
+                                echo "a garder<br>";
 
-                                        //$imageError = "Il y a eu une erreur lors de l'upload";
+                                    //$imageError = "Il y a eu une erreur lors de l'upload";
 
-                                } */
-                            
-                            
-                        }//dump($property);
+                            } */
+                        
+                        
+                    }//dump($property);
                     
                 }
 

@@ -29,7 +29,7 @@
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
             <input type="hidden" id="propertyId" name="propertyId" value="{{ propertyById.id }}" />
             <fieldset class="my-1 ">
-                <label for="owner">Propriétaire du bien:</label>
+                <label for="ownerId">Propriétaire du bien:</label>
                 <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example">
                     <option value="{{  propertyById.owner.id }}" selected>{{ propertyById.owner.firstName ~ " " ~ propertyById.owner.lastName }}</option>
                     {% for proprietaire in usersProprietaire  %}
@@ -38,7 +38,7 @@
                 </select>
             </fieldset>
             <fieldset class="my-1 ">
-                <label for="owner">Locataire du bien:</label>
+                <label for="tenantId">Locataire du bien:</label>
                 <select class="form-select" id="tenantId" name="tenantId" aria-label="Floating label select example">
                     <option value="{{  propertyById.tenant.id }}" selected>{{ propertyById.tenant.firstName ~ " " ~ propertyById.tenant.lastName }}</option>
                     {% for locataire in usersLocataire  %}
@@ -59,8 +59,8 @@
                 <legend class="legend-features">Caractéristiques disponible</legend>
                 {% for key, features in allFeatures  %}
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="features_{{ key }}">{{ features.propertyFeaturesName }}</label>
-                    <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}">
+                    <label class="form-check-label" for="newFeatures_{{ key }}">{{ features.propertyFeaturesName }}</label>
+                    <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="newFeatures[]" id="newFeatures_{{ key }}">
                 </div>
                 {% endfor %}
             </fieldset>

@@ -203,6 +203,10 @@ class Router
         {
             $this->hc->deleteProperty();
         }
+        else if(isset($get["route"]) && $get["route"] === "check-delete-property")
+        {
+            $this->hc->checkDeleteProperty();
+        }
         else if(!isset($get["route"]))
         {
             $this->bc->home();

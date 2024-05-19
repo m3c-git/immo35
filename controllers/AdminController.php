@@ -11,7 +11,7 @@ class AdminController extends AbstractController
 
     public function admin() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $adminManage = ["Gestion des biens", "Gestion des utilisateurs", "Administration"];
             $this->render("home-admin.html.twig", ["adminManage" => $adminManage]);
@@ -30,7 +30,7 @@ class AdminController extends AbstractController
 
     public function adminUsersRole() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             
             $this->render("admin-users-role.html.twig", []);
@@ -48,7 +48,7 @@ class AdminController extends AbstractController
     public function adminUsersByRole() : void
     {
 
-        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
         
 
@@ -85,7 +85,7 @@ class AdminController extends AbstractController
 
     public function addUser() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
 
             $this->render("add-user.html.twig", []);
@@ -108,7 +108,7 @@ class AdminController extends AbstractController
             $tokenManager = new CSRFTokenManager();
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
-                if($_SESSION["role"] === "ADMIN")
+                if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
                 {
                     $um = new UserManager();
                     $user = $um->findByEmail($_POST["email"]);
@@ -161,7 +161,7 @@ class AdminController extends AbstractController
 
     public function updateUser() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $um = new UserManager();
             $userById = $um->findOne($_GET["id"]);
@@ -276,7 +276,7 @@ class AdminController extends AbstractController
 
     public function deleteUser() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
         {
             $um = new UserManager();
             $userById = $um->deleteUser($_GET["id"]);
@@ -298,7 +298,7 @@ class AdminController extends AbstractController
 
     public function adminPropertyType() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
         $um = new PropertyManager();
         $propertyType = $um->findTypes();
@@ -318,7 +318,7 @@ class AdminController extends AbstractController
     public function adminPropertysByType() : void
     {
 
-        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         { 
 
             $pm = new PropertyManager();
@@ -377,7 +377,7 @@ class AdminController extends AbstractController
     
     public function addProperty() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
 
             $fm = new PropertyFeaturesManager();
@@ -705,7 +705,7 @@ class AdminController extends AbstractController
 
     public function updateProperty() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $pm = new PropertyManager();
             $propertyById = $pm->findOne($_GET["id"]);
@@ -1213,49 +1213,24 @@ class AdminController extends AbstractController
 
     public function deleteProperty() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
-            $mm = new MediaManager();
-            $mediaByIdProperty = $mm->findByIdProperty($_GET["id"]);
-
-            $pfm = new PropertyFeaturesManager();
-            $featureByIdProperty = $pfm->findFeatureByIdProperty($_GET["id"]);
-            
-            $pm = new PropertyManager();
-            
-            if($featureByIdProperty !== null)
-            {
-                foreach($featureByIdProperty as $feature)
-                {
-                    $pfm->deleteFeatureProperty($_GET["id"], $feature->getId());
-                }
-            }
-            
-            if($mediaByIdProperty !== [])
-            {
-                foreach($mediaByIdProperty as $media)
-                {//dump($media->getUrl());
-                    // Suppression du fichier image en locale
-                    $file = "upload/". $media->getUrl();
-
-                    if( file_exists ( $file))
-                    {
-                       
-                        unlink( $file );
-                        
-                    }
-                     
-                    // Suppression des innformations du media en BDD
-                    $mm->deleteMedia($media);
                 
+                $pm = new PropertyManager();
+                $propertyById = $pm->findOne($_GET["id"]);
+                
+                if($propertyById !== null)
+                {
+                    $this->render("delete-property.html.twig", ["propertyById" => $propertyById]);
                 }
-            }
-
-            $pm->deleteProperty($_GET["id"]);
-
-
-            $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
-            //dump($_SESSION);
+                else
+                {
+                    $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
+                    //dump($_POST);
+                }
+                
+            
+            
 
         }
         else
@@ -1268,4 +1243,62 @@ class AdminController extends AbstractController
         
     }
 
+    public function checkDeleteProperty() : void
+    {
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        {
+            if(isset($_POST))
+            {
+                $mm = new MediaManager();
+                $mediaByIdProperty = $mm->findByIdProperty($_POST["propertyId"]);
+
+                $pfm = new PropertyFeaturesManager();
+                $featureByIdProperty = $pfm->findFeatureByIdProperty($_POST["propertyId"]);
+                
+                $pm = new PropertyManager();
+                
+                if($featureByIdProperty !== null)
+                {
+                    foreach($featureByIdProperty as $feature)
+                    {
+                        $pfm->deleteFeatureProperty($_POST["propertyId"], $feature->getId());
+                    }
+                }
+                
+                if($mediaByIdProperty !== [])
+                {
+                    foreach($mediaByIdProperty as $media)
+                    {//dump($media->getUrl());
+                        // Suppression du fichier image en locale
+                        $file = "upload/". $media->getUrl();
+
+                        if( file_exists ( $file))
+                        {
+                        
+                            unlink( $file );
+                            
+                        }
+                        
+                        // Suppression des innformations du media en BDD
+                        $mm->deleteMedia($media);
+                    
+                    }
+                }
+
+                $pm->deleteProperty($_POST["propertyId"]);
+
+
+                $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
+                //dump($_POST);
+            }
+            
+
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $this->redirect("index.php?route=login");
+            //dump($_SESSION);
+        }
+    }
 }

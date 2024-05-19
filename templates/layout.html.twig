@@ -47,7 +47,7 @@
                     
                 </button>
             </section>
-            {% if role is defined and role == "ADMIN" %}
+            {% if role is defined and role == "ADMIN" or role is defined and role == "READER" %}
             {% block contentHeaderAdmin %}
            <section id="header-admin">
                 <nav>

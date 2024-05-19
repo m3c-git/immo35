@@ -2339,7 +2339,6 @@ section.card-section
         z-index: 1;
 
       }
-    
   
       
      
@@ -2360,6 +2359,82 @@ section.card-section
     {
       width: 100%;
     }
+  }
+
+  #modal
+  {
+    .modal-footer
+    {
+      padding: 0 1rem;
+
+    }
+
+    .btn-alerte
+    {
+      border: solid 1px #333;
+      background: #f0ad4e;
+      color: #fff;
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .alerte
+    {
+      color: #664d03;
+      background-color: #fff3cd;
+      border-color: #ffecb5;
+      padding: 2rem 1rem;
+      border-radius: 1rem;
+    }
+
+    .btn-non
+    {
+      border: solid 1px #ccc;
+      background: #fff;
+      color: #333;
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+  
+    }
+
+  }
+
+  .form-delete
+  {
+    .form-actions
+    {
+      padding: 0 1rem;
+
+    }
+
+    .btn-alerte
+    {
+      border: solid 1px #333;
+      background: #f0ad4e;
+      color: #fff;
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .alerte
+    {
+      color: #664d03;
+      background-color: #fff3cd;
+      border-color: #ffecb5;
+      padding: 2rem 1rem;
+      border-radius: 1rem;
+    }
+
+    .btn-non
+    {
+      border: solid 1px #ccc;
+      background: #fff;
+      color: #333;
+      padding: 0.5rem 0.5rem;
+      border-radius: 0.5rem;
+  
+    }
+
   }
 
   

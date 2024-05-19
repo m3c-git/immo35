@@ -61,5 +61,13 @@ document.addEventListener("DOMContentLoaded", function(e) {
     //btn.addEventListener("scroll", scrollTop);
     window.onscroll = function() {scrollTop()};
 
+    var myModal = new bootstrap.Modal(document.getElementById('modal'))
+    function toggleModal1() {
+
+        // Toggle Modal
+        myModal.toggle();
+
+        
+    }
 });
 

@@ -28,7 +28,7 @@ class AuthController extends AbstractController
                 {
                     if(password_verify($_POST["password"], $user->getPassword()))
                     {
-                        if($user->getRole() === "ADMIN")
+                        if($user->getRole() === "ADMIN" || $user->getRole() === "READER")
                         {
                             $_SESSION["role"] = $user->getRole();
                            
@@ -74,7 +74,7 @@ class AuthController extends AbstractController
 
     public function register() : void
     {
-        if($_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $this->render("register.html.twig", []);
 
@@ -159,7 +159,7 @@ class AuthController extends AbstractController
 
     public function updateAdmin() : void
     {
-        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $um = new UserManager();
             $userById = $um->findOne($_GET["id"]);

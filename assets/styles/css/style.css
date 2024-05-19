@@ -191,7 +191,7 @@ button:hover:before {
 #header-admin ul {
   display: flex;
   justify-content: space-evenly;
-  padding: 0.5rem;
+  padding: 0.5em;
 }
 #header-admin ul li {
   list-style: none;
@@ -597,7 +597,7 @@ footer section:nth-child(2) {
     font-size: 3.4rem;
     font-weight: 900;
     color: #1C282E;
-    padding: 5em 0 0 0;
+    padding: 3em 0 0 0;
     text-align: center;
   }
   .home-main-header p, .rent-header p, .buy-header p, .result-main-header p {
@@ -807,7 +807,7 @@ section.card-section {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 13em 1em 0 1em;
+  padding: 13em 1em 2rem 1em;
   gap: 1em;
   width: 100%;
 }
@@ -895,13 +895,13 @@ section.card-section .card:hover img {
 }
 @media screen and (min-width: 901px) {
   section.card-section {
-    padding: 4em 1em 0 1em;
+    padding: 4em 1em 2em 1em;
     justify-content: center;
   }
 }
 
 .result {
-  padding: 2em 1em 0 1em !important;
+  padding: 2em 1em 2em 1em !important;
 }
 
 /* *****************************************************************
@@ -1482,12 +1482,15 @@ section.card-section .card:hover img {
 }
 .admin .prop-info {
   font-weight: 700;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 .admin section {
   gap: 0 5rem;
 }
 .admin .card {
   width: 30rem;
+  padding-top: 0.5em;
 }
 .admin form {
   margin: 0 auto;
@@ -1520,15 +1523,42 @@ section.card-section .card:hover img {
 .admin .image-field {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2rem;
+  gap: 3rem 10rem;
 }
 .admin .image-field .image {
-  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.admin .image-field .image .form-check {
+  padding-bottom: 1em;
+  width: 100%;
+}
+.admin .image-field .image .fa-trash-can {
+  color: #E2003B;
 }
 .admin .image-field .image img {
   width: 30rem;
   height: 30rem;
+  object-fit: cover;
+  transition: 0.5s;
+}
+.admin .image-field .image label::before {
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+.admin .image-field .image:hover {
+  cursor: pointer;
+}
+.admin .image-field .image:hover img {
+  transform: scale(1.1);
 }
 .admin .image-field .img-sup {
   width: 100%;

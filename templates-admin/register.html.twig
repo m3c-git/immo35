@@ -5,12 +5,19 @@
     
     {{ parent() }}
 
-    {% if _SESSION["error-message"] is defined %}
-    
+    {% if errormessage is defined %}
+      
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session.error-message }}
+            {{ errormessage }} 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    {% elseif message is defined %}
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }} 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
     {% endif %}
     <h1 class="mb-5">Ajouter un Administrateur pour le site Immo35</h1>
 

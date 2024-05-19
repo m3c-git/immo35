@@ -10,7 +10,13 @@
                 {{ errormessage }} 
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            {% endif %}
+        {% elseif message is defined %}
+
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{ message }} 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
         <h1 class="mb-5">Espace de gestion Immo35</h1>
     
         <form id="login-form" action="index.php?route=check-login" method="post">

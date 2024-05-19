@@ -263,7 +263,7 @@ button:hover:before {
   {
     display: flex;
     justify-content: space-evenly;
-    padding: 0.5rem;
+    padding: 0.5em;
 
 
     li
@@ -833,7 +833,7 @@ footer
       font-size: 3.4rem;
       font-weight: 900;
       color: $base-noir;
-      padding: 5em 0 0 0;
+      padding: 3em 0 0 0;
       text-align: center;
     }
 
@@ -1135,7 +1135,7 @@ section.card-section
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 13em 1em 0 1em;
+  padding: 13em 1em 2rem 1em;
   gap: 1em ;
   width: 100%;
 
@@ -1274,7 +1274,7 @@ section.card-section
   @include media-min(901px) 
   {
     
-    padding: 4em 1em 0 1em;
+    padding: 4em 1em 2em 1em;
     justify-content: center;
 
 
@@ -1286,7 +1286,7 @@ section.card-section
 
 .result
 {
-  padding: 2em 1em 0 1em !important;
+  padding: 2em 1em 2em 1em !important;
 }
 
 /* *****************************************************************
@@ -2230,6 +2230,8 @@ section.card-section
   .prop-info
   {
     font-weight: 700;
+    margin: 0 auto;
+    max-width: 1200px;
   }
 
   section
@@ -2240,6 +2242,7 @@ section.card-section
   .card
   {
     width: 30rem;
+    padding-top: 0.5em;
   }
 
   form
@@ -2295,21 +2298,63 @@ section.card-section
   {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
+    gap: 3rem 10rem;
     
 
     .image
     {
-      width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .form-check
+      {
+        padding-bottom: 1em;
+        width: 100%;
+      }
+
+      .fa-trash-can
+      {
+        color: $base-rouge;
+      }
 
       img
       {
         width: 30rem;
         height: 30rem;
+        object-fit: cover;
+        transition: 0.5s;
       }
+
+      label::before
+      {
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+
+      }
+    
+  
+      
      
     }
+
+    .image:hover
+      {
+        cursor: pointer;
+
+        img
+        {
+          transform: scale(1.1); 
+
+        }
+      }
 
     .img-sup
     {

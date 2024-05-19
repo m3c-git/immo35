@@ -1124,10 +1124,30 @@ class AdminController extends AbstractController
                 }
                 
                 //gestion des medias après update du bien
+                $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
+                
+                // Medias existants
+                if(isset($_POST["medias"]))
+                {
+                    foreach($oldMedias as $media)
+                    {
+                        if (in_array($media->getUrl(), $_POST["medias"], true))
+                        {
+                            $mm->deleteMedia($media);
+                        }
+                    }
+                }
+                /* else
+                {
+                    foreach($oldMedias as $media)
+                    {
+                        $mm->deleteMedia($media);
+                    }
+                } */
+
                 if(isset($_FILES))
                 {
                     $upload = new Uploader();
-                    $oldMedias = $mm->findByIdProperty($_POST['propertyId']);
                     $file_aray = $upload->reArrayFiles($_FILES['formFile']);
 
                     foreach($file_aray as $key => $file)
@@ -1150,40 +1170,18 @@ class AdminController extends AbstractController
                                 $mm->addMedia($newMedias);
                             }
                             elseif($oldMedias !== null)
-                            {//dump($oldMedias[$i++]);
-
+                            {
                                 foreach($oldMedias as $media)
-                                {//dump($file);
-                        
-                                
+                                {
                                     if($file['name'] === $media->getUrl())
                                     {
                                         echo "déja utilisé<br>";  
-                                    }
-                                    else
-                                    {
-                                        //dump($upload->rearrange($_FILES));
-                                        
-                                        $mm->deleteMedia($media);
-                                    }                                        
+                                    }                                   
                                 }
                                 $mm->addMedia($newMedias);
                             }
-                            
-                            /*  else
-                            {
-                                //dump($upload->rearrange($_FILES));
-                                
-                                $mm->addMedia($newMedias);
-                                
-                                echo "a garder<br>";
-
-                                    //$imageError = "Il y a eu une erreur lors de l'upload";
-
-                            } */
                         
-                        
-                    }//dump($property);
+                    }
                     
                 }
 

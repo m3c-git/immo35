@@ -4,7 +4,7 @@
 
 
     <main class="admin container py-5">
-        {% if errormessage is defined %}
+    {% if errormessage is defined %}
       
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ errormessage }} 
@@ -12,7 +12,7 @@
         </div>
     {% elseif message is defined %}
 
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
             {{ message }} 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -54,8 +54,9 @@
                     <label class="form-check-label" for="features_{{ key }}">{{ features.propertyFeaturesName }}</label>
                     <input class="form-check-input" type="checkbox" value="{{ features.id }}" name="features[]" id="features_{{ key }}" checked>
                 </div>  
-                {% endfor %}
-            <fieldset>
+                {% endfor %} 
+            </fieldset>
+            <fieldset class="my-1">
                 <legend class="legend-features">Caractéristiques disponible</legend>
                 {% for key, features in allFeatures  %}
                 <div class="form-check form-check-inline">
@@ -64,16 +65,12 @@
                 </div>
                 {% endfor %}
             </fieldset>
-                
-                
-                
-            </fieldset>
             <fieldset class="my-1 image-field">
                 <legend>Photos du bien</legend>
                 {% if propertyById.medias is empty %}
                 <div class="image">
                     <figure>
-                        <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="...">
+                        <img src="../assets/img/no-vignette.svg" class="img-fluid img-thumbnail" alt="{{ media.url }}">
                     </figure>
                     <label for="formFile_{{ key }}" class="form-label">Ajouter des photos</label>
                     <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>
@@ -82,21 +79,29 @@
                   {% else %}
                   {% for key, media in propertyById.medias  %}
                   <div class="image">
+                    
+                    <div class="form-check form-check-inline">
+                        
+                        <label class="form-check-label" for="medias_{{ key }}">{{ media.url }}</label>
+                        <input class="form-check-input" type="checkbox" value="{{ media.url }}" name="medias[]" id="medias_{{ key }}">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </div>
                     <figure>
-                        <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="...">
-                        <figcaption>{{ media.url }}</figcaption>
+                        <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="{{ media.url }}">
+                        <!-- <figcaption>{{ media.url }}</figcaption> -->
                     </figure>
-                    <label for="formFile_{{ key }}" class="form-label">Modifier la photo</label>
-                    <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" >
+                    <!-- <label for="formFile_{{ key }}" class="form-label">Modifier la photo</label>
+                    <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" > -->
                   </div>
                   
                  
                 {% endfor %} 
-                {% endif %}
                 <div class="img-sup">
                     <label for="formFile_{{ key }}" class="form-label">Ajouter des photos supplementaire</label>
                     <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>      
                 </div>
+                {% endif %}
+                
                 
 
             </fieldset>

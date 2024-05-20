@@ -154,6 +154,10 @@ class Router
         {
             $this->hc->deleteUser();
         }
+        else if(isset($get["route"]) && $get["route"] === 'check-delete-user')
+        {
+            $this->hc->checkDeleteUser();
+        }
         else if(isset($get["route"]) && $get["route"] === 'admin-property-type')
         {
             $this->hc->adminPropertyType();

@@ -24,9 +24,9 @@
                 </ul>
                 {% if user.role == "ADMIN" or user.role == "READER"%}
 
-                <a href="index.php?route=update-admin&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
+                <a class="btn btn-primary"href="index.php?route=update-admin&id={{ user.id }}" role="button">Modifier les informations</a>
                 {% else %}
-                <a href="index.php?route=update-user&id={{ user.id }}" class="btn btn-primary">Modifier les informations</a>
+                <a class="btn btn-primary" href="index.php?route=update-user&id={{ user.id }}" role="button">Modifier les informations</a>
                 {% endif %}
                 <a class="btn btn-danger" href="index.php?route=delete-user&id={{ user.id }}" role="button">Supprimer l'utilisateur</a>
             </div>

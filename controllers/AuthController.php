@@ -9,6 +9,8 @@ class AuthController extends AbstractController
 {
     public function login() : void
     {
+        unset($_SESSION["message"]);
+        unset($_SESSION["error-message"]);
         $this->render("login.html.twig", []);
     }
 
@@ -209,7 +211,7 @@ class AuthController extends AbstractController
                             {
                                 $_SESSION["error-message"] = "Cette email est déjà utilé par un autre utilisateur";
                                 $this->redirect("index.php?route=update-admin&id=" . $userId);
-                                dump($_SESSION);
+                                //dump($_SESSION);
                             } 
                         }
                         else
@@ -317,31 +319,31 @@ class AuthController extends AbstractController
                     else
                     {   
                         $_SESSION["error-message"] = "Les champs Prénom, Nom, Email doivent être renseigné";
-                        //$this->redirect("index.php?route=update-admin&id=" . $_POST['userId']);
-                        dump($_SESSION);
+                        $this->redirect("index.php?route=update-admin&id=" . $_POST['userId']);
+                        //dump($_SESSION);
                     }
                 }
                 else
                 {
                     $_SESSION["error-message"] = "Une erreur est survenue";
-                    //$this->redirect("index.php?route=users-admin&role=admin");
-                    dump($_SESSION);
+                    $this->redirect("index.php?route=users-admin&role=admin");
+                    //dump($_SESSION);
 
                 }
             }
             else
             {
                 $_SESSION["error-message"] = "Utilisateur non autorisé ";
-                //$this->redirect("index.php?route=login");
-                dump($_SESSION);
+                $this->redirect("index.php?route=login");
+                //dump($_SESSION);
 
             }
         }
         else
         {
             $_SESSION["error-message"] = "Invalid CSRF token";
-            //$this->redirect("index.php?route=register");
-            dump($_SESSION);
+            $this->redirect("index.php?route=register");
+            //dump($_SESSION);
         }
 
             

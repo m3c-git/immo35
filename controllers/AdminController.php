@@ -14,12 +14,16 @@ class AdminController extends AbstractController
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
             $adminManage = ["Gestion des biens", "Gestion des utilisateurs", "Administration"];
+
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
+
             $this->render("home-admin.html.twig", ["adminManage" => $adminManage]);
 
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
             $this->redirect("index.php?route=login");
         }
     
@@ -32,14 +36,16 @@ class AdminController extends AbstractController
     {
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
-            
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
+
             $this->render("admin-users-role.html.twig", []);
 
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
     
     
@@ -60,6 +66,8 @@ class AdminController extends AbstractController
                 {
 
                     unset($_SESSION["message"]);
+                    unset($_SESSION["error-message"]);
+                    
                     $this->render("admin-users-by-role.html.twig", ["usersByRolerole" =>$usersByRolerole, "usersRole" => $_GET["role"]]);
                     
                 }
@@ -76,8 +84,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
             //dump($_GET);
             //dump($_SESSION);
         }
@@ -88,13 +96,16 @@ class AdminController extends AbstractController
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
 
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
+
             $this->render("add-user.html.twig", []);
 
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
 
         
@@ -140,8 +151,8 @@ class AdminController extends AbstractController
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-                    $this->redirect("index.php?route=login");
+                    $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+                    $this->redirect("index.php?route=admin-users-role");
                 }
                         
                 
@@ -168,13 +179,14 @@ class AdminController extends AbstractController
 
             unset($_SESSION["message"]);
             unset($_SESSION["error-message"]);
+
             $this->render("update-user.html.twig", ["userById" =>$userById]);
 
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
 
         
@@ -266,8 +278,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-users-role");
             //dump($_SESSION);
 
         }
@@ -276,18 +288,59 @@ class AdminController extends AbstractController
 
     public function deleteUser() : void
     {
+        if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
+        {
+                
+            $um = new UserManager();
+            $userById = $um->findOne($_GET["id"]);
+            
+            if($userById !== null)
+            {
+                unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+
+                $this->render("delete-user.html.twig", ["userById" => $userById]);
+            }
+            else
+            {
+                $this->redirect('index.php?route=admin-users-role');
+                //dump($_POST);
+            }
+      
+        }
+        else
+        {
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
+
+            //dump($_SESSION);
+        }
+
+        
+    }
+
+    public function checkDeleteUser() : void
+    {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
         {
-            $um = new UserManager();
-            $userById = $um->deleteUser($_GET["id"]);
-            $this->redirect("index.php?route=admin");
-            //dump($_SESSION);
+            if(isset($_POST))
+            {
+                $um = new UserManager();
+                $um->deleteUser($_POST["userId"]);
+
+                unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+
+                $this->redirect("index.php?route=admin-users-role");
+                //dump($_SESSION);
+            }
+           
 
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-users-role");
             //dump($_SESSION);
         }
 
@@ -300,16 +353,19 @@ class AdminController extends AbstractController
     {
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
-        $um = new PropertyManager();
-        $propertyType = $um->findTypes();
+            $um = new PropertyManager();
+            $propertyType = $um->findTypes();
 
-        $this->render("admin-property-type.html.twig", ["propertyType" => $propertyType]);
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
+
+            $this->render("admin-property-type.html.twig", ["propertyType" => $propertyType]);
 
         }
         else
         {
-        $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-        $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
     
     
@@ -351,6 +407,8 @@ class AdminController extends AbstractController
                 }
 
                 unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+
                 $this->render("admin-propertys-by-type.html.twig", ["propertys" => $propertys, "type" => $_GET["type"]]);
                 
             }
@@ -367,8 +425,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
             //dump($_GET);
             //dump($_SESSION);
         }
@@ -408,6 +466,8 @@ class AdminController extends AbstractController
             $lm = new LocationManager();
             $allLocation = $lm->findAll();
             
+            unset($_SESSION["message"]);
+            unset($_SESSION["error-message"]);
 
             $this->render("add-property.html.twig", ["allFeatures" => $allFeatures,
                                                     "usersProprietaire" => $usersProprietaire, 
@@ -424,8 +484,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
 
     
@@ -694,7 +754,7 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
             $this->redirect("index.php?route=login");
             //dump($_SESSION);
 
@@ -766,7 +826,8 @@ class AdminController extends AbstractController
                 //dump($propertyById);
                 //dump($propertyById, $usersProprietaire, $usersLocataire, $_FILES);
                 unset($_SESSION["message"]);
-                
+                unset($_SESSION["error-message"]);
+
                 $this->render("update-property.html.twig", ["propertyById" => $propertyById, 
                                                             "allFeatures" => $allFeatures, 
                                                             "featureByIdProperty" => $featureByIdProperty,
@@ -792,8 +853,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
+            $this->render("login.html.twig", []);
         }
 
         
@@ -1203,8 +1264,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé ";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-property-type");
             //dump($_SESSION);
 
         }
@@ -1221,6 +1282,9 @@ class AdminController extends AbstractController
                 
                 if($propertyById !== null)
                 {
+                    unset($_SESSION["message"]);
+                    unset($_SESSION["error-message"]);
+
                     $this->render("delete-property.html.twig", ["propertyById" => $propertyById]);
                 }
                 else
@@ -1236,7 +1300,7 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $this->render("login.html.twig", []);
             //dump($_SESSION);
         }
 
@@ -1287,7 +1351,9 @@ class AdminController extends AbstractController
 
                 $pm->deleteProperty($_POST["propertyId"]);
 
-
+                unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+                
                 $this->redirect('index.php?route=admin-property-by-type&type=' . $_GET["type"] . '&typeMedia=vignette');
                 //dump($_POST);
             }
@@ -1296,8 +1362,8 @@ class AdminController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-property-type");
             //dump($_SESSION);
         }
     }

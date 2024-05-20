@@ -15,19 +15,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
-    <h1> Supprimer un bien </h1>
+    <h1> Supprimer un utilisateur </h1>
 
-    <form class="form-delete" role="form" action="index.php?route=check-delete-property&type={{ propertyById.type.typeName }}" method="post">
+    <form class="form-delete" role="form" action="index.php?route=check-delete-user" method="post">
         <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
-        <input type="hidden" id="propertyId" name="propertyId" value="{{ propertyById.id }}" />
-        <p class="alerte">Êtes-vous sûrs de vouloirs supprimés ce bien ? <br> Cette action est irreversible !</p>
+        <input type="hidden" id="userId" name="userId" value="{{ userById.id }}" />
+        <p class="alerte">Êtes-vous sûrs de vouloirs supprimés cet utilisateur ? <br> Cette action est irreversible !</p>
         <div class="form-actions">
             {% if role is defined and role == "READER" %}
             <button type="submit" class="btn btn-alerte" disabled> Oui</button>
             {% else %}
             <button type="submit" class="btn btn-alerte"> Oui</button>
             {% endif %}
-            <a class="btn btn-non" href="index.php?route=admin-property-by-type&type={{ propertyById.type.typeName }}&typeMedia=vignette" role="button">Non</a>
+            <a class="btn btn-non" href="index.php?route=users-{{ userById.role |lower }}&role={{ userById.role |lower }}" role="button">Non</a>
         </div>
     </form>
    

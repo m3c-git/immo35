@@ -1510,7 +1510,7 @@ section.card-section .card:hover img {
 .admin fieldset .form-check {
   width: 45%;
 }
-.admin fieldset > label {
+.admin fieldset > label, .admin fieldset .form-check label {
   font-size: 1.8rem;
   font-weight: 700;
 }

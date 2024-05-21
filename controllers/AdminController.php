@@ -135,7 +135,7 @@ class AdminController extends AbstractController
                         $role = htmlspecialchars($_POST["role"]);
                         $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
                         
-                        $um->createAdmin($user);
+                        $um->createUser($user);
 
                         unset($_SESSION["error-message"]);
                         unset($_SESSION["message"]);

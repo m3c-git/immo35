@@ -117,7 +117,6 @@ class UserManager extends AbstractManager
         $parameters = [
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
-            "address" => $user->getAddress(),
             "phone" => $user->getPhone(),
             "email" => $user->getEmail(),
             "password" => $user->getPassword(),

@@ -93,7 +93,7 @@ class AuthController extends AbstractController
     {
         if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
         {
-            if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"])
+            if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"]) && isset($_POST["role"])
             && isset($_POST["password"]) && isset($_POST["confirm-password"]))
             {
                 $tokenManager = new CSRFTokenManager();
@@ -112,7 +112,7 @@ class AuthController extends AbstractController
                             {
                                 $firstName = htmlspecialchars($_POST["firstName"]);
                                 $lastName = htmlspecialchars($_POST["lastName"]);
-                                $address = htmlspecialchars($_POST["address"]);
+                                $address = null;
                                 $phone = htmlspecialchars($_POST["phone"]);
                                 $email = htmlspecialchars($_POST["email"]);
                                 $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
@@ -120,7 +120,7 @@ class AuthController extends AbstractController
                                 $email = htmlspecialchars($_POST["email"]);
                                 $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
                                 
-                                dump($_POST);
+                                //dump($_POST);
                                 $um->createAdmin($user);
 
                                 $_SESSION["user"] = $user->getId();
@@ -128,7 +128,7 @@ class AuthController extends AbstractController
                                 unset($_SESSION["error-message"]);
 
                                 
-                                $this->redirect("index.php=register");
+                                $this->redirect("index.php?route=register");
                             }
                             else
                             {
@@ -247,6 +247,7 @@ class AuthController extends AbstractController
                                             $lastName = htmlspecialchars($_POST["lastName"]);
                                             $address = null;
                                             $phone = htmlspecialchars($_POST["phone"]);
+                                            
                                             $newPassword = password_hash($_POST["new-password"], PASSWORD_BCRYPT);
                                             $role = htmlspecialchars($_POST["role"]);
                                             $user = new User($firstName, $lastName,  $address, $phone, $newEmail, $newPassword, $role);
@@ -307,7 +308,7 @@ class AuthController extends AbstractController
                             $lastName = htmlspecialchars($_POST["lastName"]);
                             $address = null;
                             $phone = htmlspecialchars($_POST["phone"]);
-                            $newPassword = null;
+                            $newPassword = $user->getPassword();
                             $role = htmlspecialchars($_POST["role"]);
                             $user = new User($firstName, $lastName,  $address, $phone, $newEmail, $newPassword, $role);
                             $user->setId($userId);

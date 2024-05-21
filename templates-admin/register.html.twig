@@ -22,7 +22,7 @@
     <h1 class="mb-5">Ajouter un Administrateur pour le site Immo35</h1>
 
     <form action="index.php?route=check-register" method="post">
-        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session }}" />
+        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
         <fieldset class="my-1">
             <label for="firstName" class="form-label">
                 Prénom
@@ -34,12 +34,6 @@
                 Nom
             </label>
             <input type="text" name="lastName" id="lastName" class="form-control"/>
-        </fieldset>
-        <fieldset class="my-1">
-            <label for="address" class="form-label">
-                Adresse
-            </label>
-            <input type="text" name="address" id="address" class="form-control"/>
         </fieldset>
         <fieldset class="my-1">
             <label for="phone" class="form-label">
@@ -65,14 +59,15 @@
             </label>
             <input type="password" name="confirm-password" id="confirm-password"  class="form-control"/>
         </fieldset>
-        <fieldset class="form-check form-switch">
-            <input class="form-check-input" name="role-info" id="role-info" value="" type="checkbox" role="switch" checked disabled>
-            <input type="hidden" name="role" id="role" value="ADMIN"/>
-            <label class="form-check-label" for="role">L'utilisateur aura les droits administrateur sur ce site</label>
-<!--             <label for="role" class="form-check-label">
-                Role Admin  
-            </label>
-            <input type="checkbox" name="role" id="role"  value="ADMIN" class="form-check-input me-1"/> -->
+        <fieldset >
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="administrateur" name="role" value="ADMIN">
+                <label class="form-check-label" for="administrateur">Administrateur (Droits administrateur sur ce site)</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="reader" name="role" value="READER">
+                <label class="form-check-label" for="reader">Reader (Droits de lecture dans la partie admistration)</label>
+            </div>
         </fieldset>
         <fieldset>
             {% if role is defined and role == "READER" %}

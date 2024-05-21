@@ -83,7 +83,7 @@ class AuthController extends AbstractController
         }
         else
         {
-            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+            $_SESSION["error-message"] = "Utilisateur non autorisé.";
             $this->redirect("index.php?route=login");
         }
         
@@ -91,72 +91,84 @@ class AuthController extends AbstractController
 
     public function checkRegister() : void
     {
-        if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"])
-            && isset($_POST["password"]) && isset($_POST["confirm-password"]))
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN")
         {
-            $tokenManager = new CSRFTokenManager();
-            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
+            if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"])
+            && isset($_POST["password"]) && isset($_POST["confirm-password"]))
             {
-                if($_POST["password"] === $_POST["confirm-password"])
+                $tokenManager = new CSRFTokenManager();
+                if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
                 {
-                    $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$/';
-
-                    if (preg_match($password_pattern, trim($_POST["password"])))
+                    if($_POST["password"] === $_POST["confirm-password"])
                     {
-                        $um = new UserManager();
-                        $user = $um->findByEmail($_POST["email"]);
+                        $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$/';
 
-                        if($user === null)
+                        if (preg_match($password_pattern, trim($_POST["password"])))
                         {
-                            $firstName = htmlspecialchars($_POST["firstName"]);
-                            $lastName = htmlspecialchars($_POST["lastName"]);
-                            $address = htmlspecialchars($_POST["address"]);
-                            $phone = htmlspecialchars($_POST["phone"]);
-                            $email = htmlspecialchars($_POST["email"]);
-                            $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
-                            $role = htmlspecialchars($_POST["role"]);
-                            $email = htmlspecialchars($_POST["email"]);
-                            $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
-                            
-                            dump($_POST);
-                            $um->createAdmin($user);
+                            $um = new UserManager();
+                            $user = $um->findByEmail($_POST["email"]);
 
-                            $_SESSION["user"] = $user->getId();
+                            if($user === null)
+                            {
+                                $firstName = htmlspecialchars($_POST["firstName"]);
+                                $lastName = htmlspecialchars($_POST["lastName"]);
+                                $address = htmlspecialchars($_POST["address"]);
+                                $phone = htmlspecialchars($_POST["phone"]);
+                                $email = htmlspecialchars($_POST["email"]);
+                                $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+                                $role = htmlspecialchars($_POST["role"]);
+                                $email = htmlspecialchars($_POST["email"]);
+                                $user = new User($firstName, $lastName,  $address, $phone, $email, $password, $role);
+                                
+                                dump($_POST);
+                                $um->createAdmin($user);
 
-                            unset($_SESSION["error-message"]);
+                                $_SESSION["user"] = $user->getId();
 
-                            
-                            $this->redirect("index.php=register");
+                                unset($_SESSION["error-message"]);
+
+                                
+                                $this->redirect("index.php=register");
+                            }
+                            else
+                            {
+                                $_SESSION["error-message"] = "A user already exists with this email";
+                                $this->redirect("index.php?route=register");
+                            }
                         }
-                        else
+                        else 
                         {
-                            $_SESSION["error-message"] = "A user already exists with this email";
+                            $_SESSION["error-message"] = "Password is not strong enough";
                             $this->redirect("index.php?route=register");
                         }
                     }
-                    else {
-                        $_SESSION["error-message"] = "Password is not strong enough";
+                    else
+                    {
+                        $_SESSION["error-message"] = "The passwords do not match";
                         $this->redirect("index.php?route=register");
                     }
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "The passwords do not match";
+                    $_SESSION["error-message"] = "Invalid CSRF token";
                     $this->redirect("index.php?route=register");
+
                 }
             }
             else
-            {
-                $_SESSION["error-message"] = "Invalid CSRF token";
+            {   
+                $_SESSION["error-message"] = "Missing fields";
                 $this->redirect("index.php?route=register");
-
             }
         }
         else
-        {   
-            $_SESSION["error-message"] = "Missing fields";
-            $this->redirect("index.php?route=register");
+        {
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-users-role");
+            //dump($_SESSION);
+            
         }
+        
     }
 
     public function updateAdmin() : void
@@ -333,17 +345,17 @@ class AuthController extends AbstractController
             }
             else
             {
-                $_SESSION["error-message"] = "Utilisateur non autorisé ";
-                $this->redirect("index.php?route=login");
+                $_SESSION["error-message"] = "Invalid CSRF token";
+                $this->redirect("index.php?route=register");
                 //dump($_SESSION);
-
             }
         }
         else
         {
-            $_SESSION["error-message"] = "Invalid CSRF token";
-            $this->redirect("index.php?route=register");
+            $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
+            $this->redirect("index.php?route=admin-users-role");
             //dump($_SESSION);
+            
         }
 
             

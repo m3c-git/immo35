@@ -138,7 +138,7 @@ class AdminController extends AbstractController
                         $um->createAdmin($user);
 
                         unset($_SESSION["error-message"]);
-
+                        unset($_SESSION["message"]);
                        
                         $this->redirect("index.php?route=admin");
                     }
@@ -755,7 +755,7 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Vous n'êtes pas autorisé à effectuer cette action.";
-            $this->redirect("index.php?route=login");
+            $this->redirect("index.php?route=admin-property-type");
             //dump($_SESSION);
 
         }
@@ -1248,6 +1248,8 @@ class AdminController extends AbstractController
 
 
                 unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+
                 $this->redirect("index.php?route=update-property&id=".$_POST['propertyId']);
                 //dump($_SESSION);
                 //dump($_POST, $_FILES);

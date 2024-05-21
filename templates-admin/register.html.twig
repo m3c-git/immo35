@@ -75,7 +75,11 @@
             <input type="checkbox" name="role" id="role"  value="ADMIN" class="form-check-input me-1"/> -->
         </fieldset>
         <fieldset>
-            <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+            {% if role is defined and role == "READER" %}
+            <button type="submit" class="btn btn-primary" disabled>Créer l'administrateur</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Créer l'administrateur</button>
+            {% endif %}
         </fieldset>
     </form>
 </main>

@@ -5,16 +5,16 @@
 <main id="register" class="container admin py-5">
     {% if errormessage is defined %}
       
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ errormessage }} 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ errormessage }} 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     {% elseif message is defined %}
 
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                {{ message }} 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }} 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     {% endif %}
     <h1 class="mb-5">Ajouter un utilisateur</h1>
 
@@ -59,7 +59,11 @@
             </select>
         </fieldset>
         <fieldset>
+            {% if role is defined and role == "READER" %}
+            <button type="submit" class="btn btn-primary" disabled>Créer un utilisateur</button>
+            {% else %}
             <button type="submit" class="btn btn-primary">Créer un utilisateur</button>
+            {% endif %}
         </fieldset>
     </form>
 </main>

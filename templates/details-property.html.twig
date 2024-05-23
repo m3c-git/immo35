@@ -7,15 +7,15 @@
     {% if propertyById.medias is empty %}
 
     <figure>
-      <a href='{{ noVignette }}'><img style="width: 100%; height: auto;" src='{{ noVignette }}' class=""
+      <a href='{{ noVignette }}'><img  src='{{ noVignette }}' class=""
           alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
     </figure>
     {% else %}
     {% for key, media in propertyById.medias %}
     <figure>
-      <a href='{{ "../upload/" ~ media.url }}'><img
-          src='{{ "../upload/" ~ media.url }}' class=""
-          alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+      <img
+          src='{{ "../upload/" ~ media.url }}'
+          alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'>
     </figure>
     {% endfor %}
     {% endif %}
@@ -135,6 +135,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
   integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script type="text/javascript" src="slick-lightbox/slick-lightbox.min.js"></script>
 <script type="text/javascript" src="../assets/js/slick.js"></script>
+<!-- <script type="text/javascript" src="slick-lightbox/slick-lightbox.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-lightbox/0.2.12/slick-lightbox.min.js" integrity="sha512-iSVaq9Huv1kxBDAOH7Il1rwIJD+uspMQC1r4Y73QquhbI2ia+PIXUoS5rBjWjYyD03S8t7gZmON+Dk6yPlWHXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 {% endblock %}

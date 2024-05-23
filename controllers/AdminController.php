@@ -290,22 +290,34 @@ class AdminController extends AbstractController
     {
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
-                
+            //dump($_SESSION);
+            //die();
+            
             $um = new UserManager();
             $userById = $um->findOne($_GET["id"]);
-            
-            if($userById !== null)
-            {
-                unset($_SESSION["message"]);
-                unset($_SESSION["error-message"]);
 
-                $this->render("delete-user.html.twig", ["userById" => $userById]);
+            if($_SESSION["user"] !== $userById->getId())
+            {
+                if($userById !== null)
+                {
+                    unset($_SESSION["message"]);
+                    unset($_SESSION["error-message"]);
+
+                    $this->render("delete-user.html.twig", ["userById" => $userById]);
+                }
+                else
+                {
+                    $this->redirect('index.php?route=admin-users-role');
+                    //dump($_POST);
+                }
             }
             else
             {
-                $this->redirect('index.php?route=admin-users-role');
-                //dump($_POST);
+                $_SESSION["error-message"] = "Impossible de supprimer un compte actuellement connecté. Merci de contacter un administrateur pour supprimer ce compte.";
+                $this->redirect("index.php?route=admin-users-role");
             }
+            
+            
       
         }
         else

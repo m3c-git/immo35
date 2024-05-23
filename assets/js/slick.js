@@ -37,10 +37,12 @@ $('.responsive').slick({
 });
 
 
-
-$('.responsive').slickLightbox({
-    itemSelector: 'figure > a',
-    navigateByKeyboard: true,
-    src: 'src',
-background: 'rgba(0, 0, 0, .7)'
+$(document).ready(function(){
+    $('.responsive').slickLightbox({
+        itemSelector: 'figure img',
+        navigateByKeyboard: true,
+        src: 'src',
+        background: 'rgba(0, 0, 0, .7)'
+        
+    });
 });

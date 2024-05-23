@@ -1294,6 +1294,21 @@ section.card-section
 ***************************************************************** */
 
 /* Partie pour slider */
+
+//bug au niveau de la largeur des images résolu avec une solution trouvé ici https://github.com/akiran/react-slick/issues/1571 
+//en apliquant le css suivant sur la class .slick-slider
+
+.slick-slider{
+  max-width: 100vw;
+  width: 100%;
+  overflow: hidden !important;
+  }
+  
+  /* .slick-slide img:hover
+  {
+    cursor: pointer;
+  } */
+  
 .slick-prev
 {
   left: 5rem !important;

@@ -1,8 +1,10 @@
 {% extends "layout.html.twig" %}
 
+{% block title %} {{ propertyById.title }} {% endblock %}
+
 {% block main %}
 <main class="property-details">
-  {{ parent() }}
+
   <section class="responsive slide">
     {% if propertyById.medias is empty %}
 
@@ -13,9 +15,8 @@
     {% else %}
     {% for key, media in propertyById.medias %}
     <figure>
-      <img
-          src='{{ "../upload/" ~ media.url }}'
-          alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'>
+      <a href="#"><img src='{{ "../upload/" ~ media.url }}' alt='{{ propertyById.title ~ " " ~ propertyById.surface ~ " " ~ "M²"}}'></a>
+      
     </figure>
     {% endfor %}
     {% endif %}

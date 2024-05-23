@@ -3,6 +3,8 @@ $('.responsive').slick({
     dots: true,
     adaptiveHeight: false,
     slidesToShow: 3,
+    
+    
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -39,10 +41,10 @@ $('.responsive').slick({
 
 $(document).ready(function(){
     $('.responsive').slickLightbox({
-        itemSelector: 'figure img',
+        itemSelector: 'figure a img',
         navigateByKeyboard: true,
         src: 'src',
-        background: 'rgba(0, 0, 0, .7)'
+        background: 'rgba(28, 40, 46, 1)',
         
     });
 });

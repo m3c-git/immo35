@@ -1,8 +1,10 @@
 {% extends "layout.html.twig" %}
 
+{% block title %} Acheter un bien {% endblock %}
+
 {% block main %}
 <main>
-    {{ parent() }}
+
     {% if info is defined %}
       
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

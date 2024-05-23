@@ -1304,36 +1304,42 @@ section.card-section
   overflow: hidden !important;
   }
   
-  /* .slick-slide img:hover
-  {
-    cursor: pointer;
-  } */
-  
-.slick-prev
-{
-  left: 5rem !important;
-  z-index: 4;
-
-
+.slick-slide{
+  margin:10px;
 }
 
-.slick-next
-{
-  right: 5rem !important;
-  
+.slick-slide img{
+  width:100%;
+  border: 2px solid $base-rouge;
 }
 
-.slick-prev:before
-{
- 
-  font-size: 4rem !important;
-  color: $base-rouge !important;
+.slick-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0;
+  height: 40px !important;
+  width: 40px !important;
+  background-color: rgba(0,0,0,0.6) !important;
+  border-radius: 10px;
+  cursor: pointer;
+  background-size: 20px;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.slick-next:before
-{
-  font-size: 4rem !important;
-  color: $base-rouge !important;
+.slick-arrow.slick-prev {
+  left: 10px;
+}
+.slick-arrow.slick-next {
+  right: 10px;
+}
+.slick-prev:hover, .slick-next:hover {
+  background-color: rgba(0,0,0,0.3);
+}
+.slick-prev:focus, .slick-next:focus {
+  background-color: rgba(0,0,0,0.6);
 }
 
 /* fin partie pour slider */

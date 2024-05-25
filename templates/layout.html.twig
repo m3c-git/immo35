@@ -12,9 +12,11 @@
     <meta property="og:title" content="Votre logement coup de coeur dans le 35" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="http://localhost:3000/index.php/assets/img/immo35-img-meta-social.jpg" />
+    <meta property="og:url" content="{% block homeurl %}http://localhost:3000/index.php{% endblock %}{% block ogurl %}{% endblock %}" />
     <meta property="og:description" content="Avec Immo35, trouvez la propriété de vos rêves à Rennes et ses environs. Services professionnels pour l'achat, la vente et la location immobilière." />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Immo35" />
+    {% block noindex %}{% endblock %}
     <script src="https://kit.fontawesome.com/f1cf090775.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

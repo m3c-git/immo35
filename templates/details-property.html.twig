@@ -1,5 +1,7 @@
 {% extends "layout.html.twig" %}
 
+{% block ogurl %}?route=details-property&id={{ propertyById.id }}{% endblock %}
+
 {% block title %} {{ propertyById.title }} {% endblock %}
 
 {% block main %}

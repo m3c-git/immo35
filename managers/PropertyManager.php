@@ -469,8 +469,6 @@ class PropertyManager extends AbstractManager
 
     }
 
-    
-
     public function findByStatusAndType(string $status, string $type,) : ? array
     {
         $query = $this->db->prepare('SELECT propertys.*, status_property.*, states.*, types.*, location.*, owner.*, tenant.*, rental_management.*, energy_diagnostics.*, greenhouse_gas_emission_indices.* FROM propertys 

@@ -21,7 +21,7 @@
     <h1 class="mt-5">Gestion des biens <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien </a></h1>
     {% for type in propertyType  %}
     <article class="card mb-sm-5">
-        <img class="card-img-top" src="{{ type.media }}" alt="Card image cap">
+        <img class="card-img-top img-thumbnail" src="{{ type.media }}" alt="Card image cap">
         <div class="card-body">
         <h2 class="card-title">{{type.typeName}}</h2>
         <p class="card-text">Ici pour gérer les {{type.typeName}}.</p>

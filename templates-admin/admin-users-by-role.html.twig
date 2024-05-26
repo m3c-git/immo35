@@ -17,7 +17,7 @@
         {% if usersByRolerole is defined and usersByRolerole != null %}
         {% for user in usersByRolerole %}
         <article class="card  mb-sm-5" >
-            <img class="card-img-top" src="../assets/img/user-account-image.webp" alt="Card image cap">
+            <img class="card-img-top img-thumbnail" src="../assets/img/user-account-image.webp" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{ user.firstName ~ " " ~ user.lastName }}</h5>
                 <ul class="list-group list-group-flush">

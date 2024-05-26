@@ -6,6 +6,7 @@
 <main class="admin container">
     <section class="row justify-content-center align-items-center">
         <h1 class="mt-5">Listes des {{ type }} <a class="btn btn-success" href="index.php?route=add-property" role="button">+ Ajouter un bien </a></h1>
+        {% if propertys is defined and propertys != null %}
         {% for property in propertys %}
         
         <article class="card  mb-sm-5">
@@ -35,7 +36,9 @@
         </article>
         
         {% endfor %}
-        
+        {% elseif propertys == null  %}
+        <p>Aucun biens trouvés</p>
+        {% endif %}
     </section>
       
     

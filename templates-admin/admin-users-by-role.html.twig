@@ -1,6 +1,6 @@
 {% extends "layout-admin.html.twig" %}
 
-{% block title %} Utilisateur par rôle {% endblock %}
+{% block title %} Utilisateurs par rôle {% endblock %}
 
 {% block main %}
 <main class="admin container">
@@ -13,6 +13,8 @@
         {% else %}
         <h1>Liste des {{ usersRole }}s <a class="btn btn-success" href="index.php?route=add-user" role="button">+ Ajouter un utilisateur</a></h1>
         {% endif %}
+
+        {% if usersByRolerole is defined and usersByRolerole != null %}
         {% for user in usersByRolerole %}
         <article class="card  mb-sm-5" >
             <img class="card-img-top" src="../assets/img/user-account-image.webp" alt="Card image cap">
@@ -33,6 +35,9 @@
             </div>
         </article>
         {% endfor %}
+        {% elseif usersByRolerole == null  %}
+        <p>Aucun utilisateurs trouvés</p>
+        {% endif %}
     </section>
     
 

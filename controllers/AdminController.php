@@ -24,7 +24,7 @@ class AdminController extends AbstractController
         else
         {
             $_SESSION["error-message"] = "Utilisateur non autorisé.";
-            $this->redirect("index.php?route=login");
+            $this->render("login.html.twig", []);
         }
     
     
@@ -73,8 +73,10 @@ class AdminController extends AbstractController
                 }
                 else
                 {
-                    $_SESSION["message"] = "Aucun utilasateurs trouvés";
-                    $this->redirect("index.php?route=admin-users-role");
+                    unset($_SESSION["message"]);
+                    unset($_SESSION["error-message"]);
+                    
+                    $this->render("admin-users-by-role.html.twig", ["usersRole" => $_GET["role"]]);
                     //dump($_GET);
                     //dump($_SESSION);
 
@@ -365,8 +367,8 @@ class AdminController extends AbstractController
     {
         if(isset($_SESSION["role"]) && ($_SESSION["role"] === "ADMIN"  || $_SESSION["role"] === "READER"))
         {
-            $um = new PropertyManager();
-            $propertyType = $um->findTypes();
+            $pm = new PropertyManager();
+            $propertyType = $pm->findTypes();
 
             unset($_SESSION["message"]);
             unset($_SESSION["error-message"]);
@@ -426,12 +428,9 @@ class AdminController extends AbstractController
             }
             else
             {
-                $_SESSION["message"] = "Aucun biens trouvés";
-                $this->redirect("index.php?route=admin-property-type");
-                //dump($propertysByType);
-                //dump($_SESSION);
-
-
+                unset($_SESSION["message"]);
+                unset($_SESSION["error-message"]);
+                $this->render("admin-propertys-by-type.html.twig", ["type" => $_GET["type"]]);
             }
                 
         }

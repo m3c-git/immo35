@@ -18,7 +18,9 @@
                 <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ property.property.location.city }}</li>
                         <li class="list-group-item">{{ property.property.surface }} M²</li>
+                        {% if property.property.rooms != null or property.property.rooms != 0 %}
                         <li class="list-group-item">{{ property.property.rooms }} pièces</li>
+                        {% endif %} 
                         <li class="list-group-item">{{ property.property.type.typeName }}</li>
                         {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
                         <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>

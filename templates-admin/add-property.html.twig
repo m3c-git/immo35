@@ -24,7 +24,7 @@
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" >
             <fieldset class="my-1 ">
                 <label for="owner">Propriétaire du bien:</label>
-                <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example">
+                <select class="form-select" id="ownerId" name="ownerId" aria-label="Floating label select example" required="required">
                     <option selected value="">Selectionner le proprietaire du bien</option>
                     {% for proprietaire in usersProprietaire  %}
                     <option value="{{  proprietaire.id }}">{{ proprietaire.firstName ~ " " ~ proprietaire.lastName }}</option>
@@ -119,7 +119,7 @@
             </fieldset>
             <fieldset class="my-1 ">
                 <label for="statusId">Status de la propriété</label>
-                <select class="form-select" id="statusId" name="statusId" aria-label="Floating label select example">
+                <select class="form-select" id="statusId" name="statusId" aria-label="Floating label select example" required="required">
                     <option selected value="">Selectionner le status du bien</option>
                     {% for status in allStatus  %}
                     <option value="{{  status.id }}">{{ status.statusName }}</option>
@@ -128,7 +128,7 @@
             </fieldset>
             <fieldset class="my-1 ">
                 <label for="stateId">Etat de la propriété</label>
-                <select class="form-select" id="stateId" name="stateId" aria-label="Floating label select example">
+                <select class="form-select" id="stateId" name="stateId" aria-label="Floating label select example" required="required">
                     <option selected value="">Selectionner l'état du bien</option>
                     {% for state in allState  %}
                     <option value="{{  state.id }}">{{ state.stateName }}</option>
@@ -137,7 +137,7 @@
             </fieldset>
             <fieldset class="my-1 ">
                 <label for="typeId">Types de propriété</label>
-                <select class="form-select" id="typeId" name="typeId" aria-label="Floating label select example">{{ dump(type) }}
+                <select class="form-select" id="typeId" name="typeId" aria-label="Floating label select example" required="required">
                     <option selected value="">Selectionner un type de bien</option>
                     {% for type in allType  %}
                     <option value="{{  type.id }}">{{ type.typeName }}</option>
@@ -176,7 +176,7 @@
             </fieldset>
             <fieldset class="my-1 ">
                 <label for="city">Ville</label>
-                <select class="form-select" id="city" name="city" aria-label="Floating label select example">
+                <select class="form-select" id="city" name="city" aria-label="Floating label select example" required="required">
                     <option selected value="">Selectionner une ville</option>
                     {% for location in allLocation  %}
                     <option value="{{  location.id }}">{{ location.city }}</option>

@@ -1592,6 +1592,17 @@ section.card-section .card:hover img {
 .admin .image-field .img-sup {
   width: 100%;
 }
+.admin .image-field .img-sup figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin .image-field .img-sup img {
+  width: 30rem;
+  height: 30rem;
+  object-fit: cover;
+  transition: 0.5s;
+}
 .admin #modal .modal-footer {
   padding: 0 1rem;
 }

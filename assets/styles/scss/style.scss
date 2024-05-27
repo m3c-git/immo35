@@ -2381,6 +2381,21 @@ section.card-section
     .img-sup
     {
       width: 100%;
+      
+      figure
+      {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img
+      {
+        width: 30rem;
+        height: 30rem;
+        object-fit: cover;
+        transition: 0.5s;
+      }
     }
   }
 

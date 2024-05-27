@@ -552,18 +552,18 @@ class AdminController extends AbstractController
 
                     $ownerId = (int) $this->checkInput($_POST["ownerId"]);
                     $featuresId = [];
-                    $salesPrice = (int) $this->checkInput($_POST["salesPrice"]);
-                    $rent = (int) $this->checkInput($_POST["rent"]);
-                    $charge = (int) $this->checkInput($_POST["charge"]);
-                    $securityDeposit = (int) $this->checkInput($_POST["securityDeposit"]);
-                    $rentCharge = (int)$this->checkInput($_POST["rentCharge"]);
-                    $agencyFeesRent = (int) $this->checkInput($_POST["agencyFeesRent"]);
+                    //$salesPrice = (int) $this->checkInput($_POST["salesPrice"]);
+                    //$rent = (int) $this->checkInput($_POST["rent"]);
+                    //$charge = (int) $this->checkInput($_POST["charge"]);
+                    //$securityDeposit = (int) $this->checkInput($_POST["securityDeposit"]);
+                    //$rentCharge = (int)$this->checkInput($_POST["rentCharge"]);
+                    //$agencyFeesRent = (int) $this->checkInput($_POST["agencyFeesRent"]);
                     $energyDiagnosticsId = (int) $this->checkInput($_POST["energyDiagnosticsId"]);
                     $greenhouseGasEmissionIndicesId = (int) $this->checkInput($_POST["greenhouseGasEmissionIndicesId"]);
                     $statusId = (int) $this->checkInput($_POST["statusId"]);
                     $stateId = (int) $this->checkInput($_POST["stateId"]);
                     $typeId = (int) $this->checkInput($_POST["typeId"]);
-                    $availabilityDate = $this->checkInput($_POST["availabilityDate"]);
+                    //$availabilityDate = $this->checkInput($_POST["availabilityDate"]);
                     $title = $this->checkInput($_POST["title"]);
                     $rooms = (int) $this->checkInput($_POST["rooms"]);
                     $surface = (int) $this->checkInput($_POST["surface"]);
@@ -571,7 +571,70 @@ class AdminController extends AbstractController
                     $locationId = (int) $this->checkInput($_POST["city"]);
                     $rentalManagementId = (int) $this->checkInput($_POST["rentalManagementId"]);
             
+                    if($this->CheckInput($_POST['availabilityDate']) === '')
+                    {
+                        $availabilityDate = NULL;
+                    }
+                    else
+                    {
+                        $availabilityDate = $this->CheckInput($_POST['availabilityDate']);
+                    }
 
+                    if($this->CheckInput($_POST['salesPrice']) === '')
+                    {
+                        $salesPrice = NULL;
+                    }
+                    else
+                    {
+                        $salesPrice = $this->CheckInput($_POST['salesPrice']);
+            
+                    }
+            
+                    if($this->CheckInput($_POST['rent']) === '')
+                    {
+                        $rent = NULL;
+                    }
+                    else
+                    {
+                        $rent = $this->CheckInput($_POST['rent']);
+            
+                    }
+            
+                    if($this->CheckInput($_POST['rentCharge']) === '')
+                    {
+                        $rentCharge = NULL;
+                    }
+                    else
+                    {
+                        $rentCharge = $this->CheckInput($_POST['rentCharge']);
+                    }
+            
+                    if($this->CheckInput($_POST['charge']) === '')
+                    {
+                        $charge = NULL;
+                    }
+                    else
+                    {
+                        $charge = $this->CheckInput($_POST['charge']);
+                    }
+            
+                    if($this->CheckInput($_POST['securityDeposit']) === '')
+                    {
+                        $securityDeposit = NULL;
+                    }
+                    else
+                    {
+                        $securityDeposit = $this->CheckInput($_POST['securityDeposit']);
+                    }
+            
+                    if($this->CheckInput($_POST['agencyFeesRent']) === '')
+                    {
+                        $agencyFeesRent = NULL;
+                    }
+                    else
+                    {
+                        $agencyFeesRent = $this->CheckInput($_POST['agencyFeesRent']);
+                    }
 
                     if($this->checkInput($_POST["district"] !== ""))
                     {
@@ -614,21 +677,35 @@ class AdminController extends AbstractController
                     
                     }
 
-                    foreach($allNoteEnergy as $energy)
+                    if($this->CheckInput($_POST['energyDiagnosticsId']) === '')
                     {
-                        if($energy->getId() === $energyDiagnosticsId)
+                        $energyDiagnosticsId = NULL;
+                    }
+                    else
+                    {
+                        foreach($allNoteEnergy as $energy)
                         {
-                            $energyDiagnosticsId = new EnergyDiagnostics($energy->getNote());
-                            $energyDiagnosticsId->setId($energy->getId());
+                            if($energy->getId() === $energyDiagnosticsId)
+                            {
+                                $energyDiagnosticsId = new EnergyDiagnostics($energy->getNote());
+                                $energyDiagnosticsId->setId($energy->getId());
+                            }
                         }
                     }
 
-                    foreach($allNoteGreenhouse as $greenhouse)
+                    if($this->CheckInput($_POST['greenhouseGasEmissionIndicesId']) === '')
                     {
-                        if($greenhouse->getId() === $greenhouseGasEmissionIndicesId)
+                        $greenhouseGasEmissionIndicesId = NULL;
+                    }
+                    else
+                    {
+                        foreach($allNoteGreenhouse as $greenhouse)
                         {
-                            $greenhouseGasEmissionIndicesId = new GreenhouseGasEmissionIndices($greenhouse->getNote());
-                            $greenhouseGasEmissionIndicesId->setId($greenhouse->getId());
+                            if($greenhouse->getId() === $greenhouseGasEmissionIndicesId)
+                            {
+                                $greenhouseGasEmissionIndicesId = new GreenhouseGasEmissionIndices($greenhouse->getNote());
+                                $greenhouseGasEmissionIndicesId->setId($greenhouse->getId());
+                            }
                         }
                     }
 
@@ -691,8 +768,15 @@ class AdminController extends AbstractController
                     $property->setCharge($charge);
                     $property->setSecurityDeposit($securityDeposit);
                     $property->setAgencyFeesRent($agencyFeesRent);
-                    $property->setEnergyDiagnostics($energyDiagnosticsId);
-                    $property->setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndicesId);
+                    if($energyDiagnosticsId !== null)
+                    {
+                        $property->setEnergyDiagnostics($energyDiagnosticsId);
+                    }
+
+                    if($greenhouseGasEmissionIndicesId !== null)
+                    {
+                        $property->setGreenhouseGasEmissionIndices($greenhouseGasEmissionIndicesId);
+                    }
 
                     $pm->createProperty($property);
                     $_SESSION["new-property-id"] = $property->getId();
@@ -747,6 +831,7 @@ class AdminController extends AbstractController
                     }
 
                     unset($_SESSION["error-message"]);
+                    $_SESSION["message"] = "Propriété créé avec succès!";
                     $this->redirect("index.php?route=add-property");
                     //dump($_POST, $_FILES);
                 }
@@ -938,13 +1023,13 @@ class AdminController extends AbstractController
                     $rentalManagementId = (int) $this->checkInput($_POST["rentalManagementId"]);
             
                     if($this->CheckInput($_POST['availabilityDate']) === '')
-                   {
+                    {
                         $availabilityDate = NULL;
-                   }
-                   else
-                   {
+                    }
+                    else
+                    {
                         $availabilityDate = $this->CheckInput($_POST['availabilityDate']);
-                   }
+                    }
         
                    if($this->CheckInput($_POST['salesPrice']) === '')
                    {
@@ -1209,13 +1294,6 @@ class AdminController extends AbstractController
                         }
                     }
                 }
-                /* else
-                {
-                    foreach($oldMedias as $media)
-                    {
-                        $mm->deleteMedia($media);
-                    }
-                } */
 
                 if(isset($_FILES))
                 {
@@ -1229,12 +1307,12 @@ class AdminController extends AbstractController
                             
                             if($file['error'] === 1)
                             {
-                                echo "Le fichier ne doit pas dépasser 2 Mo";
-
+                                
+                                $_SESSION["error-message"] = "Le fichier ne doit pas dépasser 10 Mo<br>";
                             }
                             elseif(empty($file['name']))
                             {
-                                echo "pas de fichier choisi<br>";
+                                $_SESSION["error-message"] = "Pas de fichier choisi<br>";
 
                             }
                             elseif($oldMedias === [])
@@ -1247,7 +1325,7 @@ class AdminController extends AbstractController
                                 {
                                     if($file['name'] === $media->getUrl())
                                     {
-                                        echo "déja utilisé<br>";  
+                                        $_SESSION["error-message"] = "Fichier déja utilisé<br>";  
                                     }                                   
                                 }
                                 $mm->addMedia($newMedias);

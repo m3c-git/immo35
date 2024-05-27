@@ -6,7 +6,7 @@
 
 class Uploader {
 
-    private array $extensions = ["jpeg","jpg","png", "pdf"];
+    private array $extensions = ["jpeg","jpg","png", "pdf", "webp"];
     private string $uploadFolder = "upload";
     private string $propertyId;
     private RandomStringGenerator $gen;
@@ -65,7 +65,7 @@ class Uploader {
                     $keys = array_keys($_FILES);
                     
                 if(in_array($file_ext, $this->extensions) === false && $file_ext !== ""){
-                   throw new Exception("Bad file extension. Please upload a JPG, PDF or PNG file.");
+                   throw new Exception("Bad file extension. Please upload a JPG, PDF, PNG or WEBP file.");
                 }
                 elseif(!empty($file_name) && $key === 0)
                 {

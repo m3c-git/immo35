@@ -547,7 +547,7 @@ class AdminController extends AbstractController
                 if(isset($_POST) && isset($_FILES))
                 {
                   
-                    //dump($_POST);
+                    //dump($_POST, $_FILES); die();
                    
 
                     $ownerId = (int) $this->checkInput($_POST["ownerId"]);
@@ -782,7 +782,9 @@ class AdminController extends AbstractController
                     $_SESSION["new-property-id"] = $property->getId();
 
                     //traitement des features après création du bien
-                    foreach($allFeatures as $feature)
+                    if(isset($_POST["features"]))
+                    {
+                        foreach($allFeatures as $feature)
                         {
                             foreach($_POST["features"] as $id)
                             {
@@ -795,7 +797,7 @@ class AdminController extends AbstractController
                                 
                             }
                         }
-
+                    }  
 
                     //traitement des medias après création du bien
                     $upload = new Uploader();
@@ -808,7 +810,7 @@ class AdminController extends AbstractController
                     {
                         if($file['error'] === 1)
                         {
-                            echo "Le fichier ne doit pas dépasser 2 Mo";
+                            echo "Le fichier ne doit pas dépasser 10 Mo";
 
                         }
                         elseif(empty($file['name']))
@@ -823,8 +825,6 @@ class AdminController extends AbstractController
                             $mm->addMedia($newMedias);
                             
                             echo "a garder<br>";
-
-                                //$imageError = "Il y a eu une erreur lors de l'upload";
 
                         }
                         

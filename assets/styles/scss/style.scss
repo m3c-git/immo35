@@ -2024,7 +2024,18 @@ section.card-section
       border: none;
       padding: 0.8rem 1.2rem;
     }
-    
+
+    .comments
+    {
+      color: $rouge-asterisque;
+    }
+
+    #sendError
+    {
+      color: $rouge-asterisque;
+      width: 100%;
+      padding: 2rem;
+    }
 
     @include media-min(768px) 
     {

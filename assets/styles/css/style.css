@@ -161,7 +161,6 @@ button {
   right: 0;
   top: 100%;
   z-index: -1;
-  transition: top 0.09s ease-in;
   -webkit-transition: top 0.09s ease-in;
 }
 
@@ -1356,6 +1355,14 @@ section.card-section .card:hover img {
 .contact #contact-form input, .contact #contact-manage-form input {
   border: none;
   padding: 0.8rem 1.2rem;
+}
+.contact #contact-form .comments, .contact #contact-manage-form .comments {
+  color: #F02C2C;
+}
+.contact #contact-form #sendError, .contact #contact-manage-form #sendError {
+  color: #F02C2C;
+  width: 100%;
+  padding: 2rem;
 }
 @media screen and (min-width: 768px) {
   .contact #contact-form, .contact #contact-manage-form {

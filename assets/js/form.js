@@ -16,7 +16,6 @@ async function formManage(form) {
             if(reponse.ok)
             {
                 let result = await reponse.json();
-                console.log(result);
 
                 if (result.isSuccessf) {
                     console.log("Mail envoyé !");

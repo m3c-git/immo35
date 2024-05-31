@@ -101,7 +101,14 @@ class AuthController extends AbstractController
                 {
                     if($_POST["password"] === $_POST["confirm-password"])
                     {
-                        $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$/';
+                        /* Explication Regex 
+                        Contient au moins une lettre minuscule.
+                        Contient au moins une lettre majuscule.
+                        Contient au moins un chiffre.
+                        Contient au moins un caractère spécial qui n'est ni alphanumérique ni un espace.
+                        A une longueur d'au moins 10 caractères. */
+
+                        $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{10,}$/';
 
                         if (preg_match($password_pattern, trim($_POST["password"])))
                         {

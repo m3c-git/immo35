@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
                 }                          
                 if(!$val) 
                 {
-                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                    $val = ["property" => $property, "vignette_url" => "./assets/img/no-vignette.svg"];
                 }
                 $propertysRent[] = $val;
             }
@@ -60,7 +60,7 @@ class DefaultController extends AbstractController
                 }                          
                 if(!$val) 
                 {
-                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                    $val = ["property" => $property, "vignette_url" => "./assets/img/no-vignette.svg"];
                 }
                 $propertysBuy[] = $val;
             }
@@ -167,7 +167,7 @@ class DefaultController extends AbstractController
                 }                          
                 if(!$val) 
                 {
-                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                    $val = ["property" => $property, "vignette_url" => "./assets/img/no-vignette.svg"];
                 }
                 $propertysResearch[] = $val;
             }

@@ -344,7 +344,7 @@ class PropertyController extends AbstractController
                 }                          
                 if(!$val) 
                 {
-                    $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                    $val = ["property" => $property, "vignette_url" => "./assets/img/no-vignette.svg"];
                 }
                 $propertys[] = $val;
             }
@@ -418,7 +418,7 @@ class PropertyController extends AbstractController
         $this->render("details-property.html.twig", ["propertyById" => $propertyById, 
                                                     "featureByIdProperty" => $featureByIdProperty,
                                                     "mediaByIdProperty" => $mediaByIdProperty,
-                                                    "noVignette" => "../assets/img/no-vignette.svg",
+                                                    "noVignette" => "./assets/img/no-vignette.svg",
                                                     "allNoteEnergy" => $allNoteEnergy,
                                                     "allNoteGreenhouse" => $allNoteGreenhouse,
 

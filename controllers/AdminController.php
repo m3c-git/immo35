@@ -415,7 +415,7 @@ class AdminController extends AbstractController
                     }                          
                     if(!$val) 
                     {
-                        $val = ["property" => $property, "vignette_url" => "../assets/img/no-vignette.svg"];
+                        $val = ["property" => $property, "vignette_url" => "./assets/img/no-vignette.svg"];
                     }
                     $propertys[] = $val;
                 }

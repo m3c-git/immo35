@@ -17,7 +17,7 @@
                 <h1 class="h1">Louer votre bien avec Immo35</h1>
                 <p>Spécialiste de la gestion immobilière à Rennes, La Mézière, Romillé, Gévézé, La Chapelle desFougeretz, Immo35 vous propose un large choix de locations en maisons, appartements, ou résidences services.</p>
                 <figure>
-                    <img src="../assets/img/background-result-page-main-header.jpeg" alt="background-home-page-main-header">
+                    <img src="./assets/img/background-result-page-main-header.jpeg" alt="background-home-page-main-header">
                 </figure>
                 <article>
                     <form action="index.php?route=result&typeMedia=vignette" method="post">
@@ -71,7 +71,7 @@
                 {% endif %}
         </ul>
             <figure>
-                <img style="width: 100%; height: auto;" class="" src='{{  "../upload/" ~ property.vignette_url }}' alt="{{ property.property.title }}">
+                <img style="width: 100%; height: auto;" class="" src='{{  "./upload/" ~ property.vignette_url }}' alt="{{ property.property.title }}">
             </figure>
         </div>
     </article>

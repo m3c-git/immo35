@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db.3wa.io
--- Généré le : dim. 26 mai 2024 à 20:45
+-- Généré le : lun. 03 juin 2024 à 12:56
 -- Version du serveur :  5.7.33-0ubuntu0.18.04.1-log
 -- Version de PHP : 8.0.3
 
@@ -254,24 +254,82 @@ CREATE TABLE `medias` (
 --
 
 INSERT INTO `medias` (`id`, `url`, `property_id`, `type`) VALUES
-(23, 'img1-property-5.png', 5, 'vignette'),
-(24, 'img2-property-5.png', 5, NULL),
-(125, 'SFeemSHE.jpg', 74, 'vignette'),
-(126, '0CmLTAxv.jpg', 74, NULL),
-(127, 'H2dcNEFj.jpg', 74, NULL),
-(128, '4drFbkMv.jpg', 64, 'vignette'),
-(129, 'LnaxkNqZ.jpg', 64, NULL),
-(130, 'jjdxazmZ.jpg', 64, NULL),
-(131, 'rmQrbDmJ.jpg', 64, NULL),
-(137, 'sjjtsMzA.jpg', 2, 'vignette'),
-(138, 'A8l1M51j.jpg', 2, NULL),
-(139, 'doKirHCZ.png', 2, NULL),
-(140, '3isKEnM9.jpg', 2, NULL),
-(150, 'prOcGOxV.jpg', 41, 'vignette'),
-(166, '8zNcBwJU.jpg', 41, 'vignette'),
-(167, 'dtrPnak4.jpg', 41, NULL),
-(168, 'OE2TFYdz.jpg', 41, NULL),
-(169, 'fXAbqF0Y.png', 41, NULL);
+(171, 'GboWDTqH.webp', 41, 'vignette'),
+(172, '62JkBUmB.webp', 41, NULL),
+(173, '4nl5yQUb.webp', 41, NULL),
+(174, 'YeDpT1EV.webp', 41, NULL),
+(176, 'LSQ8vTLn.webp', 43, 'vignette'),
+(177, 'WXSEHjNe.webp', 43, NULL),
+(178, '6WMGIbvv.webp', 43, NULL),
+(179, 'ioC1z1Xt.webp', 45, 'vignette'),
+(180, '6uYStGHx.webp', 45, 'vignette'),
+(181, '3JPamjnd.webp', 45, NULL),
+(186, 'b8REE5bq.webp', 2, 'vignette'),
+(187, '9J3YnS89.webp', 2, NULL),
+(195, 'vdxNXnAd.webp', 5, 'vignette'),
+(196, 'M64WwEAU.webp', 5, 'vignette'),
+(197, 'LEnzkbMS.webp', 5, NULL),
+(198, 'zuObEDfm.webp', 64, 'vignette'),
+(199, 'mRX36Wvc.webp', 64, NULL),
+(200, 'HhRWjEKB.webp', 64, NULL),
+(201, 'oqzXJsNi.webp', 64, NULL),
+(202, 'MkNf9p1s.webp', 41, 'vignette'),
+(203, 'Bo3821IH.webp', 43, 'vignette'),
+(204, 'aYVo12yE.webp', 43, NULL),
+(205, 'tNXUYvVS.webp', 43, 'vignette'),
+(206, 'Jd2DBljR.webp', 63, 'vignette'),
+(207, 'Be5tiGHN.webp', 63, NULL),
+(208, '4SAFE6d8.webp', 63, NULL),
+(209, '4gS4zAKK.webp', 63, NULL),
+(214, 'qEzVv27W.webp', 63, 'vignette'),
+(215, 'iTEiAVKi.webp', 57, 'vignette'),
+(216, 'ZLvLlqCS.webp', 57, NULL),
+(217, '8fU8Hidq.webp', 57, NULL),
+(218, '2lkvMloh.webp', 57, NULL),
+(219, 'ioHJ4r8q.webp', 2, 'vignette'),
+(220, 'nuvw5ji8.webp', 2, NULL),
+(223, 'DTmk2vlE.webp', 5, 'vignette'),
+(224, 'm7pFKorV.webp', 5, NULL),
+(225, 'yhe00jwW.webp', 5, NULL),
+(226, 'ouE1ghF0.webp', 5, 'vignette'),
+(227, 'IIhfXo6E.webp', 64, 'vignette'),
+(228, 'C7KcxEkl.webp', 64, NULL),
+(229, 'aDxldpPB.webp', 64, NULL),
+(230, '6cJyJYvI.webp', 74, 'vignette'),
+(231, '8h9spWeC.webp', 74, NULL),
+(232, 'MBPdVl49.webp', 74, NULL),
+(233, 'SEBKF0Og.webp', 74, NULL),
+(235, '7prQ7DJr.webp', 74, NULL),
+(236, 'sBzMUySS.webp', 74, 'vignette'),
+(237, 'Vc0vDraE.webp', 2, 'vignette'),
+(239, '6PDVKLGx.webp', 79, 'vignette'),
+(241, 'PwNHbuYP.webp', 75, 'vignette'),
+(242, 'Amj5cqx7.webp', 4, 'vignette'),
+(243, '26gI2fzo.webp', 83, 'vignette'),
+(244, 'nivmRvZc.webp', 83, NULL),
+(245, 'Uej7rPah.webp', 83, NULL),
+(246, 'bK71e9tv.webp', 83, NULL),
+(247, 'ae085QIi.webp', 83, NULL),
+(248, 'CFu5M5zm.webp', 83, NULL),
+(249, 'xvBibwLs.webp', 83, NULL),
+(250, 'DoluaBV1.webp', 83, NULL),
+(251, 'YSrV8D8w.webp', 84, 'vignette'),
+(252, 'X0MUgGiB.webp', 84, NULL),
+(253, 'TM7ynOyR.webp', 84, NULL),
+(254, 'oaonfIvK.webp', 84, NULL),
+(255, 'A3LbBMDg.webp', 84, 'vignette'),
+(256, '0KlRONKJ.webp', 81, 'vignette'),
+(257, 'pErppyh9.webp', 85, 'vignette'),
+(258, '5OTP2F2F.webp', 85, NULL),
+(259, 'hR4OXflT.webp', 85, NULL),
+(260, 'CIoFyjom.webp', 85, NULL),
+(261, 'RIgrr5Sp.webp', 86, 'vignette'),
+(262, '1kJfdLUi.webp', 86, NULL),
+(263, 'wF2H1VxS.webp', 86, NULL),
+(264, '6ZVIsrBp.webp', 86, NULL),
+(266, 'dFrZc3Si.webp', 85, 'vignette'),
+(267, 'zmWudAkL.webp', 86, 'vignette'),
+(268, 'DMF04SgQ.webp', 2, 'vignette');
 
 -- --------------------------------------------------------
 
@@ -309,16 +367,22 @@ CREATE TABLE `propertys` (
 
 INSERT INTO `propertys` (`id`, `status_property_id`, `state_id`, `types_id`, `availability_date`, `title`, `rooms`, `surface`, `description`, `location_id`, `sales_price`, `rent`, `rent_charge`, `charge`, `security_deposit`, `agency_fees_rent`, `energy_diagnostics_id`, `greenhouse_gas_emission_indices_id`, `owner_id`, `tenant_id`, `rental_management_id`) VALUES
 (2, 1, 1, 2, '2024-04-10', 'Maison de bourg', 3, 90, 'Belle maison de bourg neuve exposée plein sud', 9, NULL, 900, 950, 50, 950, 900, 1, 1, 7, 9, 1),
-(4, 1, 2, 3, '2024-04-10', 'Parking sous terrain', 3, 90, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis molestiae neque nobis quibusdam accusantium fugiat hic reiciendis dicta, odio quo obcaecati perspiciatis cumque perferendis, magnam qui suscipit rerum veritatis!\r\n', 3, NULL, 50, 60, 10, 50, 50, 3, 1, 7, 6, 1),
-(5, 1, 1, 2, '2024-04-10', 'Villa meublé ', 3, 90, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis molestiae neque nobis quibusdam accusantium fugiat hic reiciendis dicta, odio quo obcaecati perspiciatis cumque perferendis, magnam qui suscipit rerum veritatis!\r\n', 2, NULL, 650, 700, 50, 650, 300, 2, 1, 7, NULL, 1),
+(4, 1, 2, 3, '2024-04-10', 'Parking sous terrain', 0, 4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis molestiae neque nobis quibusdam accusantium fugiat hic reiciendis dicta, odio quo obcaecati perspiciatis cumque perferendis, magnam qui suscipit rerum veritatis!', 3, NULL, 50, 60, 10, 50, 50, 6, 6, 7, 6, 1),
+(5, 1, 1, 2, '2024-04-10', 'Villa meublé', 3, 90, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam debitis molestiae neque nobis quibusdam accusantium fugiat hic reiciendis dicta, odio quo obcaecati perspiciatis cumque perferendis, magnam qui suscipit rerum veritatis!', 2, NULL, 650, 700, 50, 650, 300, 2, 1, 7, NULL, 1),
 (41, 1, 2, 1, '2024-04-02', 'top appart', 4, 60, '', 1, NULL, 500, 550, 50, 500, 300, 2, 2, 7, 6, 1),
 (43, 1, 2, 1, '2024-04-02', 'top appart', 4, 60, '', 1, NULL, 500, 550, 50, 500, 300, 2, 2, 7, 6, 1),
 (45, 1, 2, 1, '2024-04-02', 'top appart', 4, 60, 'super super appart', 19, NULL, 500, 550, 50, 500, 300, 2, 2, 7, 6, 1),
-(57, 3, 2, 1, NULL, 'APPARTEMENT À VENDRE', 4, 113, 'IMMO35 vous présente à RENNES, quartier ARSENAL-REDON, un appartement de 113m² . Idéalement situé dans une rue calme et avec la proximité immédiate des commerces, des écoles, et du métro Ligne B, vous bénéficierez du confort de la construction récente de cet immeuble. Actuellement aménagé en bureau, nous proposons des projections d&#039;aménagement sur un modèle de 2 ou 3 chambres. Balcon au sud et second balcon en cour intérieur. Cave privative en sous-sol, local à vélos.', 1, 399000, NULL, NULL, NULL, NULL, 6, 2, 2, 7, 6, 2),
+(57, 3, 2, 1, NULL, 'APPARTEMENT À VENDRE', 4, 113, 'IMMO35 vous présente à RENNES, quartier ARSENAL-REDON, un appartement de 113m² . Idéalement situé dans une rue calme et avec la proximité immédiate des commerces, des écoles, et du métro Ligne B, vous bénéficierez du confort de la construction récente de cet immeuble. Actuellement aménagé en bureau, nous proposons des projections d&amp;#039;aménagement sur un modèle de 2 ou 3 chambres. Balcon au sud et second balcon en cour intérieur. Cave privative en sous-sol, local à vélos.', 1, 399000, NULL, NULL, NULL, NULL, 6, 2, 2, 7, 6, 2),
 (63, 3, 3, 1, '2024-04-02', 'Appart exposition sud', 5, 100, 'super super appart', 16, 200000, NULL, NULL, NULL, NULL, 6, 2, 2, 7, 6, 1),
 (64, 3, 2, 2, '2024-04-02', 'Maison a vendre', 4, 90, 'Magnifique maison de de ville à vendre', 26, 150000, NULL, NULL, NULL, NULL, 6, 2, 2, 7, 6, 1),
 (74, 1, 3, 2, '2024-04-07', 'Belle maison de ville rénové entièrement', 5, 100, 'Top maison,  de ville rénové entièrement. Effet waouh garantie.', 146, 0, 900, 950, 50, 900, 650, 3, 3, 7, 6, 1),
-(75, 3, 2, 4, '2024-04-02', 'Top terrain', 0, 600, '', 1, 80000, NULL, NULL, NULL, NULL, 5, 2, 2, 7, 6, 1);
+(75, 3, 2, 4, '2024-04-02', 'Top terrain', 0, 600, '', 1, 80000, NULL, NULL, NULL, NULL, 6, 2, 2, 7, 6, 1),
+(79, 3, 2, 3, '2024-06-06', 'Parking sous-terrain sécurisé', 0, 5, 'Top parking sécurisé', 1, 25000, 0, 0, 0, 0, 6, 5, 6, 18, 9, 1),
+(81, 3, 2, 4, '2024-06-19', 'TERRAIN DE LOISIR', 0, 200, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut consequat mi. Donec imperdiet lacus nisi, et finibus risus luctus id. Nam sodales, felis ut tincidunt suscipit, nisl diam maximus ligula, vitae interdum felis purus sed dolor. Curabitur ut facilisis dolor. Morbi mattis elit sed ante ullamcorper, ac commodo libero lobortis. Maecenas porttitor consequat leo et blandit. Fusce euismod magna tellus, fringilla tristique enim suscipit quis. Integer quis odio finibus, bibendum ligula a, malesuada felis. Ut lectus quam, sodales in ex eu, vulputate convallis diam. Vivamus rhoncus mattis tristique. In rhoncus sapien nisi, auctor porttitor nunc molestie sit amet. Ut ut tristique mi. Praesent sit amet urna facilisis est efficitur lobortis ac nec ante. Sed ut lorem sit amet ligula aliquet imperdiet in nec nibh. Suspendisse justo augue, hendrerit sed ligula nec, venenatis laoreet nulla.', 16, 80000, NULL, NULL, NULL, NULL, 5, 2, 2, 19, 6, 2),
+(83, 3, 2, 2, '2024-07-01', 'MAISON DE CAMPAGNE', 5, 150, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut consequat mi. Donec imperdiet lacus nisi, et finibus risus luctus id. Nam sodales, felis ut tincidunt suscipit, nisl diam maximus ligula, vitae interdum felis purus sed dolor. Curabitur ut facilisis dolor. Morbi mattis elit sed ante ullamcorper, ac commodo libero lobortis. Maecenas porttitor consequat leo et blandit. Fusce euismod magna tellus, fringilla tristique enim suscipit quis.\r\n\r\nInteger quis odio finibus, bibendum ligula a, malesuada felis. Ut lectus quam, sodales in ex eu, vulputate convallis diam. Vivamus rhoncus mattis tristique. In rhoncus sapien nisi, auctor porttitor nunc molestie sit amet. Ut ut tristique mi. Praesent sit amet urna facilisis est efficitur lobortis ac nec ante. Sed ut lorem sit amet ligula aliquet imperdiet in nec nibh. Suspendisse justo augue, hendrerit sed ligula nec, venenatis laoreet nulla.', 19, 210000, NULL, NULL, NULL, NULL, 6, 3, 3, 7, 15, 2),
+(84, 3, 3, 2, '2024-06-30', 'MAISON DE BOURG', 4, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut consequat mi. Donec imperdiet lacus nisi, et finibus risus luctus id. Nam sodales, felis ut tincidunt suscipit, nisl diam maximus ligula, vitae interdum felis purus sed dolor. Curabitur ut facilisis dolor. Morbi mattis elit sed ante ullamcorper, ac commodo libero lobortis. Maecenas porttitor consequat leo et blandit. Fusce euismod magna tellus, fringilla tristique enim suscipit quis. Integer quis odio finibus, bibendum ligula a, malesuada felis. \r\n\r\nUt lectus quam, sodales in ex eu, vulputate convallis diam. Vivamus rhoncus mattis tristique. In rhoncus sapien nisi, auctor porttitor nunc molestie sit amet. Ut ut tristique mi. Praesent sit amet urna facilisis est efficitur lobortis ac nec ante. Sed ut lorem sit amet ligula aliquet imperdiet in nec nibh. Suspendisse justo augue, hendrerit sed ligula nec, venenatis laoreet nulla.', 15, 180000, NULL, NULL, NULL, NULL, 6, 3, 3, 7, 9, 2),
+(85, 1, 1, 1, '2024-06-15', 'APPARTEMENT A LOUER', 3, 70, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut consequat mi. Donec imperdiet lacus nisi, et finibus risus luctus id. Nam sodales, felis ut tincidunt suscipit, nisl diam maximus ligula, vitae interdum felis purus sed dolor. Curabitur ut facilisis dolor. Morbi mattis elit sed ante ullamcorper, ac commodo libero lobortis. Maecenas porttitor consequat leo et blandit. Fusce euismod magna tellus, fringilla tristique enim suscipit quis. Integer quis odio finibus, bibendum ligula a, malesuada felis. Ut lectus quam, sodales in ex eu, vulputate convallis diam. Vivamus rhoncus mattis tristique. In rhoncus sapien nisi, auctor porttitor nunc molestie sit amet. Ut ut tristique mi. Praesent sit amet urna facilisis est efficitur lobortis ac nec ante. Sed ut lorem sit amet ligula aliquet imperdiet in nec nibh. Suspendisse justo augue, hendrerit sed ligula nec, venenatis laoreet nulla.', 26, NULL, 650, 700, 50, 650, 600, 1, 1, 18, 9, 1),
+(86, 1, 1, 1, '2024-06-26', 'APPARTEMENT DE BOURG', 4, 90, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut consequat mi. Donec imperdiet lacus nisi, et finibus risus luctus id. Nam sodales, felis ut tincidunt suscipit, nisl diam maximus ligula, vitae interdum felis purus sed dolor. Curabitur ut facilisis dolor. Morbi mattis elit sed ante ullamcorper, ac commodo libero lobortis. Maecenas porttitor consequat leo et blandit. Fusce euismod magna tellus, fringilla tristique enim suscipit quis. Integer quis odio finibus, bibendum ligula a, malesuada felis. Ut lectus quam, sodales in ex eu, vulputate convallis diam. Vivamus rhoncus mattis tristique. In rhoncus sapien nisi, auctor porttitor nunc molestie sit amet. Ut ut tristique mi. Praesent sit amet urna facilisis est efficitur lobortis ac nec ante. Sed ut lorem sit amet ligula aliquet imperdiet in nec nibh. Suspendisse justo augue, hendrerit sed ligula nec, venenatis laoreet nulla.', 12, NULL, 700, 800, 50, 750, 650, 3, 3, 7, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -408,7 +472,31 @@ INSERT INTO `property_link_features` (`id`, `property_features_id`, `property_id
 (405, 21, 63),
 (406, 23, 63),
 (407, 25, 63),
-(408, 14, 64);
+(408, 14, 64),
+(412, 3, 81),
+(413, 7, 81),
+(414, 7, 83),
+(415, 15, 83),
+(416, 17, 83),
+(417, 21, 83),
+(418, 23, 83),
+(419, 14, 84),
+(420, 21, 84),
+(421, 23, 84),
+(422, 25, 84),
+(423, 3, 85),
+(424, 7, 85),
+(425, 8, 85),
+(426, 13, 85),
+(427, 16, 85),
+(428, 17, 85),
+(429, 21, 85),
+(430, 6, 86),
+(431, 14, 86),
+(432, 17, 86),
+(433, 21, 86),
+(434, 23, 86),
+(435, 25, 86);
 
 -- --------------------------------------------------------
 
@@ -488,11 +576,11 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `type_name`, `type_media`) VALUES
-(1, 'Appartements', '../assets/img/appartements-image.webp'),
-(2, 'Maisons', '../assets/img/maisons-image.webp'),
-(3, 'Stationnements', '../assets/img/parking-image.webp'),
-(4, 'Terrains', '../assets/img/terrains-image.webp'),
-(5, 'Immeubles', '../assets/img/immeubles-image.webp');
+(1, 'Appartements', './assets/img/appartements-image.webp'),
+(2, 'Maisons', './assets/img/maisons-image.webp'),
+(3, 'Stationnements', './assets/img/parking-image.webp'),
+(4, 'Terrains', './assets/img/terrains-image.webp'),
+(5, 'Immeubles', './assets/img/immeubles-image.webp');
 
 -- --------------------------------------------------------
 
@@ -517,11 +605,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `address`, `phone`, `email`, `password`, `role`, `created_at`) VALUES
-(4, 'John', 'DOE', '10 Rue de Paris', '06 85 87 87 85', 'test@test.fr', '$2y$10$Klu2TZeUNHysPmQ8CpXwLOetwsRJAkzMeb6ypdhtTZlvRrG.pxFcy', 'ADMIN', '2024-03-04 14:05:45'),
+(4, 'John', 'DOE', NULL, '06 85 87 87 85', 'test@test.fr', '$2y$10$Klu2TZeUNHysPmQ8CpXwLOetwsRJAkzMeb6ypdhtTZlvRrG.pxFcy', 'ADMIN', '2024-03-04 14:05:45'),
 (6, 'Loc1', 'Doe', '10 rue du Maroc', '06 85 78 45 12', 'loc1@test.com', NULL, 'Locataire', '2024-03-05 12:17:54'),
 (7, 'Prop', 'Doe', '10 rue de londre', '02 85 87 85 47 52', 'prop@test.com', NULL, 'Proprietaire', '2024-03-05 16:56:48'),
 (9, 'Loc2', 'Doe', '10 rue de Dakhla', '02 44 42 42 44', 'loc2@test.com', NULL, 'Locataire', '2024-03-05 17:50:12'),
-(10, 'Hello', 'Doe', '41 rue Marrakech', '02 58 45 44 44', 'hello@test.fr', '$2y$10$Klu2TZeUNHysPmQ8CpXwLOetwsRJAkzMeb6ypdhtTZlvRrG.pxFcy', 'READER', '2024-03-22 10:17:31'),
+(10, 'Hello', 'Doe', NULL, '02 58 45 44 44', 'hello@test.fr', '$2y$10$Klu2TZeUNHysPmQ8CpXwLOetwsRJAkzMeb6ypdhtTZlvRrG.pxFcy', 'READER', '2024-03-22 10:17:31'),
 (15, 'loc3', 'Doe', '10 rue de Rabat', '02 44 42 42 44', 'loc3@test.com', NULL, 'Locataire', '2024-03-05 17:50:12'),
 (16, 'loc4', 'Doe', '10 rue de Tanger', '02 44 42 42 44', 'loc4@test.com', NULL, 'Locataire', '2024-03-05 17:50:12'),
 (18, 'Joe', 'Doe', '10rue de casa', '02 54 45 45 87 87', 'joe@test.com', NULL, 'Proprietaire', '2024-05-21 22:14:45'),
@@ -644,13 +732,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT pour la table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT pour la table `propertys`
 --
 ALTER TABLE `propertys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT pour la table `property_features`
@@ -662,7 +750,7 @@ ALTER TABLE `property_features`
 -- AUTO_INCREMENT pour la table `property_link_features`
 --
 ALTER TABLE `property_link_features`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=409;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
 
 --
 -- AUTO_INCREMENT pour la table `rental_management`

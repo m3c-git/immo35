@@ -56,13 +56,7 @@
                 <div>
                    <input class="form-control form-control-sm" type="file" name="formFile[]" multiple>
                 </div>
-
-<!--                   <figure>
-                    <img src='{{ "../upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="...">
-                    <figcaption></figcaption>
-                  </figure> -->
-<!--                  <label for="formFile_{{ key }}" class="form-label">Default file input example</label>
- -->            </fieldset>
+           </fieldset>
             <fieldset class="my-1">
                 <label for="salesPrice" class="form-label">
                     Prix de vente
@@ -214,10 +208,7 @@
 
 {% block script %}
 {{ parent() }}
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js”></script> -->
+<!-- <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <script>
     Dropzone.options.dropzone = {
   url: "/index.php?route=check-add-property",
@@ -240,5 +231,5 @@
   	});
   }
 };
-</script>
+</script> -->
 {% endblock %}

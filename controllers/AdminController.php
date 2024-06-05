@@ -1018,7 +1018,7 @@ class AdminController extends AbstractController
                     $title = $this->checkInput($_POST["title"]);
                     $rooms = (int) $this->checkInput($_POST["rooms"]);
                     $surface = (int) $this->checkInput($_POST["surface"]);
-                    $description = $this->checkInput($_POST["description"]);
+                    $description = $_POST["description"]; 
                     $locationId = (int) $this->checkInput($_POST["city"]);
                     $rentalManagementId = (int) $this->checkInput($_POST["rentalManagementId"]);
             

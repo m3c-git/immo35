@@ -208,4 +208,19 @@ class DefaultController extends AbstractController
     {
         $this->render("404.html.twig", []);
     }
+
+    public function legalInformation() : void
+    {
+        $this->render("legal-information.html.twig", []);
+    }
+
+    public function privacyPolicy() : void
+    {
+        $this->render("privacy-policy.html.twig", []);
+    }
+
+    public function cookiesPolicy() : void
+    {
+        $this->render("cookies-policy.html.twig", []);
+    }
 }

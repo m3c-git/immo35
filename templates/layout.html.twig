@@ -48,7 +48,9 @@
                         <li><a href="index.php?route=contact-manage">gérer</a></li>
                         <li><a href="index.php?route=contact">contact</a></li>
                         <li><a href="index.php?route=login">connexion</a></li>
+                        {% if role is defined and role == "ADMIN" or role is defined and role == "READER" %}
                         <li><a href="index.php?route=logout">déconnexion</a></li>
+                        {% endif %}
                     </ul>
                     
 
@@ -87,7 +89,7 @@
         <footer>
             <section class="copyright">
                 <button id="backToTop" class=""><i class="fas fa-chevron-up"></i><a href="#"></a></button>
-                <p ><a href="#" target="_blank" rel="noopener noreferrer">Plan |</a> <a href="#" target="_blank" rel="noopener noreferrer">Mentions légales |</a> <a href="#" target="_blank" rel="noopener noreferrer">Politique de confidentialité |</a> <a href="">Politique de cookies</a><span>© Immo 35</span></p>
+                <p ><a href="#" rel="noopener noreferrer">Plan |</a> <a href="index.php?route=legal-information" rel="noopener noreferrer">Mentions légales |</a> <a href="index.php?route=privacy-policy" rel="noopener noreferrer">Politique de confidentialité |</a> <a href="index.php?route=cookies-policy">Politique de cookies</a><span>© Immo 35</span></p>
             </section>
             <section>
                 <p>IMMO 35 | ACHAT, VENTE, LOCATION, IMMOBILIER D'ENTREPRISE ET COMMERCIAL</p>

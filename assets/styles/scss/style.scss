@@ -249,6 +249,92 @@ button:hover:before {
 
 }
 
+.informations
+{
+
+  padding-bottom: 4rem;
+
+  h1
+  {
+    max-width: 70em;
+    font-size: 2.7rem;
+    font-weight: 900;
+    color: $base-rouge;
+    padding: 2em 0 1em 0;
+  }
+
+  h2
+  {
+
+    padding: 1em 0em;
+    text-align: left;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: $base-gris;
+  
+  }
+
+  
+
+}
+
+.page-404
+  {
+    background-color: #95c2de;
+    .mainbox {
+      background-color: #95c2de;
+      margin: auto;
+      height: 600px;
+      width: 600px;
+      position: relative;
+    }
+    
+      .err {
+        color: #ffffff;
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 11rem;
+        position:absolute;
+        left: 20%;
+        top: 8%;
+      }
+    
+    .far {
+      position: absolute;
+      font-size: 8.5rem;
+      left: 42%;
+      top: 15%;
+      color: #ffffff;
+    }
+    
+     .err2 {
+        color: #ffffff;
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 11rem;
+        position:absolute;
+        left: 68%;
+        top: 8%;
+      }
+    
+    .msg {
+        text-align: center;
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 1.6rem;
+        position:absolute;
+        left: 16%;
+        top: 45%;
+        width: 75%;
+      }
+    
+    a {
+      text-decoration: none;
+      color: white;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+  }
 
 /* *****************************************************************
                         HEADER + MENU BURGER 
@@ -750,62 +836,6 @@ footer
 
       }
 
-  
- /*      button
-      {
-        width: 20rem;
-        height: 4.5rem;
-        font-weight:800;
-        
-        background: $base-rouge;
-  
-       
-        color: #fff;
-        cursor: pointer;
-        border: none;
-  
-        position: relative;
-        outline: 0;
-        overflow:hidden;
-        z-index: 1;
-        cursor: pointer;
-        transition:         0.08s ease-in;
-        -o-transition:      0.08s ease-in;
-        -ms-transition:     0.08s ease-in;
-        -moz-transition:    0.08s ease-in;
-        -webkit-transition: 0.08s ease-in;
-      }
-      
-      button:before {
-        content: "";
-        position: absolute;
-        background: $base-gris;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: 100%;
-        z-index: -1;
-        -webkit-transition: top 0.09s ease-in;
-      }
-      
-      button:hover:before {
-        top: 0;
-      }
-      
-      button::after {
-        
-      position: absolute;
-      right: 2rem;
-      top: -moz-calc(50% - .6rem);
-      top: calc(55% - .6rem);
-      font-size: 1rem;
-      content: "\f054";
-      font-family: "Font Awesome\ 5 Free";
-      font-weight: 900;
-      margin-left: auto;
-      -moz-transition: right .5s;
-      transition: right .5s;
-      } */
       
     }
 

@@ -105,15 +105,15 @@ class Router
         }
         else if(isset($get["route"]) && $get["route"] === "legal-information")
         {
-            $this->ec->legalInformation();
+            $this->bc->legalInformation();
         }
         else if(isset($get["route"]) && $get["route"] === "privacy-policy")
         {
-            $this->ec->privacyPolicy();
+            $this->bc->privacyPolicy();
         }
         else if(isset($get["route"]) && $get["route"] === "cookies-policy")
         {
-            $this->gc->cookiesPolicy();
+            $this->bc->cookiesPolicy();
         }
         else if(isset($get["route"]) && $get["route"] === "admin")
         {

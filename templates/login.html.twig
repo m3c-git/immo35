@@ -25,6 +25,8 @@
         <form id="login-form" action="index.php?route=check-login" method="post">
             <h2 class="mt-5">Connexion</h2>
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ token }}" />
+            <label for="honeypot" aria-hidden="true" class="honeypot-hidden">Honeypot </label>
+            <input type="hidden" name="honeypot" id="honeypot">
             <fieldset class="my-1">
                 <label for="email" class="form-label">
                     Email
@@ -37,11 +39,12 @@
                 </label>
                 <input type="password" name="password" id="password" class="form-control" />
             </fieldset>
+            <div class="iconcaptcha-widget" data-theme="light"></div>
             <button type="submit" class="btn-front btn-login" >Connexion</button>
         </form>
     </main>
     {% endblock %}
 
-
+   
 
 

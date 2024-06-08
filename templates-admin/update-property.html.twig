@@ -92,12 +92,11 @@
                         <img src='{{ "./upload/" ~ media.url }}' class="img-fluid img-thumbnail" alt="{{ media.url }}">
                     </figure>
                   </div>
-                  
                  
                 {% endfor %} 
                 <div class="img-sup">
                     <label for="formFile_{{ key }}" class="form-label">Ajouter des photos supplementaire</label>
-                    <input class="form-control" type="file" name="formFile[]" id="formFile_{{ key }}" multiple>      
+                    <input class="form-control " type="file" name="formFile[]" id="formFile_{{ key }}" multiple>      
                 </div>
                 {% endif %}
                 

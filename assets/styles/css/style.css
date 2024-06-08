@@ -178,16 +178,16 @@ button:hover:before {
     color: #506F7E; }
 
 .page-404 {
-  background-color: #95c2de; }
+  background-color: #506F7E;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
   .page-404 .mainbox {
-    background-color: #95c2de;
-    margin: auto;
-    height: 600px;
-    width: 600px;
-    position: relative; }
+    background-color: #506F7E;
+    position: relative;
+    padding: 2rem; }
   .page-404 .err {
     color: #ffffff;
-    font-family: 'Nunito Sans', sans-serif;
     font-size: 11rem;
     position: absolute;
     left: 20%;
@@ -196,28 +196,29 @@ button:hover:before {
     position: absolute;
     font-size: 8.5rem;
     left: 42%;
-    top: 15%;
+    top: 10%;
     color: #ffffff; }
   .page-404 .err2 {
     color: #ffffff;
-    font-family: 'Nunito Sans', sans-serif;
     font-size: 11rem;
     position: absolute;
     left: 68%;
     top: 8%; }
   .page-404 .msg {
     text-align: center;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.6rem;
-    position: absolute;
-    left: 16%;
-    top: 45%;
-    width: 75%; }
+    font-size: 1.8rem;
+    color: #fff;
+    padding-top: 20rem;
+    line-height: 2; }
   .page-404 a {
     text-decoration: none;
-    color: white; }
+    color: #E2003B; }
   .page-404 a:hover {
     text-decoration: underline; }
+
+/* honeypot */
+.honeypot-hidden {
+  display: none; }
 
 /* *****************************************************************
                         HEADER + MENU BURGER 
@@ -858,6 +859,10 @@ section.card-section {
       font-size: 1.8rem; }
     .property-details .property-sec2 p {
       font-size: 1.8rem; }
+      .property-details .property-sec2 p strong {
+        font-weight: bold; }
+      .property-details .property-sec2 p em {
+        font-style: italic; }
     .property-details .notes-energie, .property-details .notes-ges {
       font-size: 1.44rem; } }
   @media screen and (max-width: 575px) {
@@ -885,6 +890,10 @@ section.card-section {
       font-size: 1.6rem; }
     .property-details .property-sec2 p {
       font-size: 1.6rem; }
+      .property-details .property-sec2 p strong {
+        font-weight: bold; }
+      .property-details .property-sec2 p em {
+        font-style: italic; }
     .property-details .notes-energie, .property-details .notes-ges {
       font-size: 1.49rem; } }
   @media screen and (min-width: 992px) {
@@ -909,6 +918,10 @@ section.card-section {
       font-size: 2rem; }
     .property-details .property-sec2 p {
       font-size: 2rem; }
+      .property-details .property-sec2 p strong {
+        font-weight: bold; }
+      .property-details .property-sec2 p em {
+        font-style: italic; }
     .property-details .notes-energie, .property-details .notes-ges {
       font-size: 1.6rem; } }
 
@@ -1121,6 +1134,10 @@ section.card-section {
       color: #F02C2C;
       width: 100%;
       padding: 2rem; }
+    .contact #contact-form #thank-you, .contact #contact-manage-form #thank-you {
+      color: #3acc31;
+      width: 100%;
+      padding: 2rem; }
     @media screen and (min-width: 768px) {
       .contact #contact-form, .contact #contact-manage-form {
         padding: 3.6rem 1.35rem 3rem 1.35rem; }
@@ -1255,7 +1272,7 @@ section.card-section {
       padding: 2rem 0 0 0; }
     .admin fieldset .form-check {
       width: 45%; }
-  .admin fieldset > label, .admin fieldset .form-check label {
+  .admin fieldset > label, .admin fieldset .form-check label, .admin fieldset div label {
     font-size: 1.8rem;
     font-weight: 700; }
   .admin .form-select {
@@ -1349,47 +1366,5 @@ section.card-section {
 /* *****************************************************************
                             a ranger
 ***************************************************************** */
-.dropzone {
-  display: inline-block;
-  width: 600px;
-  padding: 15px;
-  background-color: #2169ec21;
-  border: 3px #2169ec dashed;
-  border-radius: 5px; }
-
-.dz-default.dz-message {
-  text-align: center;
-  margin-bottom: 15px; }
-
-.dropzone .dz-preview {
-  display: block;
-  padding: 0;
-  margin: 0 0 15px 0 !important;
-  width: 100% !important;
-  height: 100px; }
-
-.dz-image {
-  width: 100px;
-  height: 100px;
-  float: left;
-  margin-right: 10px; }
-
-.dz-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; }
-
-.dropzone .dz-preview .dz-progress {
-  position: absolute;
-  bottom: 0;
-  left: 110px;
-  width: calc( 100% - 110px ); }
-
-.dropzone .dz-preview .dz-error-mark,
-.dropzone .dz-preview .dz-success-mark {
-  position: absolute;
-  top: 5px !important;
-  left: auto !important;
-  right: 5px !important; }
 
 /*# sourceMappingURL=style.css.map */

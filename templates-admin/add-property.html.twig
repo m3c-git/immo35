@@ -51,10 +51,11 @@
                 {% endfor %}
             </fieldset>
             <fieldset class="my-1 form-group" >
-                <legend>Selectionner des photos pour ce bien</legend>
-                <!-- <div class="dropzone" id="dropzone"> -->
+                <!-- <legend>Selectionner des photos pour ce bien</legend> -->
+                
                 <div>
-                   <input class="form-control form-control-sm" type="file" name="formFile[]" multiple>
+                    <label for="formFile[]">Selectionner des photos pour ce bien</label>
+                    <input class="form-control form-control-sm" type="file" name="formFile[]" multiple>
                 </div>
            </fieldset>
             <fieldset class="my-1">
@@ -204,32 +205,4 @@
    
 </main>
     
-{% endblock %}
-
-{% block script %}
-{{ parent() }}
-<!-- <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<script>
-    Dropzone.options.dropzone = {
-  url: "/index.php?route=check-add-property",
-  autoProcessQueue: false,
-  paramName: "formFile[]",
-  clickable: true,
-  maxFilesize: 2, //in mb
-  addRemoveLinks: true,
-  acceptedFiles: '.png,.jpg',
-  dictDefaultMessage: "Upload your file here",
-  init: function() {
-    this.on("sending", function(file, xhr, formData) {
-      console.log("sending file");
-    });
-    this.on("success", function(file, responseText) {
-      console.log('great success');
-    });
-    this.on("addedfile", function(file){
-  		console.log('file added');
-  	});
-  }
-};
-</script> -->
 {% endblock %}

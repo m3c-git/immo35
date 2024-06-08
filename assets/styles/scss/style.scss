@@ -152,7 +152,6 @@ body::-webkit-scrollbar {
 
 main
 {
-    
   .container
   { 
     margin: 0 auto;
@@ -280,18 +279,20 @@ button:hover:before {
 
 .page-404
   {
-    background-color: #95c2de;
+    background-color: #506F7E;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     .mainbox {
-      background-color: #95c2de;
-      margin: auto;
-      height: 600px;
-      width: 600px;
+      background-color: #506F7E;
       position: relative;
+      padding: 2rem;
     }
     
       .err {
         color: #ffffff;
-        font-family: 'Nunito Sans', sans-serif;
         font-size: 11rem;
         position:absolute;
         left: 20%;
@@ -302,13 +303,12 @@ button:hover:before {
       position: absolute;
       font-size: 8.5rem;
       left: 42%;
-      top: 15%;
+      top: 10%;
       color: #ffffff;
     }
     
      .err2 {
         color: #ffffff;
-        font-family: 'Nunito Sans', sans-serif;
         font-size: 11rem;
         position:absolute;
         left: 68%;
@@ -317,23 +317,28 @@ button:hover:before {
     
     .msg {
         text-align: center;
-        font-family: 'Nunito Sans', sans-serif;
-        font-size: 1.6rem;
-        position:absolute;
-        left: 16%;
-        top: 45%;
-        width: 75%;
+        font-size: 1.8rem;
+        color: #fff;
+        padding-top: 20rem;
+        line-height: 2;
       }
     
     a {
       text-decoration: none;
-      color: white;
+      color: $base-rouge;
     }
     
     a:hover {
       text-decoration: underline;
     }
     
+  }
+
+  /* honeypot */
+  .honeypot-hidden
+  {
+    display: none;
+
   }
 
 /* *****************************************************************
@@ -1468,6 +1473,17 @@ section.card-section
     .property-sec2 p
     {
       font-size: 1.8rem;
+      
+      strong
+      {
+        font-weight: bold;
+        
+      }
+
+      em
+      {
+        font-style: italic;
+      }
 
     }
 
@@ -1549,6 +1565,17 @@ section.card-section
     {
       font-size: 1.6rem;
 
+      strong
+      {
+        font-weight: bold;
+        
+      }
+
+      em
+      {
+        font-style: italic;
+      }
+
     }
 
     .notes-energie, .notes-ges
@@ -1622,6 +1649,17 @@ section.card-section
     .property-sec2 p
     {
       font-size: 2rem;
+
+      strong
+      {
+        font-weight: bold;
+        
+      }
+
+      em
+      {
+        font-style: italic;
+      }
 
     }
 
@@ -2067,6 +2105,13 @@ section.card-section
       padding: 2rem;
     }
 
+    #thank-you
+    {
+      color: $energy-b;
+      width: 100%;
+      padding: 2rem;
+    }
+
     @include media-min(768px) 
     {
       padding: 3.6rem 1.35rem 3rem 1.35rem;
@@ -2342,7 +2387,7 @@ section.card-section
     
   }
 
-  fieldset > label, fieldset .form-check label
+  fieldset > label, fieldset .form-check label, fieldset div label
   {
     font-size: 1.8rem;
     font-weight: 700;
@@ -2526,48 +2571,5 @@ section.card-section
                             a ranger
 ***************************************************************** */
 
-.dropzone {
-  display: inline-block;
-  width: 600px;
-  padding: 15px;
-  background-color: #2169ec21;
-  border: 3px #2169ec dashed;
-  border-radius: 5px;
-}
-.dz-default.dz-message {
-  text-align: center;
-  margin-bottom: 15px;
-}
-.dropzone .dz-preview {
-  display: block;
-  padding: 0;
-  margin: 0 0 15px 0 !important;
-  width: 100% !important;
-  height: 100px;
-}
-.dz-image {
-  width: 100px;
-  height: 100px;
-  float: left;
-  margin-right: 10px;
-}
-.dz-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-.dropzone .dz-preview .dz-progress {
-  position: absolute;
-  bottom: 0;
-  left: 110px;
-  width: calc( 100% - 110px );
-}
-.dropzone .dz-preview .dz-error-mark,
-.dropzone .dz-preview .dz-success-mark {
-  position: absolute;
-  top: 5px !important;
-  left: auto !important;
-  right: 5px !important;
-}
 
 

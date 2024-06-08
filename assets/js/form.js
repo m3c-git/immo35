@@ -19,11 +19,10 @@ async function formManage(form) {
 
                 if (result.isSuccessf) {
                     console.log("Mail envoyé !");
-                     
+                    document.getElementById("sendError").style.display="none";
                     document.getElementById("thank-you").innerHTML = "Merci pour votre message il a bien été envoyé.<br>Je reviens vers vous rapidement.<br>Pensez à vérifier vos spams";
                     document.getElementById("thank-you").style.display="block";
-                    document.getElementById("sendError").style.display="none";
-                    document.getElementById("contact-maanage-form").reset();
+                    document.getElementById("contact-manage-form").reset();
                     document.getElementsByClassName("comments")[0].innerHTML = "";
                     document.getElementsByClassName("comments")[1].innerHTML = "";
                     document.getElementsByClassName("comments")[2].innerHTML = "";
@@ -37,10 +36,10 @@ async function formManage(form) {
                     document.getElementById("sendError").innerHTML = "Un problème est survenu  survenu lors de l'envoi. <br>Merci d'essayer ultérieurement. <br>Si l'erreur persiste merci de me contacter par téléphone";
                     document.getElementById("sendError").style.display="block";
                     document.getElementsByClassName("comments")[0].innerHTML = result.civiliteError;
-                    document.getElementsByClassName("comments")[1].innerHTML = result.firstnameError;
-                    document.getElementsByClassName("comments")[2].innerHTML = result.emailError;
+                    document.getElementsByClassName("comments")[1].innerHTML = result.lastnameError;
+                    document.getElementsByClassName("comments")[2].innerHTML = result.firstnameError;
                     document.getElementsByClassName("comments")[3].innerHTML = result.phoneError;
-                    document.getElementsByClassName("comments")[4].innerHTML = result.districtError;
+                    document.getElementsByClassName("comments")[4].innerHTML = result.emailError;
                     document.getElementsByClassName("comments")[5].innerHTML = result.districtError;
                     document.getElementsByClassName("comments")[6].innerHTML = result.cityError;
                     
@@ -81,9 +80,9 @@ async function formContact(form) {
                 if (result.isSuccessf) {
                     console.log("Mail envoyé !");
                      
+                    document.getElementById("sendError").style.display="none";
                     document.getElementById("thank-you").innerHTML = "Merci pour votre message il a bien été envoyé.<br>Je reviens vers vous rapidement.<br>Pensez à vérifier vos spams";
                     document.getElementById("thank-you").style.display="block";
-                    document.getElementById("sendError").style.display="none";
                     document.getElementById("contact-form").reset();
                     document.getElementsByClassName("comments")[0].innerHTML = "";
                     document.getElementsByClassName("comments")[1].innerHTML = "";
@@ -101,8 +100,8 @@ async function formContact(form) {
                     document.getElementById("sendError").innerHTML = "Un problème est survenu  survenu lors de l'envoi. <br>Merci d'essayer ultérieurement. <br>Si l'erreur persiste merci de me contacter par téléphone";
                     document.getElementById("sendError").style.display="block";
                     document.getElementsByClassName("comments")[0].innerHTML = result.civiliteError;
-                    document.getElementsByClassName("comments")[1].innerHTML = result.firstnameError;
-                    document.getElementsByClassName("comments")[2].innerHTML = result.lastnameError;
+                    document.getElementsByClassName("comments")[1].innerHTML = result.lastnameError;
+                    document.getElementsByClassName("comments")[2].innerHTML = result.firstnameError;
                     document.getElementsByClassName("comments")[3].innerHTML = result.companyError;
                     document.getElementsByClassName("comments")[5].innerHTML = result.phoneError;
                     document.getElementsByClassName("comments")[6].innerHTML = result.emailError;

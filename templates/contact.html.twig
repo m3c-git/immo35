@@ -10,7 +10,8 @@
     <h1>contact</h1>
    
     <form id="contact-form" name="contact" action="index.php?route=check-contact" method="post" accept-charset="utf-8">
-
+        <label for="honeypot" aria-hidden="true" class="honeypot-hidden">Honeypot </label>
+        <input type="hidden" name="honeypot" id="honeypot">
         <fieldset class="profil-field">
             <label for="profil">Vous êtes ?<span class="red"> *</span></label>
             <select class="profil" id="profil" name="profil">

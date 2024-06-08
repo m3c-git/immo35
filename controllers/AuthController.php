@@ -4,6 +4,9 @@
  * @link : https://github.com/Gaellan
  */
 
+use IconCaptcha\IconCaptcha;
+//require('./vendor/fabianwennink/iconcaptcha/src/Session/Session.php');
+//require('./vendor/fabianwennink/iconcaptcha/src/IconCaptcha.php');
 
 class AuthController extends AbstractController
 {
@@ -17,61 +20,89 @@ class AuthController extends AbstractController
     public function checkLogin() : void
     {
 
-        if(isset($_POST["email"]) && isset($_POST["password"]))
-        {
-            $tokenManager = new CSRFTokenManager();
+        // On vérifie que le visiteur vient du formulaire
+        if(isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] == "http://localhost:3000"){
+        
+            // On vérifie que le champ "Pot de miel" est vide
+            if(isset($_POST['honeypot']) && empty($_POST['honeypot'])){
+            
 
-            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
-            {
-                $um = new UserManager();
-                $user = $um->findByEmail($_POST["email"]);
-
-                if($user !== null)
+                if(isset($_POST["email"]) && isset($_POST["password"]))
                 {
-                    if(password_verify($_POST["password"], $user->getPassword()))
+                    $tokenManager = new CSRFTokenManager();
+
+                    if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
                     {
-                        if($user->getRole() === "ADMIN" || $user->getRole() === "READER")
+
+                        $um = new UserManager();
+                        $user = $um->findByEmail($_POST["email"]);
+
+                        if($user !== null)
                         {
-                            $_SESSION["role"] = $user->getRole();
-                           
-                            $_SESSION["user"] = $user->getId();
+                            if(password_verify($_POST["password"], $user->getPassword()))
+                            {
+                                if($user->getRole() === "ADMIN" || $user->getRole() === "READER")
+                                {
+                                    $_SESSION["role"] = $user->getRole();
+                                
+                                    $_SESSION["user"] = $user->getId();
 
-                            unset($_SESSION["error-message"]);
+                                    unset($_SESSION["error-message"]);
 
-                            $this->redirect("index.php?route=admin");
-                            //dump($_SESSION);
+                                    $this->redirect("index.php?route=admin");
+                                    //dump($_SESSION);
+                                }
+                                else
+                                {
+                                    $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+                                    $this->redirect("index.php?route=login");
+                                }
+                                
+
+                            }
+                            else
+                            {
+                                $_SESSION["error-message"] = "Login ou mot de passe incorrect";
+                                $this->redirect("index.php?route=login");
+                            }
                         }
                         else
                         {
-                            $_SESSION["error-message"] = "Utilisateur non autorisé à se connecter";
+                            $_SESSION["error-message"] = "Login ou mot de passe incorrect";
                             $this->redirect("index.php?route=login");
                         }
                         
-
                     }
                     else
                     {
-                        $_SESSION["error-message"] = "Login ou mot de passe incorrect";
+                        $_SESSION["error-message"] = "Invalid CSRF token";
                         $this->redirect("index.php?route=login");
                     }
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "Login ou mot de passe incorrect";
+                    $_SESSION["error-message"] = "Missing fields";
                     $this->redirect("index.php?route=login");
                 }
+
+            
             }
             else
             {
-                $_SESSION["error-message"] = "Invalid CSRF token";
+                $_SESSION["error-message"] = "Vous êtes un robot ?";
                 $this->redirect("index.php?route=login");
             }
+            
+        
+        
         }
         else
         {
-            $_SESSION["error-message"] = "Missing fields";
-            $this->redirect("index.php?route=login");
+            http_response_code(405);
+            echo "Méthode non autorisée";
         }
+
+        
     }
 
     public function register() : void

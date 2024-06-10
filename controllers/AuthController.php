@@ -4,14 +4,11 @@
  * @link : https://github.com/Gaellan
  */
 
-use IconCaptcha\IconCaptcha;
-//require('./vendor/fabianwennink/iconcaptcha/src/Session/Session.php');
-//require('./vendor/fabianwennink/iconcaptcha/src/IconCaptcha.php');
-
 class AuthController extends AbstractController
 {
     public function login() : void
     {
+        
         unset($_SESSION["message"]);
         unset($_SESSION["error-message"]);
         $this->render("login.html.twig", []);

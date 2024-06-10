@@ -54,19 +54,15 @@
         <div class="card-body">
             <h3 class=""><a href="index.php?route=details-property&id={{ property.property.id }}">{{ property.property.title }}</a></h3>
             <ul class="">
-                    <li class="list-group-item">{{ property.property.location.city }}</li>
-                    <li class="list-group-item">{{ property.property.surface }} M²</li>
-                    <li class="list-group-item">{{ property.property.rooms }} pièces</li>
-                    <li class="list-group-item">{{ property.property.type.typeName }}</li>
-                    {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
-                    <li class="list-group-item">Loyer : {{ property.property.rentCharge }} €</li>
-                    {% endif %}                    
-                    {% if property.property.charge != null or property.property.charge != 0  %}
-                    <li class="list-group-item">Charge: {{ property.property.charge }} €</li>
-                    {% endif %}
-                    {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
-                    <li class="list-group-item">Prix de vente: {{ property.property.salesPrice | number_format(0, '', ' ') }} €</li>
-                    {% endif %}
+                <li><span>{{ property.property.location.city }}</span></li>
+                <li><strong>{{ property.property.surface }} m²</strong></li>
+                <li><strong>{{ property.property.rooms }} pièces</strong></li>
+                {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
+                <li><strong>{{ property.property.rentCharge }} €</strong></li>
+                {% endif %}                    
+                {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
+                <li><strong>{{ property.property.salesPrice | number_format(0, '', ' ') }} €</strong></li>
+                {% endif %}
             </ul>
         </div>
         <figure>

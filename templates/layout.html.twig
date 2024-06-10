@@ -46,9 +46,11 @@
                         <li><a  href="index.php?route=sell">vendre</a></li>
                         <li><a href="index.php?route=contact-manage">gérer</a></li>
                         <li><a href="index.php?route=contact">contact</a></li>
-                        <li><a href="index.php?route=login">connexion</a></li>
+                        
                         {% if role is defined and role == "ADMIN" or role is defined and role == "READER" %}
                         <li><a href="index.php?route=logout">déconnexion</a></li>
+                        {% else %}
+                        <li><a href="index.php?route=login">connexion</a></li>
                         {% endif %}
                     </ul>
                     

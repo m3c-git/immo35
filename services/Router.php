@@ -138,7 +138,7 @@ class Router
         {
             $this->hc->addUser();
         }
-        else if(isset($get["route"]) && $get["route"] === "checkAddUser")
+        else if(isset($get["route"]) && $get["route"] === "check-add-user")
         {
             $this->hc->checkAddUser();
         }

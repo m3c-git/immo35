@@ -4,7 +4,7 @@
 
     const navLinksContainer = document.querySelector(".navlinks-container");
 
-    const btn = document.querySelector('button#backToTop');
+    const btn = document.querySelector('div#backToTop');
 
     const toggleNav = e => {
         burgerToggler.classList.toggle("open");

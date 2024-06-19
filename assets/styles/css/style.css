@@ -776,7 +776,8 @@ section.card-section {
 
 /* fin partie pour slider */
 .property-details {
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-bottom: 5rem; }
   .property-details section {
     padding: 4rem 0; }
   .property-details section + section {
@@ -938,8 +939,7 @@ section.card-section {
 
 .property-sec5 div {
   display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 2.5rem; }
+  flex-wrap: wrap; }
   .property-sec5 div article {
     max-width: 50%;
     flex: 0 0 50%; }

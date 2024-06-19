@@ -145,6 +145,10 @@ button {
   right: 0;
   top: 100%;
   z-index: -1;
+  transition: top 0.09s ease-in;
+  -o-transition: top 0.09s ease-in;
+  -ms-transition: top 0.09s ease-in;
+  -moz-transition: top 0.09s ease-in;
   -webkit-transition: top 0.09s ease-in; }
 
 button:hover:before {
@@ -786,6 +790,13 @@ section.card-section {
   .property-details h3 {
     font-size: 1.5rem;
     font-weight: bold; }
+  .property-details a.btn-front {
+    padding: 14px 25px;
+    display: block;
+    text-align: center;
+    font-family: "Arial", sans-serif !important; }
+  .property-details a.btn-front:hover:before {
+    top: 0; }
   @media screen and (max-width: 991px) {
     .property-details h1 {
       font-size: 2.7rem; }
@@ -816,7 +827,10 @@ section.card-section {
       font-size: 1.44rem; } }
   @media screen and (max-width: 575px) {
     .property-details .property-sec1 article > * {
-      flex-basis: 100%; } }
+      flex-basis: 100%; }
+    .property-details .property-sec5 div article {
+      max-width: 100%;
+      flex: 0 0 100%; } }
   @media screen and (max-width: 767px) {
     .property-details h1 {
       font-size: 2.4rem; }
@@ -924,7 +938,8 @@ section.card-section {
 
 .property-sec5 div {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding-bottom: 2.5rem; }
   .property-sec5 div article {
     max-width: 50%;
     flex: 0 0 50%; }

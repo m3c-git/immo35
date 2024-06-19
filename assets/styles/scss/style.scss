@@ -225,6 +225,10 @@ button
   right: 0;
   top: 100%;
   z-index: -1;
+  transition:         top 0.09s ease-in;
+  -o-transition:      top 0.09s ease-in;
+  -ms-transition:     top 0.09s ease-in;
+  -moz-transition:    top 0.09s ease-in;
   -webkit-transition: top 0.09s ease-in;
 
 }
@@ -1362,6 +1366,19 @@ section.card-section
     font-weight: bold;
   }
 
+  a.btn-front
+  {
+    padding: 14px 25px;
+    display: block;
+    text-align: center;
+    font-family: "Arial", sans-serif !important;
+  }
+
+  a.btn-front:hover:before 
+  {
+    top: 0;
+  }
+
   @include media-max(991px) 
   {
     h1
@@ -1451,6 +1468,13 @@ section.card-section
     .property-sec1 article >*
     {
       flex-basis: 100%;
+    }
+
+    .property-sec5 div article
+    {
+    
+      max-width: 100%;
+      flex: 0 0 100%;
     }
   }
 
@@ -1732,6 +1756,7 @@ section.card-section
   {
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 2.5rem;
 
     article
     {

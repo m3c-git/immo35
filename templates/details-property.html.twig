@@ -28,7 +28,16 @@
     <article>
       <h1>
         {{ propertyById.type.typeName ~ " " ~ propertyById.statusProperty.statusName }} <br>
+
+        {% if propertyById.rooms != 0 %}
+        
         {{propertyById.rooms ~ " " ~ "pièces"~" " ~ propertyById.surface ~ " " ~ "M²" }}
+        
+        {% else %}
+        
+        {{ propertyById.surface ~ " " ~ "M²" }}
+        
+        {% endif %}
       </h1>
       {% if propertyById.availabilityDate is defined %}
       <p class="availabilityDate">disponibilité {{ propertyById.availabilityDate }}</p>
@@ -143,13 +152,13 @@
 <script type="text/javascript" src="./assets/js/slick-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-lightbox/0.2.12/slick-lightbox.min.js" integrity="sha512-iSVaq9Huv1kxBDAOH7Il1rwIJD+uspMQC1r4Y73QquhbI2ia+PIXUoS5rBjWjYyD03S8t7gZmON+Dk6yPlWHXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-  let map = L.map('map').setView(["{{ latitude }}", "{{ longitude }}"], 14);
+  let map = L.map('map').setView(["{{ coordinates.latitude }}", "{{ coordinates.longitude }}"], 14);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-let circle = L.circle(["{{ latitude }}", "{{ longitude }}"], {
+let circle = L.circle(["{{ coordinates.latitude }}", "{{ coordinates.longitude }}"], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,

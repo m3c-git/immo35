@@ -62,12 +62,14 @@
             <ul class="">
                 <li><span>{{ property.property.location.city }}</span></li>
                 <li><strong>{{ property.property.surface }} m²</strong></li>
+                {% if property.property.rooms != null or property.property.rooms != 0 %}
                 <li><strong>{{ property.property.rooms }} pièces</strong></li>
+                {% endif %} 
                 {% if property.property.rentCharge != null or property.property.rentCharge != 0 %}
-                <li><strong>{{ property.property.rentCharge }} €</strong></li>
+                <li class="price-card"><strong>{{ property.property.rentCharge }} €</strong></li>
                 {% endif %}                    
                 {% if property.property.salesPrice != null or property.property.salesPrice != 0 %}
-                <li><strong>{{ property.property.salesPrice | number_format(0, '', ' ') }} €</strong></li>
+                <li class="price-card"><strong>{{ property.property.salesPrice | number_format(0, '', ' ') }} €</strong></li>
                 {% endif %}
         </ul>
             <figure>

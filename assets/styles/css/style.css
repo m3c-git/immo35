@@ -695,7 +695,7 @@ section.card-section {
     line-height: 1; }
   section.card-section li:nth-child(2) strong {
     font-size: 2rem; }
-  section.card-section li:nth-child(4) strong {
+  section.card-section li.price-card strong {
     font-size: 2.2rem;
     color: #506F7E; }
   section.card-section li:nth-child(3) {

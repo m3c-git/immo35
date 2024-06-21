@@ -123,10 +123,14 @@
         </ul>
       </article>
     </div>
-    
 
   </section>
   {% endif %}
+  <section class="property-sec6">
+    <h2>Où se trouve le bien ?</h2>
+    <div  id="map" style="height: 40rem;"></div>
+  </section>
+  
   <a class="btn-front" href="/index.php?route=contact" role="button">Contactez moi</a>
 </main>
 
@@ -138,5 +142,18 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript" src="./assets/js/slick-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-lightbox/0.2.12/slick-lightbox.min.js" integrity="sha512-iSVaq9Huv1kxBDAOH7Il1rwIJD+uspMQC1r4Y73QquhbI2ia+PIXUoS5rBjWjYyD03S8t7gZmON+Dk6yPlWHXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  let map = L.map('map').setView(["{{ latitude }}", "{{ longitude }}"], 14);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
 
+let circle = L.circle(["{{ latitude }}", "{{ longitude }}"], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+</script>
 {% endblock %}
